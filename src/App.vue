@@ -96,6 +96,11 @@
           </tbody>
         </table>
       </div>
+      <div class="mt-2 text-right"><a
+          class="text-blue-400"
+          href="mailto:alexncode@gmail.com"
+          target="_blank"
+        >Feedback</a></div>
     </div>
   </div>
 </template>
