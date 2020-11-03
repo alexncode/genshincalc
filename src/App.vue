@@ -98,7 +98,7 @@
       </div>
       <div class="mt-2 text-right"><a
           class="text-blue-400"
-          href="mailto:alexncode@gmail.com"
+          href="mailto:alexnkcode@gmail.com"
           target="_blank"
         >Feedback</a></div>
     </div>
@@ -356,7 +356,7 @@ export default {
         "Charged attack",
         "Elemental mastery",
         "Energy recharge%",
-        "Defence",
+        "Defense",
         "Health points",
       ],
       refreshing: false,
