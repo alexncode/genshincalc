@@ -5,7 +5,7 @@
   >
     <div class="font-bold overflow-y-auto">
       <div>
-        <h1 class="text-green-400 text-center text-2xl mb-4">Genshin impact artifact build simulator v0.1a</h1>
+        <h1 class="text-green-400 text-center text-2xl mb-4">Genshin impact artifact build simulator v0.2a</h1>
         <div class="flex mb-2">
           <label
             for="character"
@@ -24,13 +24,33 @@
           </select>
           <label
             for="base"
-            class="mr-2 border-l-2 pl-2"
+            class="mx-2 border-l-2 pl-2"
           >Base attack</label>
           <input
             class="w-10"
             type="text"
             id="base"
             v-model.number="base"
+          >
+          <label
+            for="baseHP"
+            class="mx-2 border-l-2 pl-2"
+          >Base HP</label>
+          <input
+            class="w-16"
+            type="text"
+            id="baseHP"
+            v-model.number="baseHP"
+          >
+          <label
+            for="baseDEF"
+            class="mx-2 border-l-2 pl-2"
+          >Base defense</label>
+          <input
+            class="w-10"
+            type="text"
+            id="baseDEF"
+            v-model.number="baseDEF"
           >
         </div>
       </div>
@@ -47,12 +67,24 @@
           />
           <Artifact
             v-for="artifact in artifacts[0]"
-            :key="artifact.id"
+            :key="artifact.key"
             :artifact="artifact"
             side="0"
           />
         </div>
-        <div class="ml-4 border-gray-700 border-l-2 pl-4">
+        <div class="flex flex-col justify-center mx-2 px-2 border-l-2 border-r-2 border-gray-700">
+          <button
+            class="bg-gray-600 text-gray-100 rounded w-8"
+            title="Equalize"
+            @click="equalize"
+          >=</button>
+          <button
+            class="bg-gray-600 text-gray-100 rounded w-8 mt-2"
+            title="Randomize substats"
+            @click="randomize"
+          >&#10227;</button>
+        </div>
+        <div class=" pl-4">
           <Set
             :sets="sets"
             v-model="set[1]"
@@ -64,14 +96,14 @@
           />
           <Artifact
             v-for="artifact in artifacts[1]"
-            :key="artifact.id"
+            :key="artifact.key"
             :artifact="artifact"
             side="1"
           />
         </div>
       </div>
       <div class="">
-        <table class="table-fixed mt-4 text-gray-300 leading-none">
+        <table class="table-auto w-full mt-4 text-gray-300 leading-none">
           <thead>
             <tr>
               <th class="border px-2 py-2 w-1/5">Attribute</th>
@@ -113,6 +145,7 @@ import Set from "@/components/Set.vue";
 let artifactsList = {
   flower: {
     id: "flower",
+    key: "dfds",
     value: 3571,
     max: { HP: { 4: 3571, 5: 4780 } },
     label: "Flower",
@@ -122,6 +155,7 @@ let artifactsList = {
   },
   feather: {
     id: "feather",
+    key: "gfgfs",
     value: 232,
     label: "Feather",
     mainStat: ["FlatATK"],
@@ -130,6 +164,7 @@ let artifactsList = {
   },
   clock: {
     id: "clock",
+    key: "fdsfds",
     value: 46.6,
     label: "Clock",
     mainStat: ["HP%", "ATK%", "DEF%", "EM", "EnRe%"],
@@ -138,6 +173,7 @@ let artifactsList = {
   },
   goblet: {
     id: "goblet",
+    key: "gfdgfdg",
     value: 46.6,
     label: "Goblet",
     mainStat: ["HP%", "ATK%", "DEF%", "EM", "Elemental%", "Physical%"],
@@ -146,6 +182,7 @@ let artifactsList = {
   },
   circlet: {
     id: "circlet",
+    key: "jwdfsd",
     value: 46.6,
     label: "Circlet",
     mainStat: ["HP%", "ATK%", "DEF%", "EM", "CRate%", "CDmg%", "Healing%"],
@@ -341,6 +378,8 @@ export default {
       characters: characters,
       weapons: [weapon, Object.create(weapon)],
       base: 720,
+      baseHP: 12182,
+      baseDEF: 743,
       sets: sets,
       set: [
         { pieces: "4pcs", set: ["Gladiator's Finale", "none"] },
@@ -366,7 +405,6 @@ export default {
     document.addEventListener("swUpdated", this.updateAvailable, {
       once: true,
     });
-
     navigator.serviceWorker.addEventListener("controllerchange", () => {
       if (this.refreshing) return;
       this.refreshing = true;
@@ -502,10 +540,12 @@ export default {
       const EM = this.sumAllStats.map((x) => x["EM"]);
       const EnRe = this.sumAllStats.map((x) => x["EnRe%"]);
       const DEF = this.sumAllStats.map((x) =>
-        Math.round(700 + 700 * (x["DEF%"] / 100) + x["FlatDEF"])
+        Math.round(
+          this.baseDEF + this.baseDEF * (x["DEF%"] / 100) + x["FlatDEF"]
+        )
       );
       const HP = this.sumAllStats.map((x) =>
-        Math.round(10000 + 10000 * (x["HP%"] / 100) + x["HP"])
+        Math.round(this.baseHP + this.baseHP * (x["HP%"] / 100) + x["HP"])
       );
 
       return [
@@ -529,10 +569,23 @@ export default {
     },
   },
   methods: {
-    swUpdated(event) {
+    updateAvailable(event) {
       const registration = event.detail;
       if (!registration || !registration.waiting) return;
       registration.waiting.postMessage({ type: "SKIP_WAITING" });
+    },
+    equalize() {
+      this.artifacts = [
+        this.artifacts[0],
+        JSON.parse(JSON.stringify(this.artifacts[0])),
+      ];
+    },
+    randomize() {
+      this.artifacts.forEach((side) => {
+        for (const artifact in side) {
+          side[artifact].key = "" + Math.floor(Math.random() * 999999);
+        }
+      });
     },
   },
 };

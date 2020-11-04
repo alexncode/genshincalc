@@ -121,27 +121,25 @@ export default {
   mounted() {
     this.artifact.substats = this.substats;
   },
-  // watch: {
-  //   substats() {
-  //     console.log(this.substats);
-  //     this.artifact.substats = this.substats;
-  //   },
-  // },
   computed: {
     substats() {
       let substats = shuffle(Object.keys(this.possibleStats));
       let result = [];
-      for (let i = 0; i < 4; i++) {
-        result.push({
-          name: substats[i],
-          value:
-            Math.round(
-              ((this.possibleStats[substats[i]].min +
-                this.possibleStats[substats[i]].max) /
-                2) *
-                100
-            ) / 100,
-        });
+      let i = 0;
+      while (result.length < 4) {
+        if (substats[i] != this.artifact.mainStatName) {
+          result.push({
+            name: substats[i],
+            value:
+              Math.round(
+                ((this.possibleStats[substats[i]].min +
+                  this.possibleStats[substats[i]].max) /
+                  2) *
+                  100
+              ) / 100,
+          });
+        }
+        i++;
       }
       for (let i = 0; i < 5; i++) {
         let x = Math.floor(Math.random() * 4);
