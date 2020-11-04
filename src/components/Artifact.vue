@@ -8,11 +8,17 @@
         v-model.number="artifact.value"
         class="text-gray-900"
       >
+      <div
+        class="h-6 w-4  border-gray-400 rounded cursor-pointer"
+        :class="artifact.rarity == 4 ? 'bg-purple-600' : 'bg-orange-400'"
+        :title="artifact.rarity == 4 ? 'Epic' : 'Legendary'"
+        @click="changeRarity"
+      ></div>
       <select
         name="mainStat"
         :id="artifact.id + side"
         v-model="artifact.mainStatName"
-        @change="maxValue(artifact)"
+        @change="maxValue"
         class="text-gray-900"
       >
         <option
@@ -155,8 +161,14 @@ export default {
     },
   },
   methods: {
-    maxValue(artifact) {
-      artifact.value = this.maxValues[artifact.mainStatName]["5"];
+    maxValue() {
+      this.artifact.value = this.maxValues[this.artifact.mainStatName][
+        this.artifact.rarity
+      ];
+    },
+    changeRarity() {
+      this.artifact.rarity = this.artifact.rarity == 4 ? 5 : 4;
+      this.maxValue();
     },
   },
 };
@@ -168,6 +180,6 @@ label {
 }
 
 .grid-auto {
-  grid-template-columns: 1fr 3em 6em 2em;
+  grid-template-columns: 1fr 3rem 1rem 6rem 2rem;
 }
 </style>

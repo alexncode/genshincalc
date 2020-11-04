@@ -23,14 +23,14 @@
             >{{ name }}</option>
           </select>
           <label
-            for="base"
+            for="baseATK"
             class="mx-2 border-l-2 pl-2"
           >Base attack</label>
           <input
             class="w-10"
             type="text"
-            id="base"
-            v-model.number="base"
+            id="baseATK"
+            v-model.number="baseATK"
           >
           <label
             for="baseHP"
@@ -142,227 +142,10 @@ import Artifact from "@/components/Artifact.vue";
 import Weapon from "@/components/Weapon.vue";
 import Set from "@/components/Set.vue";
 
-let artifactsList = {
-  flower: {
-    id: "flower",
-    key: "dfds",
-    value: 3571,
-    max: { HP: { 4: 3571, 5: 4780 } },
-    label: "Flower",
-    mainStat: ["HP"],
-    mainStatName: "HP",
-    substats: [],
-  },
-  feather: {
-    id: "feather",
-    key: "gfgfs",
-    value: 232,
-    label: "Feather",
-    mainStat: ["FlatATK"],
-    mainStatName: "FlatATK",
-    substats: [],
-  },
-  clock: {
-    id: "clock",
-    key: "fdsfds",
-    value: 46.6,
-    label: "Clock",
-    mainStat: ["HP%", "ATK%", "DEF%", "EM", "EnRe%"],
-    mainStatName: "ATK%",
-    substats: [],
-  },
-  goblet: {
-    id: "goblet",
-    key: "gfdgfdg",
-    value: 46.6,
-    label: "Goblet",
-    mainStat: ["HP%", "ATK%", "DEF%", "EM", "Elemental%", "Physical%"],
-    mainStatName: "ATK%",
-    substats: [],
-  },
-  circlet: {
-    id: "circlet",
-    key: "jwdfsd",
-    value: 46.6,
-    label: "Circlet",
-    mainStat: ["HP%", "ATK%", "DEF%", "EM", "CRate%", "CDmg%", "Healing%"],
-    mainStatName: "ATK%",
-    substats: [],
-  },
-};
-
-let characters = {
-  Keqing: { name: "CDmg%", value: 38.4 },
-  Razor: { name: "Physical%", value: 25.4 },
-  Qiqi: { name: "Healing%", value: 16.6 },
-  Beidou: { name: "Elemental%", value: 24 },
-  Diluc: { name: "CRate%", value: 24.2 },
-  Lisa: { name: "EM", value: 96 },
-  Amber: { name: "ATK%", value: 24 },
-  Barbara: { name: "HP%", value: 20.3 },
-  Venti: { name: "EnRe%", value: 32 },
-  Klee: { name: "Elemental%", value: 28.8 },
-  Mona: { name: "EnRe%", value: 32 },
-  Fischl: { name: "ATK%", value: 24 },
-  Jean: { name: "Healing%", value: 16.6 },
-  Bennet: { name: "EnRe%", value: 26.7 },
-  Kaeya: { name: "EnRe%", value: 26.7 },
-  Chongyun: { name: "ATK%", value: 24 },
-  Ningguang: { name: "Elemental%", value: 36 },
-  Noelle: { name: "DEF%", value: 30 },
-  Sucrose: { name: "Elemental%", value: 24 },
-  Xiangling: { name: "EM", value: 96 },
-  Xingqiu: { name: "ATK%", value: 24 },
-  Traveller: { name: "ATK%", value: 24 },
-};
-
-let weapon = {
-  standart: {
-    id: "weapon",
-    value: 37.7,
-    label: "Weapon Bonus",
-    mainStat: ["ATK%", "PhysATK%", "EnRe%", "CRate%", "CDmg%", "DEF%", "HP%"],
-    mainStatName: "ATK%",
-  },
-};
-
-let sets = {
-  Berserker: {
-    name: "Berserker",
-    rarity: 4,
-    "2pcs": { name: "CRate%", value: 12 },
-    "4pcs": { name: "CRate%", value: 24 },
-  },
-  Instructor: {
-    name: "Instructor",
-    rarity: 4,
-    "2pcs": { name: "EM", value: 80 },
-    "4pcs": { name: "EM", value: 120 },
-  },
-  Exile: {
-    name: "Exile",
-    rarity: 4,
-    "2pcs": { name: "EnRe%", value: 12 },
-    "4pcs": { name: "Engen", value: 8 },
-  },
-  "Resolution of Sojourner": {
-    name: "Resolution of Sojourner",
-    rarity: 4,
-    "2pcs": { name: "ATK%", value: 18 },
-    "4pcs": { name: "ChargeCRate%", value: 30 },
-  },
-  "Martial Artist": {
-    name: "Martial Artist",
-    rarity: 4,
-    "2pcs": { name: "NCATK%", value: 15 },
-    "4pcs": { name: "NCATK%", value: 25 },
-  },
-  "Defender's Will": {
-    name: "Defender's Will",
-    rarity: 4,
-    "2pcs": { name: "DEF%", value: 30 },
-    "4pcs": { name: "ElRES%", value: 30 },
-  },
-  "Tiny Miracle": {
-    name: "Tiny Miracle",
-    rarity: 4,
-    "2pcs": { name: "ElRES%", value: 20 },
-    "4pcs": { name: "ElRES%", value: 30 },
-  },
-  "Brave Heart": {
-    name: "Brave Heart",
-    rarity: 4,
-    "2pcs": { name: "ATK%", value: 18 },
-    "4pcs": { name: "ATK%", value: 15 },
-  },
-  Gambler: {
-    name: "Gambler",
-    rarity: 4,
-    "2pcs": { name: "SkillDMG%", value: 20 },
-    "4pcs": { name: "SkillCD", value: 0 },
-  },
-  Scholar: {
-    name: "Scholar",
-    rarity: 4,
-    "2pcs": { name: "EnRe%", value: 20 },
-    "4pcs": { name: "Engen", value: 3 },
-  },
-  "Gladiator's Finale": {
-    rarity: 5,
-    name: "Gladiator's Finale",
-    "2pcs": { name: "ATK%", value: 18 },
-    "4pcs": { name: "NormalATK%", value: 35 },
-  },
-  "Maiden Beloved": {
-    name: "Maiden Beloved",
-    rarity: 5,
-    "2pcs": { name: "Healing%", value: 15 },
-    "4pcs": { name: "Healing%", value: 20 },
-  },
-  "Noblesse Oblige": {
-    name: "Noblesse Oblige",
-    rarity: 5,
-    "2pcs": { name: "Burst%", value: 20 },
-    "4pcs": { name: "ATK%", value: 20 },
-  },
-  "Bloodstained Chivalry": {
-    name: "Bloodstained Chivalry",
-    rarity: 5,
-    "2pcs": { name: "Physical%", value: 25 },
-    "4pcs": { name: "Charged%", value: 50 },
-  },
-  "Wanderer's Troupe": {
-    name: "Wanderer's Troupe",
-    rarity: 5,
-    "2pcs": { name: "EM", value: 80 },
-    "4pcs": { name: "Charged%", value: 35 },
-  },
-  "Viridescent Venerer": {
-    name: "Viridescent Venerer",
-    rarity: 5,
-    "2pcs": { name: "Elemental%", value: 15 },
-    "4pcs": { name: "Swirl%", value: 60 },
-  },
-  "Thundering Fury": {
-    name: "Thundering Fury",
-    rarity: 5,
-    "2pcs": { name: "Elemental%", value: 15 },
-    "4pcs": { name: "Reactions%", value: 40 },
-  },
-  Thundersoother: {
-    name: "Thundersoother",
-    rarity: 5,
-    "2pcs": { name: "ElectroRES%", value: 40 },
-    "4pcs": { name: "DMGEl%", value: 35 },
-  },
-  "Crimson Witch of Flames": {
-    name: "Crimson Witch of Flames",
-    rarity: 5,
-    "2pcs": { name: "Elemental%", value: 15 },
-    "4pcs": { name: "Reactions%", value: 40 },
-  },
-  Lavawalker: {
-    name: "Lavawalker",
-    rarity: 5,
-    "2pcs": { name: "PyroRES%", value: 40 },
-    "4pcs": { name: "DMGEl%", value: 35 },
-  },
-  "Archaic Petra": {
-    name: "Archaic Petra",
-    rarity: 5,
-    "2pcs": { name: "Elemental%", value: 15 },
-    "4pcs": { name: "DMGEl%", value: 35 },
-  },
-  "Retracing Bolide": {
-    name: "Retracing Bolide",
-    rarity: 5,
-    "2pcs": { name: "Shields%", value: 35 },
-    "4pcs": { name: "NCATK%", value: 40 },
-  },
-  none: {
-    name: "none",
-  },
-};
+import { artifactsList } from "@/data/artifacts";
+import { characters } from "@/data/characters";
+import { weapons } from "@/data/weapons";
+import { sets } from "@/data/sets";
 
 export default {
   name: "App",
@@ -376,8 +159,8 @@ export default {
       character: "Keqing",
       artifacts: [artifactsList, JSON.parse(JSON.stringify(artifactsList))],
       characters: characters,
-      weapons: [weapon, Object.create(weapon)],
-      base: 720,
+      weapons: [weapons, Object.create(weapons)],
+      baseATK: 720,
       baseHP: 12182,
       baseDEF: 743,
       sets: sets,
@@ -486,7 +269,7 @@ export default {
     },
     atkPower() {
       return this.sumAllStats.map((x) => {
-        return Math.round(this.base * (1 + x["ATK%"] / 100) + x["FlatATK"]);
+        return Math.round(this.baseATK * (1 + x["ATK%"] / 100) + x["FlatATK"]);
       });
     },
     critDmg() {

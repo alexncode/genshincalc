@@ -7,6 +7,7 @@
       v-model.number="weapon.value"
       class="text-gray-900"
     >
+    <div></div>
     <select
       name="mainStat"
       :id="weapon.id + side"
@@ -20,6 +21,7 @@
         :value="val"
       >{{ val }}</option>
     </select>
+    <div></div>
   </div>
 </template>
 
