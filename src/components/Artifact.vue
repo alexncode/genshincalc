@@ -49,7 +49,7 @@
           type="range"
           name="subVal"
           id="subVal"
-          class="w-3/6"
+          class="w-3/6 mr-1"
           :min="possibleStats[artifact.substats[i].name].min * 1"
           :max="possibleStats[artifact.substats[i].name].max * 6"
           :step="artifact.substats[i].value > 10 ? 1 : 0.1"

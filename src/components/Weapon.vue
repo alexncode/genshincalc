@@ -14,6 +14,7 @@
       v-if="weapon.mainStat"
       v-model="weapon.mainStatName"
       class="text-gray-900"
+      @change="maxStat"
     >
       <option
         v-for="val in weapon.mainStat"
@@ -31,6 +32,11 @@ export default {
   props: {
     weapon: Object,
     side: String,
+  },
+  methods: {
+    maxStat() {
+      this.weapon.value = this.weapon.maxStats[this.weapon.mainStatName];
+    },
   },
 };
 </script>

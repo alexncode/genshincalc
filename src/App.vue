@@ -5,7 +5,7 @@
   >
     <div class="font-bold overflow-y-auto">
       <div>
-        <h1 class="text-green-400 text-center text-2xl mb-4">Genshin impact artifact build simulator v0.2a</h1>
+        <h1 class="text-green-400 text-center text-2xl mb-4">Genshin impact artifact build simulator v0.3b</h1>
         <div class="flex mb-2">
           <label
             for="character"
@@ -75,7 +75,7 @@
         <div class="flex flex-col justify-center mx-2 px-2 border-l-2 border-r-2 border-gray-700">
           <button
             class="bg-gray-600 text-gray-100 rounded w-8"
-            title="Equalize"
+            title="Equalize artifacts"
             @click="equalize"
           >=</button>
           <button
@@ -102,31 +102,33 @@
           />
         </div>
       </div>
-      <div class="">
-        <table class="table-auto w-full mt-4 text-gray-300 leading-none">
-          <thead>
-            <tr>
-              <th class="border px-2 py-2 w-1/5">Attribute</th>
-              <th class="border px-2 py-2 w-2/5">First set</th>
-              <th class="border px-2 py-2 w-2/5">Second set</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="(att, i) in attributes"
-              :key="att"
-              class="bg-gray-800 even:bg-gray-700"
-            >
-              <td class="border border-gray-600 px-1 py-1">{{ att }}</td>
-              <td
-                class="border border-gray-600 px-1 py-1 text-center"
-                :class="j > 0 ? allResults[i].class : ''"
-                v-for="(res, j) in allResults[i].value"
-                :key="res + j"
-              >{{ res }}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class=" bg-gray-700 rounded mt-4 px-2 pb-2">
+        <div class="flex border-gray-800 border-b-2 box-border text-gray-200">
+          <div
+            class="px-4 py-2 cursor-pointer hover:bg-gray-500 border-green-600"
+            @click="changeTab('Stats')"
+            :class="activeTab == 'Stats' ? 'border-b-4' : 'border-none'"
+          >
+            Stats
+          </div>
+          <div
+            class="px-4 py-2 cursor-pointer hover:bg-gray-500 border-green-600"
+            @click="changeTab('Damage')"
+            :class="activeTab == 'Damage' ? 'border-b-4' : 'border-none'"
+          >
+            Damage
+          </div>
+        </div>
+        <StatTable
+          :attributes="attributes"
+          :allResults="allResultsFormatted"
+          v-show="activeTab == 'Stats'"
+        />
+        <Damage
+          v-show="activeTab == 'Damage'"
+          :sumAllStats="sumAllStats"
+          :atkPower="atkPower"
+        />
       </div>
       <div class="mt-2 text-right"><a
           class="text-blue-400"
@@ -141,6 +143,8 @@
 import Artifact from "@/components/Artifact.vue";
 import Weapon from "@/components/Weapon.vue";
 import Set from "@/components/Set.vue";
+import StatTable from "@/components/StatTable.vue";
+import Damage from "@/components/Damage.vue";
 
 import { artifactsList } from "@/data/artifacts";
 import { characters } from "@/data/characters";
@@ -153,13 +157,15 @@ export default {
     Artifact,
     Weapon,
     Set,
+    StatTable,
+    Damage,
   },
   data() {
     return {
       character: "Keqing",
       artifacts: [artifactsList, JSON.parse(JSON.stringify(artifactsList))],
       characters: characters,
-      weapons: [weapons, Object.create(weapons)],
+      weapons: [weapons, JSON.parse(JSON.stringify(weapons))],
       baseATK: 720,
       baseHP: 12182,
       baseDEF: 743,
@@ -182,6 +188,7 @@ export default {
         "Health points",
       ],
       refreshing: false,
+      activeTab: "Stats",
     };
   },
   created() {
@@ -214,6 +221,7 @@ export default {
         "Charged%",
         "NormalATK%",
         "NCATK%",
+        "SkillDMG%",
       ];
       let allStatsRes = [{}, {}];
       let sets = this.set.map((x) => {
@@ -343,7 +351,10 @@ export default {
         EnRe,
         DEF,
         HP,
-      ].map((x) => {
+      ];
+    },
+    allResultsFormatted() {
+      return this.allResults.map((x) => {
         return {
           class: x[0] <= x[1] ? "text-green-500" : "text-red-400",
           value: x,
@@ -369,6 +380,9 @@ export default {
           side[artifact].key = "" + Math.floor(Math.random() * 999999);
         }
       });
+    },
+    changeTab(name) {
+      this.activeTab = name;
     },
   },
 };

@@ -3,7 +3,16 @@ export let weapons = {
     id: "weapon",
     value: 37.7,
     label: "Weapon Bonus",
-    mainStat: ["ATK%", "PhysATK%", "EnRe%", "CRate%", "CDmg%", "DEF%", "HP%"],
+    mainStat: ["ATK%", "Physical%", "EnRe%", "CRate%", "CDmg%", "DEF%", "HP%"],
+    maxStats: {
+      "ATK%": 37.7,
+      "Physical%": 31.5,
+      "CRate%": 25.1,
+      "CDmg%": 33.5,
+      "DEF%": 47.2,
+      "HP%": 37.7,
+      "EnRe%": 27.9
+    },
     mainStatName: "ATK%",
   },
 };
