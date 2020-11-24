@@ -7,7 +7,7 @@
       :type="type"
       :id="label"
       :value="value"
-      @input="$emit('input', event.target.value)"
+      @input="$emit('input', $event.target.value)"
     ></label>
 
 </template>

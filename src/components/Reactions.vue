@@ -102,19 +102,19 @@ export default {
       );
     },
     superconduct() {
-      return this.reaction(1);
+      return this.reaction(1, this.level);
     },
     swirl() {
-      return this.reaction(1.2);
+      return this.reaction(1.2, this.level);
     },
     electroCharge() {
-      return this.reaction(2.4);
+      return this.reaction(2.4, this.level);
     },
     shattered() {
-      return this.reaction(3);
+      return this.reaction(3, this.level);
     },
     overload() {
-      return this.reaction(4);
+      return this.reaction(4, this.level);
     },
     vaporize() {
       return 0;
@@ -160,8 +160,7 @@ export default {
     },
   },
   methods: {
-    reaction(k) {
-      const x = this.level;
+    reaction(k, x) {
       const start =
         -0.0000006815 * x ** 5 +
         0.0001257728 * x ** 4 -
