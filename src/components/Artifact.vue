@@ -64,7 +64,7 @@
           class="w-range mr-1"
           :min="possibleStats[substat.name][artifact.rarity].min * (substat.upgrade + 1)"
           :max="possibleStats[substat.name][artifact.rarity].max * (substat.upgrade + 1)"
-          :step="substat.value > 20 ? 1 : 0.1"
+          :step="possibleStats[substat.name].step"
           v-model="substat.value"
         >
         <select
@@ -114,16 +114,40 @@ export default {
     return {
       showSubstats: false,
       possibleStats: {
-        "HP%": { 5: { min: 4.1, max: 5.8 }, 4: { min: 3.3, max: 4.7 } },
-        "ATK%": { 5: { min: 4.1, max: 5.8 }, 4: { min: 3.3, max: 4.7 } },
-        "DEF%": { 5: { min: 5.1, max: 7.3 }, 4: { min: 4.1, max: 5.8 } },
-        EM: { 5: { min: 16, max: 23 }, 4: { min: 13, max: 19 } },
-        "CRate%": { 5: { min: 2.7, max: 3.9 }, 4: { min: 2.2, max: 3.1 } },
-        "CDmg%": { 5: { min: 5.4, max: 7.8 }, 4: { min: 4.4, max: 6.2 } },
-        "EnRe%": { 5: { min: 4.5, max: 6.5 }, 4: { min: 3.6, max: 5.2 } },
-        FlatATK: { 5: { min: 14, max: 19 }, 4: { min: 11, max: 16 } },
-        FlatDEF: { 5: { min: 14, max: 19 }, 4: { min: 13, max: 19 } },
-        HP: { 5: { min: 209, max: 299 }, 4: { min: 167, max: 239 } },
+        "HP%": {
+          5: { min: 4.1, max: 5.8 },
+          4: { min: 3.3, max: 4.7 },
+          step: 0.1,
+        },
+        "ATK%": {
+          5: { min: 4.1, max: 5.8 },
+          4: { min: 3.3, max: 4.7 },
+          step: 0.1,
+        },
+        "DEF%": {
+          5: { min: 5.1, max: 7.3 },
+          4: { min: 4.1, max: 5.8 },
+          step: 0.1,
+        },
+        EM: { 5: { min: 16, max: 23 }, 4: { min: 13, max: 19 }, step: 1 },
+        "CRate%": {
+          5: { min: 2.7, max: 3.9 },
+          4: { min: 2.2, max: 3.1 },
+          step: 0.1,
+        },
+        "CDmg%": {
+          5: { min: 5.4, max: 7.8 },
+          4: { min: 4.4, max: 6.2 },
+          step: 0.1,
+        },
+        "EnRe%": {
+          5: { min: 4.5, max: 6.5 },
+          4: { min: 3.6, max: 5.2 },
+          step: 0.1,
+        },
+        FlatATK: { 5: { min: 14, max: 19 }, 4: { min: 11, max: 16 }, step: 1 },
+        FlatDEF: { 5: { min: 14, max: 19 }, 4: { min: 13, max: 19 }, step: 1 },
+        HP: { 5: { min: 209, max: 299 }, 4: { min: 167, max: 239 }, step: 1 },
       },
       maxValues: {
         "HP%": { 4: 34.8, 5: 46.6 },

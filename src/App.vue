@@ -337,7 +337,9 @@ export default {
         (x) => Math.round((x["CDmg%"] + 50) * 10) / 10
       );
       const EM = this.sumAllStats.map((x) => x["EM"]);
-      const EnRe = this.sumAllStats.map((x) => x["EnRe%"]);
+      const EnRe = this.sumAllStats.map(
+        (x) => Math.round(x["EnRe%"] * 10) / 10
+      );
       const DEF = this.sumAllStats.map((x) =>
         Math.round(
           this.baseDEF + this.baseDEF * (x["DEF%"] / 100) + x["FlatDEF"]
