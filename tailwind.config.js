@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   future: {
     // removeDeprecatedGapUtilities: true,
@@ -8,6 +10,7 @@ module.exports = {
     content: ['./src/**/*.vue'],
   },
   theme: {
+    colors: colors,
     extend: {},
   },
   variants: {

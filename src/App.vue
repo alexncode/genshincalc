@@ -3,55 +3,51 @@
     id="app"
     class="absolute inset-0 grid grid-cols-1 justify-items-center"
   >
-    <div class="font-bold overflow-y-auto">
-      <div>
-        <h1 class="text-green-400 text-center text-2xl mb-4">Genshin impact artifact build simulator v0.3b</h1>
-        <div class="flex mb-2">
-          <label
-            for="character"
-            class="mr-2"
-          >Character 80lvl</label>
-          <select
-            name="character"
-            id="character"
-            v-model="character"
-            class="mr-2"
+    <div class="font-bold overflow-y-auto px-2">
+      <h1 class="text-green-400 text-center text-2xl">Genshin impact artifact build simulator v0.5</h1>
+      <div class="flex">
+        <div @click="characterPick = false">
+          <Modal v-if="characterPick">
+            <CharacterPick v-model="character" />
+          </Modal>
+        </div>
+        <div
+          @click="characterPick = true"
+          class="bg-gray-800 rounded pt-1 px-1 cursor-pointer hover:bg-gray-700"
+        >
+          <img
+            :src="`/img/avatars/${character}.png`"
+            :alt="character"
           >
-            <option
-              v-for="(character, name) in characters"
-              :key="name"
-            >{{ name }}</option>
-          </select>
+        </div>
+        <div class="flex mb-2 flex-shrink content-center items-center">
           <label
             for="baseATK"
             class="mx-2 border-l-2 pl-2"
-          >Base attack</label>
-          <input
-            class="w-10"
-            type="text"
-            id="baseATK"
-            v-model.number="baseATK"
-          >
+          >Base attack<input
+              class="w-12 text-gray-900 ml-2"
+              type="text"
+              id="baseATK"
+              v-model.number="baseATK"
+            ></label>
           <label
             for="baseHP"
             class="mx-2 border-l-2 pl-2"
-          >Base HP</label>
-          <input
-            class="w-16"
-            type="text"
-            id="baseHP"
-            v-model.number="baseHP"
-          >
+          >Base HP <input
+              class="w-16 text-gray-900 ml-2"
+              type="text"
+              id="baseHP"
+              v-model.number="baseHP"
+            ></label>
           <label
             for="baseDEF"
             class="mx-2 border-l-2 pl-2"
-          >Base defense</label>
-          <input
-            class="w-10"
-            type="text"
-            id="baseDEF"
-            v-model.number="baseDEF"
-          >
+          >Base defense <input
+              class="w-12 text-gray-900 ml-2"
+              type="text"
+              id="baseDEF"
+              v-model.number="baseDEF"
+            ></label>
         </div>
       </div>
       <div class="flex">
@@ -104,20 +100,13 @@
       </div>
       <div class=" bg-gray-700 rounded mt-4 px-2 pb-2">
         <div class="flex border-gray-800 border-b-2 box-border text-gray-200">
-          <div
-            class="px-4 py-2 cursor-pointer hover:bg-gray-500 border-green-600"
-            @click="changeTab('Stats')"
-            :class="activeTab == 'Stats' ? 'border-b-4' : 'border-none'"
-          >
-            Stats
-          </div>
-          <div
-            class="px-4 py-2 cursor-pointer hover:bg-gray-500 border-green-600"
-            @click="changeTab('Damage')"
-            :class="activeTab == 'Damage' ? 'border-b-4' : 'border-none'"
-          >
-            Damage
-          </div>
+          <TabButton
+            v-for="tab in ['Stats', 'Damage', 'Elemental reactions']"
+            :key="tab"
+            :name="tab"
+            :active="activeTab == tab"
+            @click="changeTab(tab)"
+          />
         </div>
         <StatTable
           :attributes="attributes"
@@ -128,6 +117,11 @@
           v-show="activeTab == 'Damage'"
           :sumAllStats="sumAllStats"
           :atkPower="atkPower"
+        />
+        <Reactions
+          v-show="activeTab == 'Elemental reactions'"
+          :EM="allResults[7]"
+          :hero="characters[character]"
         />
       </div>
       <div class="mt-2 text-right"><a
@@ -145,6 +139,11 @@ import Weapon from "@/components/Weapon.vue";
 import Set from "@/components/Set.vue";
 import StatTable from "@/components/StatTable.vue";
 import Damage from "@/components/Damage.vue";
+import Reactions from "@/components/Reactions.vue";
+import Modal from "@/components/modal/Modal.vue";
+import CharacterPick from "@/components/modal/CharacterPick.vue";
+
+import TabButton from "@/components/UI/TabButton.vue";
 
 import { artifactsList } from "@/data/artifacts";
 import { characters } from "@/data/characters";
@@ -159,6 +158,10 @@ export default {
     Set,
     StatTable,
     Damage,
+    TabButton,
+    Reactions,
+    Modal,
+    CharacterPick,
   },
   data() {
     return {
@@ -189,6 +192,7 @@ export default {
       ],
       refreshing: false,
       activeTab: "Stats",
+      characterPick: false,
     };
   },
   created() {
@@ -222,6 +226,7 @@ export default {
         "NormalATK%",
         "NCATK%",
         "SkillDMG%",
+        "AllDMG%",
       ];
       let allStatsRes = [{}, {}];
       let sets = this.set.map((x) => {
@@ -298,6 +303,7 @@ export default {
           (1 +
             (Math.max(x["Physical%"], x["Elemental%"]) +
               x["NormalATK%"] +
+              x["AllDMG%"] +
               x["NCATK%"]) /
               100);
         return Math.round(phys + phys * this.critDmg[i]);
@@ -310,6 +316,7 @@ export default {
           (1 +
             (Math.max(x["Physical%"], x["Elemental%"]) +
               x["Charged%"] +
+              x["AllDMG%"] +
               x["NCATK%"]) /
               100);
         return Math.round(phys + phys * this.critDmg[i]);
@@ -317,7 +324,8 @@ export default {
     },
     elemAtk() {
       return this.sumAllStats.map((x, i) => {
-        let elem = this.atkPower[i] * (1 + x["Elemental%"] / 100);
+        let elem =
+          this.atkPower[i] * (1 + (x["Elemental%"] + x["AllDMG%"]) / 100);
         return Math.round(elem + elem * this.critDmg[i]);
       });
     },
@@ -355,9 +363,17 @@ export default {
     },
     allResultsFormatted() {
       return this.allResults.map((x) => {
+        let cs = "";
+        if (x[0] < x[1]) {
+          cs = "text-green-400";
+        }
+        if (x[0] > x[1]) {
+          cs = "text-red-400";
+        }
         return {
-          class: x[0] <= x[1] ? "text-green-500" : "text-red-400",
+          class: cs,
           value: x,
+          percent: cs ? ((x[1] - x[0]) / Math.abs((x[1] + x[0]) / 2)) * 100 : 0,
         };
       });
     },
@@ -369,10 +385,18 @@ export default {
       registration.waiting.postMessage({ type: "SKIP_WAITING" });
     },
     equalize() {
-      this.artifacts = [
-        this.artifacts[0],
-        JSON.parse(JSON.stringify(this.artifacts[0])),
-      ];
+      // this.artifacts[1] = JSON.parse(JSON.stringify(this.artifacts[0]));
+      for (const art in this.artifacts[1]) {
+        this.artifacts[1][art].value = this.artifacts[0][art].value;
+        this.artifacts[1][art].rarity = this.artifacts[0][art].rarity;
+        this.artifacts[1][art].mainStatName = this.artifacts[0][
+          art
+        ].mainStatName;
+        this.artifacts[1][art].substats = JSON.parse(
+          JSON.stringify(this.artifacts[0][art].substats)
+        );
+      }
+      // this.$forceUpdate();
     },
     randomize() {
       this.artifacts.forEach((side) => {
@@ -382,6 +406,7 @@ export default {
       });
     },
     changeTab(name) {
+      this.$store.commit("SET_ELEMENTAL_DAMAGE", true);
       this.activeTab = name;
     },
   },

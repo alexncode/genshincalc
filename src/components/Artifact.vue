@@ -10,7 +10,7 @@
       >
       <div
         class="h-6 w-4  border-gray-400 rounded cursor-pointer"
-        :class="artifact.rarity == 4 ? 'bg-purple-600' : 'bg-orange-400'"
+        :class="artifact.rarity == 4 ? 'bg-purple-500' : 'bg-amber-500'"
         :title="artifact.rarity == 4 ? 'Epic' : 'Legendary'"
         @click="changeRarity"
       ></div>
@@ -28,38 +28,51 @@
         >{{ val }}</option>
       </select>
       <button
-        class="bg-green-600 text-gray-100 rounded"
+        class="text-gray-100 rounded"
+        :class="showSubstats ? 'bg-red-500' : 'bg-green-600'"
         @click="showSubstats = !showSubstats"
-      >+</button>
+      >{{showSubstats ? '-': '+'}}</button>
     </div>
     <div
       v-if="showSubstats"
       class="flex flex-col text-gray-900 ml-4 my-2"
     >
       <div
-        v-for="(substat, i) in substats"
+        v-for="substat in artifact.substats"
         :key="substat.name"
         class="flex"
       >
-        <label
-          class="text-orange-200 font-normal w-1/6"
-          for="substat"
-        >{{substat.value}}</label>
+        <div class="text-orange-200 font-normal w-value">{{ substat.value }}</div>
+        <div class="w-upgrade flex text-green-200">
+          <div
+            class="text-blueGray-400 cursor-pointer"
+            @click="minusUpgrade(substat)"
+          >-</div>
+          <div
+            class="px-1"
+            title="Number of upgrades maximum of 5 for 5* and 4 for 4*"
+          >{{ substat.upgrade }}</div>
+          <div
+            class="text-blueGray-400 cursor-pointer"
+            @click="plusUpgrade(substat)"
+          >+</div>
+        </div>
         <input
           type="range"
           name="subVal"
           id="subVal"
-          class="w-3/6 mr-1"
-          :min="possibleStats[artifact.substats[i].name].min * 1"
-          :max="possibleStats[artifact.substats[i].name].max * 6"
-          :step="artifact.substats[i].value > 10 ? 1 : 0.1"
-          v-model="artifact.substats[i].value"
+          class="w-range mr-1"
+          :min="possibleStats[substat.name][artifact.rarity].min * (substat.upgrade + 1)"
+          :max="possibleStats[substat.name][artifact.rarity].max * (substat.upgrade + 1)"
+          :step="substat.value > 20 ? 1 : 0.1"
+          v-model="substat.value"
         >
         <select
           name="substat"
-          :id="substat"
-          v-model="artifact.substats[i].name"
-          class="w-2/6"
+          :id="substat.name"
+          v-model="substat.name"
+          @change="changeSubstatVal(substat)"
+          class="w-name"
         >
           <option
             v-for="(sb, key) in possibleStats"
@@ -87,6 +100,10 @@ function shuffle(array) {
   return array;
 }
 
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 export default {
   name: "Artifact",
   props: {
@@ -97,16 +114,16 @@ export default {
     return {
       showSubstats: false,
       possibleStats: {
-        "HP%": { min: 4.1, max: 5.8 },
-        "ATK%": { min: 4.1, max: 5.8 },
-        "DEF%": { min: 5.1, max: 7.3 },
-        EM: { min: 16, max: 23 },
-        "CRate%": { min: 2.7, max: 3.9 },
-        "CDmg%": { min: 5.4, max: 7.8 },
-        "EnRe%": { min: 4.5, max: 6.5 },
-        FlatATK: { min: 14, max: 19 },
-        FlatDEF: { min: 14, max: 19 },
-        HP: { min: 209, max: 299 },
+        "HP%": { 5: { min: 4.1, max: 5.8 }, 4: { min: 3.3, max: 4.7 } },
+        "ATK%": { 5: { min: 4.1, max: 5.8 }, 4: { min: 3.3, max: 4.7 } },
+        "DEF%": { 5: { min: 5.1, max: 7.3 }, 4: { min: 4.1, max: 5.8 } },
+        EM: { 5: { min: 16, max: 23 }, 4: { min: 13, max: 19 } },
+        "CRate%": { 5: { min: 2.7, max: 3.9 }, 4: { min: 2.2, max: 3.1 } },
+        "CDmg%": { 5: { min: 5.4, max: 7.8 }, 4: { min: 4.4, max: 6.2 } },
+        "EnRe%": { 5: { min: 4.5, max: 6.5 }, 4: { min: 3.6, max: 5.2 } },
+        FlatATK: { 5: { min: 14, max: 19 }, 4: { min: 11, max: 16 } },
+        FlatDEF: { 5: { min: 14, max: 19 }, 4: { min: 13, max: 19 } },
+        HP: { 5: { min: 209, max: 299 }, 4: { min: 167, max: 239 } },
       },
       maxValues: {
         "HP%": { 4: 34.8, 5: 46.6 },
@@ -124,43 +141,65 @@ export default {
       },
     };
   },
-  mounted() {
-    this.artifact.substats = this.substats;
+  created() {
+    this.substats();
   },
   computed: {
+    maxUpdates() {
+      return this.artifact.rarity == 5 ? 5 : 4;
+    },
+    availableUpgrades() {
+      return this.artifact.substats.reduce(
+        (sum, x) => sum - x.upgrade,
+        this.maxUpdates
+      );
+    },
+  },
+  methods: {
     substats() {
       let substats = shuffle(Object.keys(this.possibleStats));
-      let result = [];
       let i = 0;
-      while (result.length < 4) {
+      while (this.artifact.substats.length < 4) {
         if (substats[i] != this.artifact.mainStatName) {
-          result.push({
+          this.artifact.substats.push({
             name: substats[i],
-            value:
-              Math.round(
-                ((this.possibleStats[substats[i]].min +
-                  this.possibleStats[substats[i]].max) /
-                  2) *
-                  100
-              ) / 100,
+            value: 0,
+            upgrade: 0,
           });
         }
         i++;
       }
-      for (let i = 0; i < 5; i++) {
+      this.startingValues();
+      this.randomUpgrades();
+      this.formatSubstats();
+    },
+    startingValues() {
+      const rarity = this.artifact.rarity;
+      this.artifact.substats.forEach((x) => {
+        x.value = random(
+          this.possibleStats[x.name][rarity].min,
+          this.possibleStats[x.name][rarity].max
+        );
+        x.upgrade = 0;
+      });
+    },
+    randomUpgrades() {
+      const rarity = this.artifact.rarity;
+      for (let i = 0; i < this.maxUpdates; i++) {
         let x = Math.floor(Math.random() * 4);
-        result[x].value +=
-          (this.possibleStats[result[x].name].min +
-            this.possibleStats[result[x].name].max) /
-          2;
+        this.artifact.substats[x].upgrade += 1;
+        const name = this.artifact.substats[x].name;
+        this.artifact.substats[x].value += random(
+          this.possibleStats[name][rarity].min,
+          this.possibleStats[name][rarity].max
+        );
       }
-      result.forEach((x) => {
+    },
+    formatSubstats() {
+      this.artifact.substats.forEach((x) => {
         x.value = parseFloat(parseFloat(x.value).toFixed(2));
       });
-      return result;
     },
-  },
-  methods: {
     maxValue() {
       this.artifact.value = this.maxValues[this.artifact.mainStatName][
         this.artifact.rarity
@@ -168,7 +207,34 @@ export default {
     },
     changeRarity() {
       this.artifact.rarity = this.artifact.rarity == 4 ? 5 : 4;
+      this.startingValues();
+      this.randomUpgrades();
+      this.formatSubstats();
       this.maxValue();
+    },
+    changeSubstatVal(substat) {
+      const rarity = this.artifact.rarity;
+      substat.value =
+        Math.round(
+          random(
+            this.possibleStats[substat.name][rarity].min,
+            this.possibleStats[substat.name][rarity].max
+          ) *
+            100 *
+            (substat.upgrade + 1)
+        ) / 100;
+    },
+    minusUpgrade(substat) {
+      if (substat.upgrade > 0) {
+        substat.upgrade -= 1;
+        this.changeSubstatVal(substat);
+      }
+    },
+    plusUpgrade(substat) {
+      if (this.availableUpgrades > 0) {
+        substat.upgrade += 1;
+        this.changeSubstatVal(substat);
+      }
     },
   },
 };
@@ -181,5 +247,17 @@ label {
 
 .grid-auto {
   grid-template-columns: 1fr 3rem 1rem 6rem 2rem;
+}
+.w-value {
+  width: 10%;
+}
+.w-upgrade {
+  width: 15%;
+}
+.w-range {
+  width: 50%;
+}
+.w-name {
+  width: 25%;
 }
 </style>

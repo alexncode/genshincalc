@@ -72,7 +72,7 @@
       >Elemental damage?<input
           type="checkbox"
           id="elemental"
-          v-model="elemental"
+          v-model="elementalDamage"
           class="text-gray-900 mx-2"
         ></label>
       <label for="superc">Superconduct?<input
@@ -129,7 +129,6 @@ export default {
       skill: 235,
       level: 80,
       enemyLevel: 80,
-      elemental: false,
       superc: false,
       enemies: {
         Hilichurls: { phys: 10, elem: 10 },
@@ -149,6 +148,14 @@ export default {
     };
   },
   computed: {
+    elementalDamage: {
+      get() {
+        return this.$store.state.elementalDamage;
+      },
+      set() {
+        this.$store.commit("SET_ELEMENTAL_DAMAGE", !this.elementalDamage);
+      },
+    },
     def() {
       let superc = 0;
       if (this.superc) {
@@ -183,15 +190,16 @@ export default {
         (100 + this.level) / (100 + this.level + 100 + this.enemyLevel);
 
       for (let i = 0; i < this.sumAllStats.length; i++) {
-        const modific = this.elemental
+        const modific = this.elementalDamage
           ? this.sumAllStats[i]["Elemental%"]
           : this.sumAllStats[i]["Physical%"];
-        const def = this.elemental ? this.elemDef : this.def;
+        const def = this.elementalDamage ? this.elemDef : this.def;
         const normalHit =
           this.atkPower[i] *
           (1 +
             (modific +
               this.sumAllStats[i]["NormalATK%"] +
+              this.sumAllStats[i]["AllDMG%"] +
               this.sumAllStats[i]["NCATK%"]) /
               100);
         const chargetHit =
@@ -199,12 +207,14 @@ export default {
           (1 +
             (modific +
               this.sumAllStats[i]["Charged%"] +
+              this.sumAllStats[i]["AllDMG%"] +
               this.sumAllStats[i]["NCATK%"]) /
               100);
         const skillHit =
           this.atkPower[i] *
           (1 +
             (this.sumAllStats[i]["Elemental%"] +
+              this.sumAllStats[i]["AllDMG%"] +
               this.sumAllStats[i]["SkillDMG%"]) /
               100);
         const calcNormal = (mod, hit, def) => {
@@ -238,6 +248,7 @@ export default {
           this.elemDef
         );
       }
+      this.$store.commit("SET_ALL_DAMAGE", result);
       return result;
     },
   },

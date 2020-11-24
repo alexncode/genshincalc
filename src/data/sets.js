@@ -99,7 +99,7 @@ export let sets = {
     name: "Thundering Fury",
     rarity: 5,
     "2pcs": { name: "Elemental%", value: 15 },
-    "4pcs": { name: "Reactions%", value: 40 },
+    "4pcs": { name: "ElectroReactions%", value: 40 },
   },
   Thundersoother: {
     name: "Thundersoother",
@@ -111,13 +111,13 @@ export let sets = {
     name: "Crimson Witch of Flames",
     rarity: 5,
     "2pcs": { name: "Elemental%", value: 15 },
-    "4pcs": { name: "Reactions%", value: 40 },
+    "4pcs": { name: "FireReactions%", value: 40 },
   },
   Lavawalker: {
     name: "Lavawalker",
     rarity: 5,
     "2pcs": { name: "PyroRES%", value: 40 },
-    "4pcs": { name: "DMGEl%", value: 35 },
+    "4pcs": { name: "AllDMG%", value: 35 },
   },
   "Archaic Petra": {
     name: "Archaic Petra",
