@@ -292,7 +292,8 @@ export default {
     },
     physAtk() {
       return this.sumAllStats.map((x, i) => {
-        let phys = this.atkPower[i] * (1 + x["Physical%"] / 100);
+        let phys =
+          this.atkPower[i] * (1 + (x["Physical%"] + x["AllDMG%"]) / 100);
         return Math.round(phys + phys * this.critDmg[i]);
       });
     },

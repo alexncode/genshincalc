@@ -105,7 +105,7 @@ export let sets = {
     name: "Thundersoother",
     rarity: 5,
     "2pcs": { name: "ElectroRES%", value: 40 },
-    "4pcs": { name: "DMGEl%", value: 35 },
+    "4pcs": { name: "AllDMG%", value: 35 },
   },
   "Crimson Witch of Flames": {
     name: "Crimson Witch of Flames",
