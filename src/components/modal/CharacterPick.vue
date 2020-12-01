@@ -14,8 +14,9 @@
       <div
         v-for="(char, key) in characters"
         :key="key"
-        class="m-2 cursor-pointer"
-        @click="$emit('input', key)"
+        class="m-2 cursor-pointer rounded"
+        :class="char.rarity == 4 ? 'hover:bg-purple-500' : 'hover:bg-amber-400'"
+        @click="$emit('input', characters[key])"
       >
         <img
           :src="`/img/avatars/${key}.png`"

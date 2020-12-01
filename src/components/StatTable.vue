@@ -3,9 +3,9 @@
     <table class="table-auto w-full mt-4 text-gray-300 leading-none bg-gray-900">
       <thead>
         <tr>
-          <th class="border px-2 py-2 w-1/5">Attribute</th>
-          <th class="border px-2 py-2 w-2/5">First set</th>
-          <th class="border px-2 py-2 w-2/5">Second set</th>
+          <th class="border px-2 py-2 w-2/6">Attribute</th>
+          <th class="border px-2 py-2 w-2/6">First set</th>
+          <th class="border px-2 py-2 w-2/6">Second set</th>
         </tr>
       </thead>
       <tbody>

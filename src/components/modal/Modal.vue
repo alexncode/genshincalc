@@ -3,7 +3,7 @@
     name="modal"
     appear
   >
-    <div class="fixed inset-0 bg-modal flex justify-center items-center bg-opacity-50 bg-gray-900">
+    <div class="fixed inset-0 bg-modal flex justify-center items-center bg-opacity-50 bg-gray-900 z-10">
       <slot />
     </div>
   </transition>

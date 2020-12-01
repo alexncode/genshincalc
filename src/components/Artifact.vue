@@ -43,19 +43,19 @@
         class="flex"
       >
         <div class="text-orange-200 font-normal w-value">{{ substat.value }}</div>
-        <div class="w-upgrade flex text-green-200">
-          <div
-            class="text-blueGray-400 cursor-pointer"
+        <div class="w-upgrade flex text-green-200 px-2">
+          <button
+            class="text-blueGray-300 bg-blueGray-800 rounded w-3 hover:bg-blueGray-700"
             @click="minusUpgrade(substat)"
-          >-</div>
+          >-</button>
           <div
             class="px-1"
             title="Number of upgrades maximum of 5 for 5* and 4 for 4*"
           >{{ substat.upgrade }}</div>
-          <div
-            class="text-blueGray-400 cursor-pointer"
+          <button
+            class="text-blueGray-300 bg-blueGray-800 rounded w-3 hover:bg-blueGray-700"
             @click="plusUpgrade(substat)"
-          >+</div>
+          >+</button>
         </div>
         <input
           type="range"
@@ -65,7 +65,7 @@
           :min="possibleStats[substat.name][artifact.rarity].min * (substat.upgrade + 1)"
           :max="possibleStats[substat.name][artifact.rarity].max * (substat.upgrade + 1)"
           :step="possibleStats[substat.name].step"
-          v-model="substat.value"
+          v-model.number="substat.value"
         >
         <select
           name="substat"
@@ -276,10 +276,10 @@ label {
   width: 10%;
 }
 .w-upgrade {
-  width: 15%;
+  width: 20%;
 }
 .w-range {
-  width: 50%;
+  width: 45%;
 }
 .w-name {
   width: 25%;

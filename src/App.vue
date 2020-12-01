@@ -4,7 +4,14 @@
     class="absolute inset-0 grid grid-cols-1 justify-items-center"
   >
     <div class="font-bold overflow-y-auto px-2">
-      <h1 class="text-green-400 text-center text-2xl">Genshin impact artifact build simulator v0.5</h1>
+      <div class="flex justify-between">
+        <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.6</h1>
+        <div class="mt-2 text-right"><a
+            class="text-blue-400"
+            href="mailto:alexnkcode@gmail.com"
+            target="_blank"
+          >Feedback</a></div>
+      </div>
       <div class="flex">
         <div @click="characterPick = false">
           <Modal v-if="characterPick">
@@ -16,11 +23,11 @@
           class="bg-gray-800 rounded pt-1 px-1 cursor-pointer hover:bg-gray-700"
         >
           <img
-            :src="`/img/avatars/${character}.png`"
-            :alt="character"
+            :src="`/img/avatars/${character.name}.png`"
+            :alt="character.name"
           >
         </div>
-        <div class="flex mb-2 flex-shrink content-center items-center">
+        <div class="flex mb-2 flex-shrink items-center">
           <label
             for="baseATK"
             class="mx-2 border-l-2 pl-2"
@@ -37,7 +44,7 @@
               class="w-16 text-gray-900 ml-2"
               type="text"
               id="baseHP"
-              v-model.number="baseHP"
+              v-model.number="character.baseHP"
             ></label>
           <label
             for="baseDEF"
@@ -46,7 +53,7 @@
               class="w-12 text-gray-900 ml-2"
               type="text"
               id="baseDEF"
-              v-model.number="baseDEF"
+              v-model.number="character.baseDEF"
             ></label>
         </div>
       </div>
@@ -55,7 +62,7 @@
           <Set
             :sets="sets"
             v-model="set[0]"
-            side="0"
+            :side="0"
           />
           <Weapon
             :weapon="weapons[0].standart"
@@ -84,7 +91,7 @@
           <Set
             :sets="sets"
             v-model="set[1]"
-            side="1"
+            :side="1"
           />
           <Weapon
             :weapon="weapons[1].standart"
@@ -122,13 +129,9 @@
           v-show="activeTab == 'Elemental reactions'"
           :EM="allResults[7]"
           :hero="characters[character]"
+          :set="set"
         />
       </div>
-      <div class="mt-2 text-right"><a
-          class="text-blue-400"
-          href="mailto:alexnkcode@gmail.com"
-          target="_blank"
-        >Feedback</a></div>
     </div>
   </div>
 </template>
@@ -150,6 +153,38 @@ import { characters } from "@/data/characters";
 import { weapons } from "@/data/weapons";
 import { sets } from "@/data/sets";
 
+import { mapFields } from "vuex-map-fields";
+
+function generateResObject() {
+  return {
+    "HP%": 0,
+    "ATK%": 0,
+    "DEF%": 0,
+    EM: 0,
+    HP: 0,
+    FlatDEF: 0,
+    FlatATK: 0,
+    "CRate%": 0,
+    "CDmg%": 0,
+    "Healing%": 0,
+    "Elemental%": 0,
+    "Physical%": 0,
+    "EnRe%": 0,
+    "Charged%": 0,
+    "NormalATK%": 0,
+    "NCATK%": 0,
+    "SkillDMG%": 0,
+    "AllDMG%": 0,
+    Melt: 0,
+    Vaporize: 0,
+    Overload: 0,
+    Superconduct: 0,
+    "Electro-charged": 0,
+    Swirl: 0,
+    Shattered: 0,
+  };
+}
+
 export default {
   name: "App",
   components: {
@@ -165,26 +200,23 @@ export default {
   },
   data() {
     return {
-      character: "Keqing",
+      // character: "Keqing",
       artifacts: [artifactsList, JSON.parse(JSON.stringify(artifactsList))],
       characters: characters,
       weapons: [weapons, JSON.parse(JSON.stringify(weapons))],
-      baseATK: 720,
-      baseHP: 12182,
-      baseDEF: 743,
       sets: sets,
-      set: [
-        { pieces: "4pcs", set: ["Gladiator's Finale", "none"] },
-        { pieces: "4pcs", set: ["Bloodstained Chivalry", "none"] },
-      ],
+      // set: [
+      //   { pieces: "4pcs", set: ["Gladiator's Finale", "none"] },
+      //   { pieces: "4pcs", set: ["Bloodstained Chivalry", "none"] },
+      // ],
       attributes: [
         "Attack",
         "Physical attack",
         "Elemental attack",
-        "Crit chance%",
-        "Crit damage%",
         "Normal attack",
         "Charged attack",
+        "Crit chance%",
+        "Crit damage%",
         "Elemental mastery",
         "Energy recharge%",
         "Defense",
@@ -206,29 +238,23 @@ export default {
       window.location.reload();
     });
   },
+  watch: {
+    sumAllStats(val) {
+      this.$store.commit("SET_ALL_STATS", val);
+    },
+  },
   computed: {
+    ...mapFields(["character", "set"]),
+    baseATK: {
+      get() {
+        return this.$store.getters.baseATK;
+      },
+      set(val) {
+        this.$store.commit("SET_BASE_ATK", val);
+      },
+    },
     sumAllStats() {
-      const allStats = [
-        "HP%",
-        "ATK%",
-        "DEF%",
-        "EM",
-        "HP",
-        "FlatDEF",
-        "FlatATK",
-        "CRate%",
-        "CDmg%",
-        "Healing%",
-        "Elemental%",
-        "Physical%",
-        "EnRe%",
-        "Charged%",
-        "NormalATK%",
-        "NCATK%",
-        "SkillDMG%",
-        "AllDMG%",
-      ];
-      let allStatsRes = [{}, {}];
+      let allStatsRes = [generateResObject(), generateResObject()];
       let sets = this.set.map((x) => {
         let result = {};
         if (x.set[0] != "none") {
@@ -251,33 +277,39 @@ export default {
         return result;
       });
       let allEquip = [this.weapons, this.artifacts, sets];
-      for (const name of allStats) {
-        for (const equip of allEquip) {
-          equip.forEach((x, i) => {
-            for (const key in x) {
-              if (
-                Object.prototype.hasOwnProperty.call(x[key], "mainStatName")
-              ) {
-                const value = x[key].mainStatName == name ? x[key].value : 0;
-                allStatsRes[i][name] = allStatsRes[i][name] + value || value;
-              }
-              if (Object.prototype.hasOwnProperty.call(x[key], "substats")) {
-                x[key].substats.forEach((substat) => {
-                  const value = (substat.name == name) * substat.value;
-                  allStatsRes[i][name] = allStatsRes[i][name] + value || value;
-                });
-              }
-              if (Object.prototype.hasOwnProperty.call(x[key], "name")) {
-                const value = x[key].name == name ? x[key].value : 0;
-                allStatsRes[i][name] = allStatsRes[i][name] + value || value;
-              }
+      for (const equip of allEquip) {
+        equip.forEach((x, i) => {
+          for (const key in x) {
+            if (Object.prototype.hasOwnProperty.call(x[key], "mainStatName")) {
+              let name = x[key].mainStatName;
+              allStatsRes[i][name] =
+                allStatsRes[i][name] + x[key].value || x[key].value;
             }
-          });
-        }
+            if (Object.prototype.hasOwnProperty.call(x[key], "substats")) {
+              x[key].substats.forEach((substat) => {
+                let name = substat.name;
+                allStatsRes[i][name] =
+                  allStatsRes[i][name] + substat.value || substat.value;
+              });
+            }
+            if (Object.prototype.hasOwnProperty.call(x[key], "name")) {
+              let name = x[key].name;
+              allStatsRes[i][name] =
+                allStatsRes[i][name] + x[key].value || x[key].value;
+            }
+            if (Object.prototype.hasOwnProperty.call(x[key], "additional")) {
+              x[key].additional.forEach((substat) => {
+                let name = substat.name;
+                allStatsRes[i][name] =
+                  allStatsRes[i][name] + substat.value || substat.value;
+              });
+            }
+          }
+        });
       }
-      const ch = this.characters[this.character];
-      allStatsRes[0][ch.name] = allStatsRes[0][ch.name] + ch.value || ch.value;
-      allStatsRes[1][ch.name] = allStatsRes[1][ch.name] + ch.value || ch.value;
+      const ch = this.character;
+      allStatsRes[0][ch.stat] = allStatsRes[0][ch.stat] + ch.value || ch.value;
+      allStatsRes[1][ch.stat] = allStatsRes[1][ch.stat] + ch.value || ch.value;
       return allStatsRes;
     },
     atkPower() {
@@ -343,21 +375,21 @@ export default {
       );
       const DEF = this.sumAllStats.map((x) =>
         Math.round(
-          this.baseDEF + this.baseDEF * (x["DEF%"] / 100) + x["FlatDEF"]
+          this.character.baseDEF * (1 + x["DEF%"] / 100) + x["FlatDEF"]
         )
       );
       const HP = this.sumAllStats.map((x) =>
-        Math.round(this.baseHP + this.baseHP * (x["HP%"] / 100) + x["HP"])
+        Math.round(this.character.baseHP * (1 + x["HP%"] / 100) + x["HP"])
       );
 
       return [
         this.atkPower,
         this.physAtk,
         this.elemAtk,
-        critChance,
-        critDamage,
         this.normalAtk,
         this.chargedAtk,
+        critChance,
+        critDamage,
         EM,
         EnRe,
         DEF,
