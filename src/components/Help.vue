@@ -1,5 +1,5 @@
 <template>
-  <div class="container bg-gray-700 text-gray-200 p-4">
+  <div class="container max-w-screen-md bg-gray-700 text-gray-200 p-4">
     <h3 class="text-xl">General information</h3>
     <div class="mb-2">
       <p>The main purpose of the app is to compare 2 different sets of artifacts to find

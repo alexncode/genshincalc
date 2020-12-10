@@ -291,10 +291,6 @@ export default {
           this.normalHit[i],
           this.defMod
         );
-        console.log( this.character.normal,
-          this.normalHit[i],
-          this.defMod,
-          this.sumAllStats[i]["CDmg%"])
         result["Normal critical"][i] = this.calcCritical(
           this.character.normal,
           this.normalHit[i],
