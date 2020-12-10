@@ -47,6 +47,7 @@
         <SetPick
           @set-set="setSet"
           @visibility="setPick = !setPick"
+          :name="currentSet.set[0]"
         />
       </Modal>
     </div>
@@ -55,6 +56,7 @@
         <SetPick
           @set-set="secondSetSet"
           @visibility="secondSetPick = !secondSetPick"
+          :name="currentSet.set[1]"
         />
       </Modal>
     </div>
@@ -96,7 +98,6 @@ export default {
       this.currentSet.set = [name, "none"];
     },
     secondSetSet(name) {
-      console.log(name);
       this.currentSet.set = [this.currentSet.set[0], name];
     },
   },

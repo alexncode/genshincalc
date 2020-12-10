@@ -10,8 +10,9 @@ module.exports = {
     content: ['./src/**/*.vue'],
   },
   theme: {
-    colors: colors,
-    extend: {},
+    extend: {
+      colors: colors,
+    },
   },
   variants: {
     backgroundColor: ['even', 'hover'],

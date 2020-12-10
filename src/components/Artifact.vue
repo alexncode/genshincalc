@@ -170,7 +170,7 @@ export default {
   },
   computed: {
     maxUpdates() {
-      return this.artifact.rarity == 5 ? 5 : 4;
+      return this.artifact.rarity == 5 ? 5 : 3;
     },
     availableUpgrades() {
       return this.artifact.substats.reduce(

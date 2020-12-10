@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="table-auto w-full mt-4 text-gray-300 leading-none bg-gray-900">
+    <table class="table-auto w-full mt-1 text-gray-300 leading-none bg-gray-900 overflow-y-auto">
       <thead>
         <tr>
           <th class="border px-2 py-2 w-2/6">Attribute</th>
@@ -24,7 +24,7 @@
             :class="j > 0 ? allResults[i].class : ''"
             v-for="(res, j) in allResults[i].value"
             :key="'' + res + j"
-          >{{ res }}<sup v-if="j > 0 && allResults[i].class"> {{ allResults[i].percent.toFixed(1) }}%</sup></td>
+          >{{ res }}<sup v-if="j > 0 && allResults[i].class"> {{ allResults[i].percent }}%</sup></td>
         </tr>
       </tbody>
     </table>

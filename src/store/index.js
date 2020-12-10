@@ -5,6 +5,8 @@ import { getField, updateField } from 'vuex-map-fields';
 
 import { stats } from "@/store/modules/stats.js"
 
+import { characters } from "@/data/characters"
+
 Vue.use(Vuex)
 
 function generateResObject() {
@@ -41,12 +43,14 @@ export default new Vuex.Store({
   state: {
     elementalDamage: false,
     allDamage: {},
+    allElemental: {},
     allStats: [generateResObject(), generateResObject()],
-    character: { name: "Keqing", stat: "CDmg%", value: 38.4, element: "Electro", baseATK: 323, baseHP: 13103, baseDEF: 799 },
+    character: characters["Keqing"],
     set: [
       { pieces: "4pcs", set: ["Gladiator's Finale", "none"] },
       { pieces: "4pcs", set: ["Bloodstained Chivalry", "none"] },
-    ]
+    ],
+    additionalStats: [[{ stat: "ATK%", value: 0, desc: "Description" }], [{ stat: "ATK%", value: 0, desc: "Description" }]]
   },
   getters: {
     getField,
@@ -55,11 +59,11 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    SET_ELEMENTAL_DAMAGE(state, val) {
-      state.elementalDamage = val
-    },
     SET_ALL_DAMAGE(state, val) {
       state.allDamage = val
+    },
+    SET_ALL_ELEMENTAL(state, val) {
+      state.allElemental = val
     },
     SET_ALL_STATS(state, val) {
       state.allStats = val

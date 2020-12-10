@@ -35,6 +35,14 @@
             v-model="attackType"
             class="ml-2"
           ></label>
+        <label class="px-2 text-blue-200">Burst<input
+            type="radio"
+            name="Burst"
+            id="Burst"
+            value="Burst"
+            v-model="attackType"
+            class="ml-2"
+          ></label>
       </div>
     </div>
     <!-- <label class="ml-4">Charged attack?<input
@@ -67,7 +75,10 @@
         >
           <td class="border border-gray-600 px-1 py-1">{{ reaction.name }}</td>
           <td class="border border-gray-600 px-1 py-1">{{ reaction.damage[0] | round }}</td>
-          <td class="border border-gray-600 px-1 py-1">{{ reaction.damage[1] | round }}</td>
+          <td
+            class="border border-gray-600 px-1 py-1"
+            :class="damageClass(reaction.damage)"
+          >{{ reaction.damage[1] | round }} <sup>{{ damagePercent(reaction.damage) }}%</sup></td>
         </tr>
       </tbody>
     </table>
@@ -128,7 +139,7 @@ export default {
   },
   computed: {
     // Superconductor : Swirl : Electro-charged : Shattered : Overload = 1 : 1.2 : 2.4 : 3 : 4
-    ...mapState(["allDamage", "allStats", "character"]),
+    ...mapState(["allElemental", "allStats", "character"]),
     percent() {
       return this.EM.map(
         (em) => Math.round(((1 * em * (25 / 9)) / (em + 1400)) * 1000) / 10
@@ -153,7 +164,7 @@ export default {
       return this.charged ? "Charged" : "Normal";
     },
     melt() {
-      return this.allDamage[`${this.attackType} hit`].map(
+      return this.allElemental[`${this.attackType} hit`].map(
         (x, i) =>
           x *
           (1 + (this.percent[i] + this.allStats[i]["Melt"]) / 100) *
@@ -161,7 +172,7 @@ export default {
       );
     },
     meltCritical() {
-      return this.allDamage[`${this.attackType} critical`].map(
+      return this.allElemental[`${this.attackType} critical`].map(
         (x, i) =>
           x *
           (1 + (this.percent[i] + this.allStats[i]["Melt"]) / 100) *
@@ -169,7 +180,7 @@ export default {
       );
     },
     vaporize() {
-      return this.allDamage[`${this.attackType} hit`].map(
+      return this.allElemental[`${this.attackType} hit`].map(
         (x, i) =>
           x *
           (1 + (this.percent[i] + this.allStats[i]["Vaporize"]) / 100) *
@@ -177,7 +188,7 @@ export default {
       );
     },
     vaporizeCritical() {
-      return this.allDamage[`${this.attackType} critical`].map(
+      return this.allElemental[`${this.attackType} critical`].map(
         (x, i) =>
           x *
           (1 + (this.percent[i] + this.allStats[i]["Vaporize"]) / 100) *
@@ -216,6 +227,18 @@ export default {
           start * k * (1 + (p * 2.4 + this.allStats[i][name]) / 100) * 0.9
         );
       });
+    },
+    damageClass(dmg) {
+      let cs = "";
+      if (dmg[0] > dmg[1]) cs = "text-red-400";
+      if (dmg[0] < dmg[1]) cs = "text-green-400";
+      return cs;
+    },
+    damagePercent(dmg) {
+      return (
+        ((dmg[1] - dmg[0]) / Math.abs((dmg[1] + dmg[0]) / 2)) *
+        100
+      ).toFixed(1);
     },
   },
   filters: {

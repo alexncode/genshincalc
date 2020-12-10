@@ -1,16 +1,22 @@
 <template>
   <div
     id="app"
-    class="absolute inset-0 grid grid-cols-1 justify-items-center"
+    class="absolute inset-0 grid grid-cols-1 justify-items-center max-h-screen"
   >
     <div class="font-bold overflow-y-auto px-2">
       <div class="flex justify-between">
-        <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.6</h1>
-        <div class="mt-2 text-right"><a
-            class="text-blue-400"
-            href="mailto:alexnkcode@gmail.com"
-            target="_blank"
-          >Feedback</a></div>
+        <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.7</h1>
+        <div class="flex">
+          <div
+            class="text-blue-400 mr-2 cursor-pointer"
+            @click="showHelp = true"
+          >Help</div>
+          <div><a
+              class="text-blue-400"
+              href="mailto:alexnkcode@gmail.com"
+              target="_blank"
+            >Feedback</a></div>
+        </div>
       </div>
       <div class="flex">
         <div @click="characterPick = false">
@@ -59,11 +65,7 @@
       </div>
       <div class="flex">
         <div>
-          <Set
-            :sets="sets"
-            v-model="set[0]"
-            :side="0"
-          />
+          <Set :side="0" />
           <Weapon
             :weapon="weapons[0].standart"
             side="0"
@@ -74,6 +76,7 @@
             :artifact="artifact"
             side="0"
           />
+          <Additional side="0" />
         </div>
         <div class="flex flex-col justify-center mx-2 px-2 border-l-2 border-r-2 border-gray-700">
           <button
@@ -86,13 +89,14 @@
             title="Randomize substats"
             @click="randomize"
           >&#10227;</button>
+          <button
+            class="bg-gray-600 text-gray-100 rounded w-8 mt-2"
+            title="Save & Load"
+            @click="save"
+          >&#128190;</button>
         </div>
         <div class=" pl-4">
-          <Set
-            :sets="sets"
-            v-model="set[1]"
-            :side="1"
-          />
+          <Set :side="1" />
           <Weapon
             :weapon="weapons[1].standart"
             side="1"
@@ -103,6 +107,7 @@
             :artifact="artifact"
             side="1"
           />
+          <Additional side="1" />
         </div>
       </div>
       <div class=" bg-gray-700 rounded mt-4 px-2 pb-2">
@@ -119,6 +124,7 @@
           :attributes="attributes"
           :allResults="allResultsFormatted"
           v-show="activeTab == 'Stats'"
+          class="overflow-y-auto"
         />
         <Damage
           v-show="activeTab == 'Damage'"
@@ -133,6 +139,20 @@
         />
       </div>
     </div>
+    <div @click="save">
+      <Modal v-if="showSave">
+        <Save
+          :weapons="weapons"
+          :artifacts="artifacts"
+          @loadSave="loadSave"
+        />
+      </Modal>
+    </div>
+    <div @click="showHelp = false">
+      <Modal v-if="showHelp">
+        <Help />
+      </Modal>
+    </div>
   </div>
 </template>
 
@@ -145,6 +165,9 @@ import Damage from "@/components/Damage.vue";
 import Reactions from "@/components/Reactions.vue";
 import Modal from "@/components/modal/Modal.vue";
 import CharacterPick from "@/components/modal/CharacterPick.vue";
+import Additional from "@/components/Additional.vue";
+import Save from "@/components/Save.vue";
+import Help from "@/components/Help.vue";
 
 import TabButton from "@/components/UI/TabButton.vue";
 
@@ -174,6 +197,7 @@ function generateResObject() {
     "NormalATK%": 0,
     "NCATK%": 0,
     "SkillDMG%": 0,
+    "Burst%": 0,
     "AllDMG%": 0,
     Melt: 0,
     Vaporize: 0,
@@ -197,6 +221,9 @@ export default {
     Reactions,
     Modal,
     CharacterPick,
+    Additional,
+    Save,
+    Help,
   },
   data() {
     return {
@@ -225,6 +252,8 @@ export default {
       refreshing: false,
       activeTab: "Stats",
       characterPick: false,
+      showSave: false,
+      showHelp: false,
     };
   },
   created() {
@@ -244,7 +273,7 @@ export default {
     },
   },
   computed: {
-    ...mapFields(["character", "set"]),
+    ...mapFields(["character", "set", "additionalStats"]),
     baseATK: {
       get() {
         return this.$store.getters.baseATK;
@@ -307,6 +336,12 @@ export default {
           }
         });
       }
+      this.additionalStats.forEach((side, i) => {
+        side.forEach((stat) => {
+          allStatsRes[i][stat.stat] =
+            allStatsRes[i][stat.stat] + stat.value || stat.value;
+        });
+      });
       const ch = this.character;
       allStatsRes[0][ch.stat] = allStatsRes[0][ch.stat] + ch.value || ch.value;
       allStatsRes[1][ch.stat] = allStatsRes[1][ch.stat] + ch.value || ch.value;
@@ -408,7 +443,9 @@ export default {
         return {
           class: cs,
           value: x,
-          percent: cs ? ((x[1] - x[0]) / Math.abs((x[1] + x[0]) / 2)) * 100 : 0,
+          percent: cs
+            ? (((x[1] - x[0]) / Math.abs((x[1] + x[0]) / 2)) * 100).toFixed(1)
+            : 0,
         };
       });
     },
@@ -441,8 +478,15 @@ export default {
       });
     },
     changeTab(name) {
-      this.$store.commit("SET_ELEMENTAL_DAMAGE", true);
       this.activeTab = name;
+    },
+    save() {
+      this.showSave = !this.showSave;
+    },
+    loadSave(data) {
+      this.artifacts = data.artifacts;
+      this.weapons = data.weapons;
+      this.showSave = !this.showSave;
     },
   },
 };

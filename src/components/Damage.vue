@@ -1,13 +1,13 @@
 <template>
   <div class="mt-4">
-    <div class="flex mb-2">
+    <div class="flex mb-1 border-b-2 border-gray-800 pb-1">
       <label
         for="normal"
         class="mr-2 border-r-2 border-gray-900"
       >Normal attack% <input
           type="text"
           id="normal"
-          v-model.number="normal"
+          v-model.number="character.normal"
           class="text-gray-900 w-10 mx-2"
         ></label>
 
@@ -17,28 +17,35 @@
       >Charged attack%<input
           type="text"
           id="charged"
-          v-model.number="charged"
+          v-model.number="character.charged"
           class="text-gray-900 w-10 mx-2 "
         ></label>
-
       <label
         for="skill"
         class="mr-2 border-r-2 border-gray-900"
       >Skill attack%<input
           type="text"
           id="skill"
-          v-model.number="skill"
+          v-model.number="character.skill"
           class="text-gray-900 w-10 mx-2 "
         ></label>
-
-      <label for="level">Your level<input
+      <label for="burst">Burst%<input
+          type="text"
+          id="burst"
+          v-model.number="character.burst"
+          class="text-gray-900 w-10 mx-2 "
+        ></label>
+    </div>
+    <div class="flex mb-1 border-b-2 border-gray-800 pb-1">
+      <label
+        for="level"
+        class="mr-2 border-r-2 border-gray-900"
+      >Your level<input
           type="text"
           id="level"
           v-model.number="level"
           class="text-gray-900 w-10 mx-2"
         ></label>
-    </div>
-    <div class="flex">
       <label
         for="enemyLevel"
         class="mr-2 border-r-2 border-gray-900"
@@ -50,7 +57,7 @@
         ></label>
       <label
         for="mob"
-        class="mr-2 border-r-2 border-gray-900"
+        class="mr-2"
       >
         Enemy
         <select
@@ -66,6 +73,8 @@
           >{{ key }}</option>
         </select>
       </label>
+    </div>
+    <div>
       <label
         for="elemental"
         class="mr-2 border-r-2 border-gray-900"
@@ -75,15 +84,24 @@
           v-model="elementalDamage"
           class="text-gray-900 mx-2"
         ></label>
-      <label for="superc">Superconduct?<input
+      <label
+        for="superc"
+        class="border-r-2 border-gray-900 mr-2"
+      >Superconduct?<input
           type="checkbox"
           id="superc"
           v-model="superc"
           class="text-gray-900 mx-2"
         ></label>
-
+      <label for="food">Adeptus' Temptation?<input
+          type="checkbox"
+          id="food"
+          v-model="food"
+          class="text-gray-900 mx-2"
+        ></label>
     </div>
-    <table class="table-auto w-full mt-4 text-gray-300 leading-none bg-gray-900">
+    <div hidden>{{allElemental}}</div>
+    <table class="table-auto w-full mt-2 text-gray-300 leading-none bg-gray-900">
       <thead>
         <tr>
           <th class="border px-2 py-2 w-1/5">Attack type</th>
@@ -105,9 +123,9 @@
           </td>
           <td
             class="border border-gray-600 px-1 py-1 text-center"
-            :class="damage[0] > damage[1] ? 'text-red-400' : 'text-green-400'"
+            :class="damageClass(damage)"
           >
-            {{ damage[1] }}
+            {{ damage[1] }}<sup> {{ damagePercent(damage) }}%</sup>
           </td>
         </tr>
       </tbody>
@@ -116,6 +134,8 @@
 </template>
 
 <script>
+import { mapFields } from "vuex-map-fields";
+
 export default {
   name: "Damage",
   props: {
@@ -124,12 +144,14 @@ export default {
   },
   data() {
     return {
-      normal: 59.6,
-      charged: 237,
-      skill: 235,
+      // normal: 59.6,
+      // charged: 237,
+      // skill: 235,
+      // burst: 679.8,
       level: 80,
       enemyLevel: 80,
       superc: false,
+      food: false,
       enemies: {
         Hilichurls: { phys: 10, elem: 10 },
         Slimes: { phys: 10, elem: 10 },
@@ -148,14 +170,7 @@ export default {
     };
   },
   computed: {
-    elementalDamage: {
-      get() {
-        return this.$store.state.elementalDamage;
-      },
-      set() {
-        this.$store.commit("SET_ELEMENTAL_DAMAGE", !this.elementalDamage);
-      },
-    },
+    ...mapFields(["elementalDamage", "character"]),
     def() {
       let superc = 0;
       if (this.superc) {
@@ -177,6 +192,88 @@ export default {
     elemDef() {
       return 1 - this.enemies[this.mob].elem / 100;
     },
+    levelNerf() {
+      return (100 + this.level) / (100 + this.level + 100 + this.enemyLevel);
+    },
+    modific() {
+      return this.sumAllStats.map((side) => {
+        return this.elementalDamage ? side["Elemental%"] : side["Physical%"];
+      });
+    },
+    defMod() {
+      return this.elementalDamage ? this.elemDef : this.def;
+    },
+    attackPowFood() {
+      return this.food ? this.atkPower.map((x) => x + 372) : this.atkPower;
+    },
+    normalHit() {
+      return this.sumAllStats.map((side, i) => {
+        return (
+          this.attackPowFood[i] *
+          (1 +
+            (this.modific[i] +
+              side["NormalATK%"] +
+              side["AllDMG%"] +
+              side["NCATK%"]) /
+              100)
+        );
+      });
+    },
+    chargedHit() {
+      return this.sumAllStats.map((side, i) => {
+        return (
+          this.attackPowFood[i] *
+          (1 +
+            (this.modific[i] +
+              side["Charged%"] +
+              side["AllDMG%"] +
+              side["NCATK%"]) /
+              100)
+        );
+      });
+    },
+    normalHitElem() {
+      return this.sumAllStats.map((side, i) => {
+        return (
+          this.attackPowFood[i] *
+          (1 +
+            (side["Elemental%"] +
+              side["NormalATK%"] +
+              side["AllDMG%"] +
+              side["NCATK%"]) /
+              100)
+        );
+      });
+    },
+    chargedHitElem() {
+      return this.sumAllStats.map((side, i) => {
+        return (
+          this.attackPowFood[i] *
+          (1 +
+            (side["Elemental%"] +
+              side["Charged%"] +
+              side["AllDMG%"] +
+              side["NCATK%"]) /
+              100)
+        );
+      });
+    },
+    skillHit() {
+      return this.sumAllStats.map((side, i) => {
+        return (
+          this.attackPowFood[i] *
+          (1 + (side["Elemental%"] + side["AllDMG%"] + side["SkillDMG%"]) / 100)
+        );
+      });
+    },
+    burstHit() {
+      return this.sumAllStats.map((side, i) => {
+        return (
+          this.attackPowFood[i] *
+          (1 + (side["Elemental%"] + side["AllDMG%"] + side["Burst%"]) / 100)
+        );
+      });
+    },
     allDamage() {
       let result = {
         "Normal hit": [0, 0],
@@ -185,71 +282,118 @@ export default {
         "Charged critical": [0, 0],
         "Skill hit": [0, 0],
         "Skill critical": [0, 0],
+        "Burst hit": [0, 0],
+        "Burst critical": [0, 0],
       };
-      const levelNerf =
-        (100 + this.level) / (100 + this.level + 100 + this.enemyLevel);
-
       for (let i = 0; i < this.sumAllStats.length; i++) {
-        const modific = this.elementalDamage
-          ? this.sumAllStats[i]["Elemental%"]
-          : this.sumAllStats[i]["Physical%"];
-        const def = this.elementalDamage ? this.elemDef : this.def;
-        const normalHit =
-          this.atkPower[i] *
-          (1 +
-            (modific +
-              this.sumAllStats[i]["NormalATK%"] +
-              this.sumAllStats[i]["AllDMG%"] +
-              this.sumAllStats[i]["NCATK%"]) /
-              100);
-        const chargetHit =
-          this.atkPower[i] *
-          (1 +
-            (modific +
-              this.sumAllStats[i]["Charged%"] +
-              this.sumAllStats[i]["AllDMG%"] +
-              this.sumAllStats[i]["NCATK%"]) /
-              100);
-        const skillHit =
-          this.atkPower[i] *
-          (1 +
-            (this.sumAllStats[i]["Elemental%"] +
-              this.sumAllStats[i]["AllDMG%"] +
-              this.sumAllStats[i]["SkillDMG%"]) /
-              100);
-        const calcNormal = (mod, hit, def) => {
-          return Math.round(hit * (mod / 100) * levelNerf * def);
-        };
-        const calcCritical = (mod, hit, def) => {
-          return Math.round(
-            hit *
-              (1 + (50 + this.sumAllStats[i]["CDmg%"]) / 100) *
-              (mod / 100) *
-              levelNerf *
-              def
-          );
-        };
-        result["Normal hit"][i] = calcNormal(this.normal, normalHit, def);
-        result["Normal critical"][i] = calcCritical(
-          this.normal,
-          normalHit,
-          def
+        result["Normal hit"][i] = this.calcNormal(
+          this.character.normal,
+          this.normalHit[i],
+          this.defMod
         );
-        result["Charged hit"][i] = calcNormal(this.charged, chargetHit, def);
-        result["Charged critical"][i] = calcCritical(
-          this.charged,
-          chargetHit,
-          def
+        result["Normal critical"][i] = this.calcCritical(
+          this.character.normal,
+          this.normalHit[i],
+          this.defMod,
+          this.sumAllStats[i]["CDmg%"]
         );
-        result["Skill hit"][i] = calcNormal(this.skill, skillHit, this.elemDef);
-        result["Skill critical"][i] = calcCritical(
-          this.skill,
-          skillHit,
+        result["Charged hit"][i] = this.calcNormal(
+          this.character.charged,
+          this.chargedHit[i],
+          this.defMod
+        );
+        result["Charged critical"][i] = this.calcCritical(
+          this.character.charged,
+          this.chargedHit[i],
+          this.defMod,
+          this.sumAllStats[i]["CDmg%"]
+        );
+        result["Skill hit"][i] = this.calcNormal(
+          this.character.skill,
+          this.skillHit[i],
           this.elemDef
+        );
+        result["Skill critical"][i] = this.calcCritical(
+          this.character.skill,
+          this.skillHit[i],
+          this.elemDef,
+          this.sumAllStats[i]["CDmg%"]
+        );
+        result["Burst hit"][i] = this.calcNormal(
+          this.character.burst,
+          this.burstHit[i],
+          this.elemDef
+        );
+        result["Burst critical"][i] = this.calcCritical(
+          this.character.burst,
+          this.burstHit[i],
+          this.elemDef,
+          this.sumAllStats[i]["CDmg%"]
         );
       }
       this.$store.commit("SET_ALL_DAMAGE", result);
       return result;
+    },
+    allElemental() {
+      let result = {
+        "Normal hit": [0, 0],
+        "Normal critical": [0, 0],
+        "Charged hit": [0, 0],
+        "Charged critical": [0, 0],
+        "Skill hit": this.allDamage["Skill hit"],
+        "Skill critical": this.allDamage["Skill critical"],
+        "Burst hit": this.allDamage["Burst hit"],
+        "Burst critical": this.allDamage["Burst critical"],
+      };
+
+      for (let i = 0; i < this.sumAllStats.length; i++) {
+        result["Normal hit"][i] = this.calcNormal(
+          this.character.normal,
+          this.normalHitElem[i],
+          this.defMod
+        );
+        result["Normal critical"][i] = this.calcCritical(
+          this.character.normal,
+          this.normalHitElem[i],
+          this.defMod,
+          this.sumAllStats[i]["CDmg%"]
+        );
+        result["Charged hit"][i] = this.calcNormal(
+          this.character.charged,
+          this.chargedHitElem[i],
+          this.defMod
+        );
+        result["Charged critical"][i] = this.calcCritical(
+          this.character.charged,
+          this.chargedHitElem[i],
+          this.defMod,
+          this.sumAllStats[i]["CDmg%"]
+        );
+      }
+      this.$store.commit("SET_ALL_ELEMENTAL", result);
+      return result;
+    },
+  },
+  methods: {
+    damageClass(dmg) {
+      let cs = "";
+      if (dmg[0] > dmg[1]) cs = "text-red-400";
+      if (dmg[0] < dmg[1]) cs = "text-green-400";
+      return cs;
+    },
+    damagePercent(dmg) {
+      return (
+        ((dmg[1] - dmg[0]) / Math.abs((dmg[1] + dmg[0]) / 2)) *
+        100
+      ).toFixed(1);
+    },
+    calcNormal(mod, hit, def) {
+      return Math.round(hit * (mod / 100) * this.levelNerf * def);
+    },
+    calcCritical(mod, hit, def, cdmg) {
+      return Math.round(
+        hit * (1 + ((50 + cdmg) / 100) * (mod / 100) * this.levelNerf * def)
+      );
     },
   },
 };
