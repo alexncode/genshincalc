@@ -146,7 +146,7 @@ export default {
           step: 0.1,
         },
         FlatATK: { 5: { min: 14, max: 19 }, 4: { min: 11, max: 16 }, step: 1 },
-        FlatDEF: { 5: { min: 14, max: 19 }, 4: { min: 13, max: 19 }, step: 1 },
+        FlatDEF: { 5: { min: 15, max: 23 }, 4: { min: 13, max: 19 }, step: 1 },
         HP: { 5: { min: 209, max: 299 }, 4: { min: 167, max: 239 }, step: 1 },
       },
       maxValues: {

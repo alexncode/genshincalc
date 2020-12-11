@@ -328,7 +328,7 @@ export default {
           this.character.burst,
           this.burstHit[i],
           this.elemDef,
-          this.sumAllStats[i]["CDmg%"]
+          this.sumAllStats[i]["CDmg%"]//TODO: Zhongli Dmg = [atkskill_rate + 0.33hp][1+geo%][level_coef]*[def]
         );
       }
       this.$store.commit("SET_ALL_DAMAGE", result);
