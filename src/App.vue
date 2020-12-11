@@ -63,7 +63,7 @@
             ></label>
         </div>
       </div>
-      <div class="flex">
+      <div class="flex flex-col md:flex-row">
         <div>
           <Set :side="0" />
           <Weapon
@@ -78,19 +78,19 @@
           />
           <Additional side="0" />
         </div>
-        <div class="flex flex-col justify-center mx-2 px-2 border-l-2 border-r-2 border-gray-700">
+        <div class="flex md:flex-col justify-center mx-2 px-2 border-l-2 border-r-2 border-gray-700">
           <button
             class="bg-gray-600 text-gray-100 rounded w-8"
             title="Equalize artifacts"
             @click="equalize"
           >=</button>
           <button
-            class="bg-gray-600 text-gray-100 rounded w-8 mt-2"
+            class="bg-gray-600 text-gray-100 rounded w-8 mx-2 md:my-2 md:mx-0"
             title="Randomize substats"
             @click="randomize"
           >&#10227;</button>
           <button
-            class="bg-gray-600 text-gray-100 rounded w-8 mt-2"
+            class="bg-gray-600 text-gray-100 rounded w-8"
             title="Save & Load"
             @click="save"
           >&#128190;</button>

@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-1 text-gray-200 w-80">
+  <div class="mt-1 text-gray-200 w-full">
     <button
       @click="showAdditional = !showAdditional"
       class=" rounded w-full h-4 leading-none font-extrabold"
