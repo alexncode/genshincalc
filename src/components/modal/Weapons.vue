@@ -134,7 +134,7 @@ export default {
         "AllDMG%": "All damage",
         "NormalATK%": "Normal attack",
         "Charged%": "Charged attack",
-        "Skill%": "Skill",
+        "SkillDMG%": "Skill",
         "Burst%": "Burst",
         "Elemental%": "Elemental damage",
         "DEF%": "Defence",

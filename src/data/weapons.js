@@ -380,7 +380,7 @@ export const weaponList = {
     "dmg": 42,
     "name": "EM",
     "value": 36,
-    "additional": [{ name: "Skill%", value: 24, inc: 6, active: true }, { name: "Burst%", value: 24, inc: 6, active: true }],
+    "additional": [{ name: "SkillDMG%", value: 24, inc: 6, active: true }, { name: "Burst%", value: 24, inc: 6, active: true }],
     "rarity": 4,
     refinement: 1,
     "description": "Increases Elemental Skill and Elemental Burst DMG by $eff1%."
@@ -470,7 +470,7 @@ export const weaponList = {
     "dmg": 42,
     "name": "CRate%",
     "value": 6,
-    "additional": [{ name: "Burst%", value: 20, inc: 5, active: false }, { name: "Skill%", value: 20, inc: 5, active: false }, { name: "NormalATK%", value: 20, inc: 5, active: false }],
+    "additional": [{ name: "Burst%", value: 20, inc: 5, active: false }, { name: "SkillDMG%", value: 20, inc: 5, active: false }, { name: "NormalATK%", value: 20, inc: 5, active: false }],
     "rarity": 4,
     refinement: 1,
     "description": "Normal Attack hits increase Elemental Skill and Elemental Burst DMG by $eff1% for 6s. Likewise, Elemental Skill or Elemental Burst hits increase Normal Attack DMG by $eff3% for 6s."
@@ -774,6 +774,16 @@ export const weaponList = {
     "rarity": 4,
     refinement: 1,
     "description": "Normal or Charged Attacks grant Harmonic on hits. Gaining 5 Harmonics triggers the power of music and deals 100/125/150/175/200% ATK DMG to surrounding enemies. Harmonics last up to 30s, and a maximum of 1 can be gained every 0.5s."
+  },
+  "Festering Desire": {
+    "type": "Sword",
+    "dmg": 42,
+    "name": "EnRe%",
+    "value": 10,
+    "additional": [{ name: "SkillDMG%", value: 16, inc: 4, active: true }],
+    "rarity": 4,
+    refinement: 1,
+    "description": "Increases Elemental Skill DMG by $eff1% and Elemental Skill crit rate by 6/7.5/9/10.5/12%"
   },
   "Amos Bow": {
     "type": "Bow",
