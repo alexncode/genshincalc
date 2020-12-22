@@ -339,7 +339,12 @@ export default {
                 allStatsRes[i][x.name] + x.value || x.value)
           );
       }
-
+      if (ch.charName == "Mona" && ch.talentsBonus[0].active) {
+        allStatsRes[0]["Elemental%"] =
+          Math.round(allStatsRes[0]["EnRe%"] * 0.2 * 10) / 10;
+        allStatsRes[1]["Elemental%"] =
+          Math.round(allStatsRes[1]["EnRe%"] * 0.2 * 10) / 10;
+      }
       return allStatsRes;
     },
     atkPower() {

@@ -86,7 +86,7 @@ export let characters = {
     charName: "Mona",
     element: "Water", rarity: 5,
     weapon: "Catalyst",
-    talentsBonus: [{ desc: "Increases Hydro DMG by 20% of Energy recharge.", name: "Elemental%", value: x => x * 0.20, active: true }]
+    talentsBonus: [{ desc: "Increases Hydro DMG by 20% of Energy recharge.", name: "Elemental%", value: 0, active: true }]
   },
   Fischl: {
     charName: "Fischl",
@@ -1559,56 +1559,56 @@ export const charactersData = {
       "baseHP": 810,
       "baseATK": 22,
       "baseDEF": 51,
-      "value": 100,
+      "value": 0,
       "name": "EnRe%"
     },
     20: {
       "baseHP": 2102,
       "baseATK": 58,
       "baseDEF": 132,
-      "value": 100,
+      "value": 0,
       "name": "EnRe%"
     },
     40: {
       "baseHP": 4185,
       "baseATK": 115,
       "baseDEF": 263,
-      "value": 100,
+      "value": 0,
       "name": "EnRe%"
     },
     50: {
       "baseHP": 5383,
       "baseATK": 148,
       "baseDEF": 338,
-      "value": 108,
+      "value": 8,
       "name": "EnRe%"
     },
     60: {
       "baseHP": 6752,
       "baseATK": 186,
       "baseDEF": 424,
-      "value": 116,
+      "value": 16,
       "name": "EnRe%"
     },
     70: {
       "baseHP": 7964,
       "baseATK": 220,
       "baseDEF": 500,
-      "value": 116,
+      "value": 16,
       "name": "EnRe%"
     },
     80: {
       "baseHP": 9184,
       "baseATK": 253,
       "baseDEF": 576,
-      "value": 124,
+      "value": 24,
       "name": "EnRe%"
     },
     90: {
       "baseHP": 10409,
       "baseATK": 287,
       "baseDEF": 653,
-      "value": 132,
+      "value": 32,
       "name": "EnRe%"
     },
     "normal": [
@@ -1669,42 +1669,42 @@ export const charactersData = {
       "baseHP": 2797,
       "baseATK": 77,
       "baseDEF": 176,
-      "value": 100,
+      "value": 0,
       "name": "EnRe%"
     },
     "40+": {
       "baseHP": 4678,
       "baseATK": 129,
       "baseDEF": 294,
-      "value": 108,
+      "value": 8,
       "name": "EnRe%"
     },
     "50+": {
       "baseHP": 6041,
       "baseATK": 167,
       "baseDEF": 379,
-      "value": 116,
+      "value": 16,
       "name": "EnRe%"
     },
     "60+": {
       "baseHP": 7246,
       "baseATK": 200,
       "baseDEF": 455,
-      "value": 116,
+      "value": 16,
       "name": "EnRe%"
     },
     "70+": {
       "baseHP": 8458,
       "baseATK": 233,
       "baseDEF": 531,
-      "value": 124,
+      "value": 24,
       "name": "EnRe%"
     },
     "80+": {
       "baseHP": 9677,
       "baseATK": 267,
       "baseDEF": 607,
-      "value": 132,
+      "value": 32,
       "name": "EnRe%"
     }
   },
