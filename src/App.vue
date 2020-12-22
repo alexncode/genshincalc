@@ -318,6 +318,10 @@ export default {
       for (let i = 0; i < 2; i++) {
         allStatsRes[i][ch.name] =
           allStatsRes[i][ch.name] + ch.value || ch.value;
+        if (ch.charName == "Xiao" && ch.talentsBonus[0].active) {
+          allStatsRes[i]["NCATK%"] =
+            allStatsRes[i]["NCATK%"] + ch.burst || ch.burst;
+        }
         ch.talentsBonus
           .filter((x) => x.active)
           .forEach(

@@ -183,8 +183,17 @@ export let characters = {
     charName: "Albedo",
     element: "Geo", rarity: 5,
     weapon: "Sword",
-    talentsBonus: [{ desc: "25% more dmg against enemies with 50% or lower HP", name: "AllDMG%", value: 25, active: true },
-    { desc: "After Burst Elemental MAstery increased by 125", name: "EM", value: 125, active: false }]
+    talentsBonus: [
+      { desc: "25% more dmg against enemies with 50% or lower HP", name: "AllDMG%", value: 25, active: true },
+      { desc: "After Burst Elemental MAstery increased by 125", name: "EM", value: 125, active: false }]
+  },
+  Xiao: {
+    charName: "Xiao",
+    element: "Anemo", rarity: 5,
+    weapon: "Polearm",
+    talentsBonus: [
+      { desc: "For the duration of Burst gain bonus to Normal and Charged Attack", name: "NCATK%", value: 0, active: false },
+      { desc: "While under burst effect gain maximum of 25% DMG bonus", name: "AllDMG%", value: 25, active: false }]
   },
   "Traveler (Anemo)": {
     charName: "Traveler (Anemo)",
@@ -5041,6 +5050,174 @@ export const charactersData = {
       "baseDEF": 586,
       "value": 38.4,
       "name": "Cryo DMG%"
+    }
+  },
+  "Xiao": {
+    1: {
+      "baseHP": 991,
+      "baseATK": 25,
+      "baseDEF": 64,
+      "value": 0,
+      "name": "Anemo DMG%"
+    },
+    20: {
+      "baseHP": 2572,
+      "baseATK": 66,
+      "baseDEF": 166,
+      "value": 0,
+      "name": "Anemo DMG%"
+    },
+    40: {
+      "baseHP": 5120,
+      "baseATK": 131,
+      "baseDEF": 331,
+      "value": 0,
+      "name": "Anemo DMG%"
+    },
+    50: {
+      "baseHP": 6586,
+      "baseATK": 168,
+      "baseDEF": 425,
+      "value": 7.2,
+      "name": "Anemo DMG%"
+    },
+    60: {
+      "baseHP": 8262,
+      "baseATK": 211,
+      "baseDEF": 533,
+      "value": 14.4,
+      "name": "Anemo DMG%"
+    },
+    70: {
+      "baseHP": 9744,
+      "baseATK": 249,
+      "baseDEF": 629,
+      "value": 14.4,
+      "name": "Anemo DMG%"
+    },
+    80: {
+      "baseHP": 11236,
+      "baseATK": 287,
+      "baseDEF": 726,
+      "value": 21.6,
+      "name": "Anemo DMG%"
+    },
+    90: {
+      "baseHP": 12736,
+      "baseATK": 325,
+      "baseDEF": 822,
+      "value": 28.8,
+      "name": "Anemo DMG%"
+    },
+    "normal": [
+      55.08,
+      58.84,
+      62.6,
+      67.6,
+      71.36,
+      75.74,
+      81.38,
+      87.02,
+      92.64,
+      98.28,
+      103.92,
+      109.56,
+      115.18,
+      120.82,
+      126.46
+    ],
+    "charged": [
+      72.69,
+      77.64,
+      82.6,
+      89.21,
+      94.16,
+      99.95,
+      107.38,
+      114.81,
+      122.25,
+      129.68,
+      137.12,
+      144.55,
+      151.98,
+      159.42,
+      166.85
+    ],
+    "skill": [
+      228.8,
+      245.96,
+      263.12,
+      286,
+      303.16,
+      320.32,
+      343.2,
+      366.08,
+      388.96,
+      411.84,
+      434.72,
+      457.6,
+      486.2,
+      514.8,
+      543.4
+    ],
+    "burst": [
+      62.63,
+      66.37,
+      70.13,
+      75,
+      78.75,
+      82.5,
+      87.38,
+      92.25,
+      97.13,
+      102,
+      106.88,
+      111.75,
+      116.63,
+      121.5,
+      126.38
+    ],
+    "20+": {
+      "baseHP": 3422,
+      "baseATK": 87,
+      "baseDEF": 221,
+      "value": 0,
+      "name": "Anemo DMG%"
+    },
+    "40+": {
+      "baseHP": 5724,
+      "baseATK": 146,
+      "baseDEF": 370,
+      "value": 7.2,
+      "name": "Anemo DMG%"
+    },
+    "50+": {
+      "baseHP": 7391,
+      "baseATK": 189,
+      "baseDEF": 477,
+      "value": 14.4,
+      "name": "Anemo DMG%"
+    },
+    "60+": {
+      "baseHP": 8866,
+      "baseATK": 226,
+      "baseDEF": 572,
+      "value": 14.4,
+      "name": "Anemo DMG%"
+    },
+    "70+": {
+      "baseHP": 10348,
+      "baseATK": 264,
+      "baseDEF": 668,
+      "value": 21.6,
+      "name": "Anemo DMG%"
+    },
+    "80+": {
+      "baseHP": 11840,
+      "baseATK": 302,
+      "baseDEF": 765,
+      "value": 28.8,
+      "name": "Anemo DMG%"
     }
   }
 }
