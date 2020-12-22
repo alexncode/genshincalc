@@ -109,7 +109,7 @@ export let characters = {
   Xinyan: {
     charName: "Xinyan",
     element: "Fire", rarity: 4,
-    weapon: "Catalyst",
+    weapon: "Claymore",
     talentsBonus: [{ desc: "If shielded deals 15% more Physical dmg", name: "Physical%", value: 15, active: false }]
   },
   Kaeya: {
