@@ -151,7 +151,7 @@ export let characters = {
   Noelle: {
     charName: "Noelle",
     element: "Geo", rarity: 4,
-    weapon: "Catalyst",
+    weapon: "Claymore",
     talentsBonus: []
   },
   Sucrose: {
