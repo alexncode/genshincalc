@@ -4722,56 +4722,56 @@ export const charactersData = {
       "baseATK": 20,
       "baseDEF": 68,
       "value": 0,
-      "name": "Geo DMG%"
+      "name": "Elemental%"
     },
     20: {
       "baseHP": 2671,
       "baseATK": 51,
       "baseDEF": 177,
       "value": 0,
-      "name": "Geo DMG%"
+      "name": "Elemental%"
     },
     40: {
       "baseHP": 5317,
       "baseATK": 101,
       "baseDEF": 352,
       "value": 0,
-      "name": "Geo DMG%"
+      "name": "Elemental%"
     },
     50: {
       "baseHP": 6839,
       "baseATK": 130,
       "baseDEF": 453,
       "value": 7.2,
-      "name": "Geo DMG%"
+      "name": "Elemental%"
     },
     60: {
       "baseHP": 8579,
       "baseATK": 163,
       "baseDEF": 568,
       "value": 14.4,
-      "name": "Geo DMG%"
+      "name": "Elemental%"
     },
     70: {
       "baseHP": 10119,
       "baseATK": 192,
       "baseDEF": 670,
       "value": 14.4,
-      "name": "Geo DMG%"
+      "name": "Elemental%"
     },
     80: {
       "baseHP": 11669,
       "baseATK": 222,
       "baseDEF": 773,
       "value": 21.6,
-      "name": "Geo DMG%"
+      "name": "Elemental%"
     },
     90: {
       "baseHP": 13226,
       "baseATK": 251,
       "baseDEF": 876,
       "value": 28.8,
-      "name": "Geo DMG%"
+      "name": "Elemental%"
     },
     "normal": [
       36.74,
@@ -4846,42 +4846,42 @@ export const charactersData = {
       "baseATK": 67,
       "baseDEF": 235,
       "value": 0,
-      "name": "Geo DMG%"
+      "name": "Elemental%"
     },
     "40+": {
       "baseHP": 5944,
       "baseATK": 113,
       "baseDEF": 394,
       "value": 7.2,
-      "name": "Geo DMG%"
+      "name": "Elemental%"
     },
     "50+": {
       "baseHP": 7675,
       "baseATK": 146,
       "baseDEF": 508,
       "value": 14.4,
-      "name": "Geo DMG%"
+      "name": "Elemental%"
     },
     "60+": {
       "baseHP": 9207,
       "baseATK": 175,
       "baseDEF": 610,
       "value": 14.4,
-      "name": "Geo DMG%"
+      "name": "Elemental%"
     },
     "70+": {
       "baseHP": 10746,
       "baseATK": 204,
       "baseDEF": 712,
       "value": 21.6,
-      "name": "Geo DMG%"
+      "name": "Elemental%"
     },
     "80+": {
       "baseHP": 12296,
       "baseATK": 233,
       "baseDEF": 815,
       "value": 28.8,
-      "name": "Geo DMG%"
+      "name": "Elemental%"
     }
   },
   "Ganyu": {
@@ -4890,56 +4890,56 @@ export const charactersData = {
       "baseATK": 26,
       "baseDEF": 49,
       "value": 0,
-      "name": "Cryo DMG%"
+      "name": "Elemental%"
     },
     20: {
       "baseHP": 1978,
       "baseATK": 68,
       "baseDEF": 127,
       "value": 0,
-      "name": "Cryo DMG%"
+      "name": "Elemental%"
     },
     40: {
       "baseHP": 3939,
       "baseATK": 135,
       "baseDEF": 253,
       "value": 0,
-      "name": "Cryo DMG%"
+      "name": "Elemental%"
     },
     50: {
       "baseHP": 5066,
       "baseATK": 173,
       "baseDEF": 326,
       "value": 9.6,
-      "name": "Cryo DMG%"
+      "name": "Elemental%"
     },
     60: {
       "baseHP": 6355,
       "baseATK": 217,
       "baseDEF": 409,
       "value": 19.2,
-      "name": "Cryo DMG%"
+      "name": "Elemental%"
     },
     70: {
       "baseHP": 7495,
       "baseATK": 256,
       "baseDEF": 482,
       "value": 19.2,
-      "name": "Cryo DMG%"
+      "name": "Elemental%"
     },
     80: {
       "baseHP": 8643,
       "baseATK": 295,
       "baseDEF": 556,
       "value": 28.8,
-      "name": "Cryo DMG%"
+      "name": "Elemental%"
     },
     90: {
       "baseHP": 9797,
       "baseATK": 335,
       "baseDEF": 630,
       "value": 38.4,
-      "name": "Cryo DMG%"
+      "name": "Elemental%"
     },
     "normal": [
       31.73,
@@ -5014,42 +5014,42 @@ export const charactersData = {
       "baseATK": 90,
       "baseDEF": 169,
       "value": 0,
-      "name": "Cryo DMG%"
+      "name": "Elemental%"
     },
     "40+": {
       "baseHP": 4403,
       "baseATK": 151,
       "baseDEF": 283,
       "value": 9.6,
-      "name": "Cryo DMG%"
+      "name": "Elemental%"
     },
     "50+": {
       "baseHP": 5686,
       "baseATK": 194,
       "baseDEF": 366,
       "value": 19.2,
-      "name": "Cryo DMG%"
+      "name": "Elemental%"
     },
     "60+": {
       "baseHP": 6820,
       "baseATK": 233,
       "baseDEF": 439,
       "value": 19.2,
-      "name": "Cryo DMG%"
+      "name": "Elemental%"
     },
     "70+": {
       "baseHP": 7960,
       "baseATK": 272,
       "baseDEF": 512,
       "value": 28.8,
-      "name": "Cryo DMG%"
+      "name": "Elemental%"
     },
     "80+": {
       "baseHP": 9108,
       "baseATK": 311,
       "baseDEF": 586,
       "value": 38.4,
-      "name": "Cryo DMG%"
+      "name": "Elemental%"
     }
   },
   "Xiao": {
@@ -5058,56 +5058,56 @@ export const charactersData = {
       "baseATK": 25,
       "baseDEF": 64,
       "value": 0,
-      "name": "Anemo DMG%"
+      "name": "Elemental%"
     },
     20: {
       "baseHP": 2572,
       "baseATK": 66,
       "baseDEF": 166,
       "value": 0,
-      "name": "Anemo DMG%"
+      "name": "Elemental%"
     },
     40: {
       "baseHP": 5120,
       "baseATK": 131,
       "baseDEF": 331,
       "value": 0,
-      "name": "Anemo DMG%"
+      "name": "Elemental%"
     },
     50: {
       "baseHP": 6586,
       "baseATK": 168,
       "baseDEF": 425,
       "value": 7.2,
-      "name": "Anemo DMG%"
+      "name": "Elemental%"
     },
     60: {
       "baseHP": 8262,
       "baseATK": 211,
       "baseDEF": 533,
       "value": 14.4,
-      "name": "Anemo DMG%"
+      "name": "Elemental%"
     },
     70: {
       "baseHP": 9744,
       "baseATK": 249,
       "baseDEF": 629,
       "value": 14.4,
-      "name": "Anemo DMG%"
+      "name": "Elemental%"
     },
     80: {
       "baseHP": 11236,
       "baseATK": 287,
       "baseDEF": 726,
       "value": 21.6,
-      "name": "Anemo DMG%"
+      "name": "Elemental%"
     },
     90: {
       "baseHP": 12736,
       "baseATK": 325,
       "baseDEF": 822,
       "value": 28.8,
-      "name": "Anemo DMG%"
+      "name": "Elemental%"
     },
     "normal": [
       55.08,
@@ -5182,42 +5182,42 @@ export const charactersData = {
       "baseATK": 87,
       "baseDEF": 221,
       "value": 0,
-      "name": "Anemo DMG%"
+      "name": "Elemental%"
     },
     "40+": {
       "baseHP": 5724,
       "baseATK": 146,
       "baseDEF": 370,
       "value": 7.2,
-      "name": "Anemo DMG%"
+      "name": "Elemental%"
     },
     "50+": {
       "baseHP": 7391,
       "baseATK": 189,
       "baseDEF": 477,
       "value": 14.4,
-      "name": "Anemo DMG%"
+      "name": "Elemental%"
     },
     "60+": {
       "baseHP": 8866,
       "baseATK": 226,
       "baseDEF": 572,
       "value": 14.4,
-      "name": "Anemo DMG%"
+      "name": "Elemental%"
     },
     "70+": {
       "baseHP": 10348,
       "baseATK": 264,
       "baseDEF": 668,
       "value": 21.6,
-      "name": "Anemo DMG%"
+      "name": "Elemental%"
     },
     "80+": {
       "baseHP": 11840,
       "baseATK": 302,
       "baseDEF": 765,
       "value": 28.8,
-      "name": "Anemo DMG%"
+      "name": "Elemental%"
     }
   }
 }
