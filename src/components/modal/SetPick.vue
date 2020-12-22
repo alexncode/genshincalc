@@ -22,7 +22,7 @@
       <div><span class="text-green-200">2pcs:</span> {{ currentSet['2pcs'].bonusText}}</div>
       <div><span class="text-blue-200">4pcs:</span> {{ currentSet['4pcs'].bonusText}}</div>
       <button
-        class="px-4 py-2 bg-green-600 rounded hover:bg-green-500 w-full mt-4 font-bold text-gray-100"
+        class="px-4 py-2 bg-green-600 rounded hover:bg-green-500 w-full mt-4 font-bold text-gray-100 mb-4 md:mb-1"
         @click="setSet"
       >Select</button>
     </div>

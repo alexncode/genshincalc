@@ -80,7 +80,7 @@
           </div>
         </div>
         <button
-          class="bg-green-700 px-2 py-1 w-full rounded hover:bg-green-800 font-bold mt-1"
+          class="bg-green-700 px-2 py-1 w-full rounded hover:bg-green-800 font-bold mt-1 mb-4 md:mb-1"
           @click="setWeapon"
         >OK</button>
       </div>
