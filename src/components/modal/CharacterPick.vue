@@ -1,6 +1,6 @@
 <template>
   <div
-    class="max-w-screen-md bg-gray-800 rounded flex flex-col md:flex-row"
+    class="max-w-screen-md bg-gray-800 rounded flex flex-col md:flex-row overflow-y-auto max-h-screen"
     @click.stop
   >
     <div class="flex flex-wrap md:w-4/6">

@@ -74,7 +74,7 @@
             @click="save"
           >&#128190;</button>
         </div>
-        <div class=" pl-4">
+        <div class="md:pl-4">
           <div class="flex justify-between">
             <Set :side="1" />
             <Weapon side="1" />
