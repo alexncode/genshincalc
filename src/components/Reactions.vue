@@ -116,7 +116,7 @@ const reactionElements = {
     { name: "Shattered" },
     { name: "Electro-charged" },
   ],
-  Earth: [{ name: "Crystalize" }],
+  Geo: [{ name: "Crystalize" }],
 };
 
 export default {
@@ -235,10 +235,7 @@ export default {
       return cs;
     },
     damagePercent(dmg) {
-      return (
-        ((dmg[1] - dmg[0]) / Math.abs((dmg[1] + dmg[0]) / 2)) *
-        100
-      ).toFixed(1);
+      return (((dmg[1] - dmg[0]) / Math.abs(dmg[0])) * 100).toFixed(1);
     },
   },
   filters: {

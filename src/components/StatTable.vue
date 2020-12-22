@@ -69,7 +69,7 @@ export default {
   },
   computed: {
     melt() {
-      return this.allResults[7].value.map(
+      return this.allResults[9].value.map(
         (em) => Math.round(((1 * em * (25 / 9)) / (em + 1400)) * 1000) / 10
       );
     },

@@ -4,24 +4,10 @@
     class="absolute inset-0 grid grid-cols-1 justify-items-center max-h-screen"
   >
     <div class="font-bold overflow-y-auto px-2">
-      <div class="flex justify-between">
-        <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.7</h1>
-        <div class="flex">
-          <div
-            class="text-blue-400 mr-2 cursor-pointer"
-            @click="showHelp = true"
-          >Help</div>
-          <div><a
-              class="text-blue-400"
-              href="mailto:alexnkcode@gmail.com"
-              target="_blank"
-            >Feedback</a></div>
-        </div>
-      </div>
       <div class="flex">
         <div @click="characterPick = false">
           <Modal v-if="characterPick">
-            <CharacterPick v-model="character" />
+            <CharacterPick @visibility="characterPick = false" />
           </Modal>
         </div>
         <div
@@ -29,47 +15,40 @@
           class="bg-gray-800 rounded pt-1 px-1 cursor-pointer hover:bg-gray-700"
         >
           <img
-            :src="`/img/avatars/${character.name}.png`"
-            :alt="character.name"
+            :src="`/img/avatars/${character.charName}.png`"
+            :alt="character.charName"
           >
         </div>
-        <div class="flex mb-2 flex-shrink items-center">
-          <label
-            for="baseATK"
-            class="mx-2 border-l-2 pl-2"
-          >Base attack<input
-              class="w-12 text-gray-900 ml-2"
-              type="text"
-              id="baseATK"
-              v-model.number="baseATK"
-            ></label>
-          <label
-            for="baseHP"
-            class="mx-2 border-l-2 pl-2"
-          >Base HP <input
-              class="w-16 text-gray-900 ml-2"
-              type="text"
-              id="baseHP"
-              v-model.number="character.baseHP"
-            ></label>
-          <label
-            for="baseDEF"
-            class="mx-2 border-l-2 pl-2"
-          >Base defense <input
-              class="w-12 text-gray-900 ml-2"
-              type="text"
-              id="baseDEF"
-              v-model.number="character.baseDEF"
-            ></label>
+        <div class="flex flex-col ml-2 text-gray-200 w-full">
+          <div class="flex justify-between">
+            <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.8</h1>
+            <div class="flex">
+              <div
+                class="text-blue-400 mr-2 cursor-pointer"
+                @click="showHelp = true"
+              >Help</div>
+              <div><a
+                  class="text-blue-400"
+                  href="mailto:alexnkcode@gmail.com"
+                  target="_blank"
+                >Feedback</a></div>
+            </div>
+          </div>
+          <div class="flex mt-1">
+            <div>
+              Base Attack: <span class="text-blue-300">{{ baseATK[0]}}</span> / <span class="text-blue-300">{{ baseATK[1]}}</span>
+            </div>
+            <div class="ml-2 border-l-2 pl-2">Base HP: <span class="text-blue-300">{{ character.baseHP }}</span></div>
+            <div class="mx-2 border-l-2 pl-2">Base defense: <span class="text-blue-300">{{ character.baseDEF }}</span></div>
+          </div>
         </div>
       </div>
       <div class="flex flex-col md:flex-row">
         <div>
-          <Set :side="0" />
-          <Weapon
-            :weapon="weapons[0].standart"
-            side="0"
-          />
+          <div class="flex justify-between">
+            <Set :side="0" />
+            <Weapon side="0" />
+          </div>
           <Artifact
             v-for="artifact in artifacts[0]"
             :key="artifact.key"
@@ -96,11 +75,10 @@
           >&#128190;</button>
         </div>
         <div class=" pl-4">
-          <Set :side="1" />
-          <Weapon
-            :weapon="weapons[1].standart"
-            side="1"
-          />
+          <div class="flex justify-between">
+            <Set :side="1" />
+            <Weapon side="1" />
+          </div>
           <Artifact
             v-for="artifact in artifacts[1]"
             :key="artifact.key"
@@ -129,11 +107,12 @@
         <Damage
           v-show="activeTab == 'Damage'"
           :sumAllStats="sumAllStats"
+          :allResults="allResults"
           :atkPower="atkPower"
         />
         <Reactions
           v-show="activeTab == 'Elemental reactions'"
-          :EM="allResults[7]"
+          :EM="allResults[9]"
           :hero="characters[character]"
           :set="set"
         />
@@ -142,7 +121,6 @@
     <div @click="save">
       <Modal v-if="showSave">
         <Save
-          :weapons="weapons"
           :artifacts="artifacts"
           @loadSave="loadSave"
         />
@@ -173,7 +151,6 @@ import TabButton from "@/components/UI/TabButton.vue";
 
 import { artifactsList } from "@/data/artifacts";
 import { characters } from "@/data/characters";
-import { weapons } from "@/data/weapons";
 import { sets } from "@/data/sets";
 
 import { mapFields } from "vuex-map-fields";
@@ -227,15 +204,9 @@ export default {
   },
   data() {
     return {
-      // character: "Keqing",
       artifacts: [artifactsList, JSON.parse(JSON.stringify(artifactsList))],
       characters: characters,
-      weapons: [weapons, JSON.parse(JSON.stringify(weapons))],
       sets: sets,
-      // set: [
-      //   { pieces: "4pcs", set: ["Gladiator's Finale", "none"] },
-      //   { pieces: "4pcs", set: ["Bloodstained Chivalry", "none"] },
-      // ],
       attributes: [
         "Attack",
         "Physical attack",
@@ -244,6 +215,8 @@ export default {
         "Charged attack",
         "Crit chance%",
         "Crit damage%",
+        "Elemental bonus%",
+        "Physical bonus%",
         "Elemental mastery",
         "Energy recharge%",
         "Defense",
@@ -273,14 +246,11 @@ export default {
     },
   },
   computed: {
-    ...mapFields(["character", "set", "additionalStats"]),
-    baseATK: {
-      get() {
-        return this.$store.getters.baseATK;
-      },
-      set(val) {
-        this.$store.commit("SET_BASE_ATK", val);
-      },
+    ...mapFields(["character", "set", "additionalStats", "weapon"]),
+    baseATK() {
+      return Object.keys(this.weapon).map(
+        (x) => this.weapon[x].baseATK + this.character.baseATK
+      );
     },
     sumAllStats() {
       let allStatsRes = [generateResObject(), generateResObject()];
@@ -305,7 +275,7 @@ export default {
         }
         return result;
       });
-      let allEquip = [this.weapons, this.artifacts, sets];
+      let allEquip = [this.artifacts, sets];
       for (const equip of allEquip) {
         equip.forEach((x, i) => {
           for (const key in x) {
@@ -342,14 +312,37 @@ export default {
             allStatsRes[i][stat.stat] + stat.value || stat.value;
         });
       });
+
       const ch = this.character;
-      allStatsRes[0][ch.stat] = allStatsRes[0][ch.stat] + ch.value || ch.value;
-      allStatsRes[1][ch.stat] = allStatsRes[1][ch.stat] + ch.value || ch.value;
+      const wp = this.weapon;
+      for (let i = 0; i < 2; i++) {
+        allStatsRes[i][ch.name] =
+          allStatsRes[i][ch.name] + ch.value || ch.value;
+        ch.talentsBonus
+          .filter((x) => x.active)
+          .forEach(
+            (x) =>
+              (allStatsRes[i][x.name] =
+                allStatsRes[i][x.name] + x.value || x.value)
+          );
+        allStatsRes[i][wp[i].name] =
+          allStatsRes[i][wp[i].name] + wp[i].value || wp[i].value;
+        wp[i].additional
+          .filter((x) => x.active)
+          .forEach(
+            (x) =>
+              (allStatsRes[i][x.name] =
+                allStatsRes[i][x.name] + x.value || x.value)
+          );
+      }
+
       return allStatsRes;
     },
     atkPower() {
-      return this.sumAllStats.map((x) => {
-        return Math.round(this.baseATK * (1 + x["ATK%"] / 100) + x["FlatATK"]);
+      return this.sumAllStats.map((x, i) => {
+        return Math.round(
+          this.baseATK[i] * (1 + x["ATK%"] / 100) + x["FlatATK"]
+        );
       });
     },
     critDmg() {
@@ -404,6 +397,8 @@ export default {
       const critDamage = this.sumAllStats.map(
         (x) => Math.round((x["CDmg%"] + 50) * 10) / 10
       );
+      const elem = this.sumAllStats.map((x) => x["Elemental%"]);
+      const phys = this.sumAllStats.map((x) => x["Physical%"]);
       const EM = this.sumAllStats.map((x) => x["EM"]);
       const EnRe = this.sumAllStats.map(
         (x) => Math.round(x["EnRe%"] * 10) / 10
@@ -425,6 +420,8 @@ export default {
         this.chargedAtk,
         critChance,
         critDamage,
+        elem,
+        phys,
         EM,
         EnRe,
         DEF,
@@ -443,9 +440,7 @@ export default {
         return {
           class: cs,
           value: x,
-          percent: cs
-            ? (((x[1] - x[0]) / Math.abs((x[1] + x[0]) / 2)) * 100).toFixed(1)
-            : 0,
+          percent: cs ? (((x[1] - x[0]) / Math.abs(x[0])) * 100).toFixed(1) : 0,
         };
       });
     },
@@ -457,7 +452,6 @@ export default {
       registration.waiting.postMessage({ type: "SKIP_WAITING" });
     },
     equalize() {
-      // this.artifacts[1] = JSON.parse(JSON.stringify(this.artifacts[0]));
       for (const art in this.artifacts[1]) {
         this.artifacts[1][art].value = this.artifacts[0][art].value;
         this.artifacts[1][art].rarity = this.artifacts[0][art].rarity;
@@ -468,7 +462,6 @@ export default {
           JSON.stringify(this.artifacts[0][art].substats)
         );
       }
-      // this.$forceUpdate();
     },
     randomize() {
       this.artifacts.forEach((side) => {
@@ -485,7 +478,6 @@ export default {
     },
     loadSave(data) {
       this.artifacts = data.artifacts;
-      this.weapons = data.weapons;
       this.showSave = !this.showSave;
     },
   },

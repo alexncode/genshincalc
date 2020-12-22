@@ -4,36 +4,36 @@
       <label
         for="normal"
         class="mr-2 border-r-2 border-gray-900"
-      >Normal attack% <input
+      >Normal% <input
           type="text"
           id="normal"
           v-model.number="character.normal"
-          class="text-gray-900 w-10 mx-2"
+          class="text-gray-900 w-14 mx-2"
         ></label>
 
       <label
         for="charged"
         class="mr-2 border-r-2 border-gray-900"
-      >Charged attack%<input
+      >Charged%<input
           type="text"
           id="charged"
           v-model.number="character.charged"
-          class="text-gray-900 w-10 mx-2 "
+          class="text-gray-900 w-14 mx-2 "
         ></label>
       <label
         for="skill"
         class="mr-2 border-r-2 border-gray-900"
-      >Skill attack%<input
+      >Skill%<input
           type="text"
           id="skill"
           v-model.number="character.skill"
-          class="text-gray-900 w-10 mx-2 "
+          class="text-gray-900 w-14 mx-2 "
         ></label>
       <label for="burst">Burst%<input
           type="text"
           id="burst"
           v-model.number="character.burst"
-          class="text-gray-900 w-10 mx-2 "
+          class="text-gray-900 w-14 mx-2 "
         ></label>
     </div>
     <div class="flex mb-1 border-b-2 border-gray-800 pb-1">
@@ -141,6 +141,7 @@ export default {
   props: {
     sumAllStats: Array,
     atkPower: Array,
+    allResults: Array,
   },
   data() {
     return {
@@ -268,11 +269,37 @@ export default {
     },
     burstHit() {
       return this.sumAllStats.map((side, i) => {
-        return (
+        const burstHit =
           this.attackPowFood[i] *
-          (1 + (side["Elemental%"] + side["AllDMG%"] + side["Burst%"]) / 100)
-        );
+          (1 + (side["Elemental%"] + side["AllDMG%"] + side["Burst%"]) / 100);
+        return burstHit;
       });
+    },
+    additionalBurst() {
+      const res = [];
+      if (this.character.charName == "Zhongli") {
+        let zhongliHP = this.allResults[this.allResults.length - 1];
+        zhongliHP.forEach((x, i) => {
+          const hit = Math.round(
+            x *
+              0.33 *
+              (1 +
+                (this.sumAllStats[i]["Elemental%"] +
+                  this.sumAllStats[i]["Burst%"]) /
+                  100)
+          );
+          res.push({
+            normal: this.calcNormal(100, hit, this.elemDef),
+            critical: this.calcCritical(
+              100,
+              hit,
+              this.elemDef,
+              this.sumAllStats[i]["CDmg%"]
+            ),
+          });
+        });
+      }
+      return res;
     },
     allDamage() {
       let result = {
@@ -319,17 +346,19 @@ export default {
           this.elemDef,
           this.sumAllStats[i]["CDmg%"]
         );
-        result["Burst hit"][i] = this.calcNormal(
-          this.character.burst,
-          this.burstHit[i],
-          this.elemDef
-        );
-        result["Burst critical"][i] = this.calcCritical(
-          this.character.burst,
-          this.burstHit[i],
-          this.elemDef,
-          this.sumAllStats[i]["CDmg%"]//TODO: Zhongli Dmg = [atkskill_rate + 0.33hp][1+geo%][level_coef]*[def]
-        );
+        result["Burst hit"][i] =
+          this.calcNormal(
+            this.character.burst,
+            this.burstHit[i],
+            this.elemDef
+          ) + (this.additionalBurst[i] ? this.additionalBurst[i].normal : 0);
+        result["Burst critical"][i] =
+          this.calcCritical(
+            this.character.burst,
+            this.burstHit[i],
+            this.elemDef,
+            this.sumAllStats[i]["CDmg%"]
+          ) + (this.additionalBurst[i] ? this.additionalBurst[i].critical : 0);
       }
       this.$store.commit("SET_ALL_DAMAGE", result);
       return result;
@@ -382,17 +411,14 @@ export default {
       return cs;
     },
     damagePercent(dmg) {
-      return (
-        ((dmg[1] - dmg[0]) / Math.abs((dmg[1] + dmg[0]) / 2)) *
-        100
-      ).toFixed(1);
+      return (((dmg[1] - dmg[0]) / Math.abs(dmg[0])) * 100).toFixed(1);
     },
     calcNormal(mod, hit, def) {
       return Math.round(hit * (mod / 100) * this.levelNerf * def);
     },
     calcCritical(mod, hit, def, cdmg) {
       return Math.round(
-        hit * (1 + ((50 + cdmg) / 100)) * (mod / 100) * this.levelNerf * def
+        hit * (1 + (50 + cdmg) / 100) * (mod / 100) * this.levelNerf * def
       );
     },
   },

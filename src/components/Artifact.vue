@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="grid grid-auto gap-1 mt-1">
-      <label :for="artifact.id">{{artifact.label}}</label>
+      <label
+        class=" w-28"
+        :for="artifact.id"
+      >{{artifact.label}}</label>
       <input
         type="text"
         :id="artifact.id + side"

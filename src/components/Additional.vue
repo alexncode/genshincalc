@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-1 text-gray-200 w-full">
+  <div class="mt-1 text-gray-200">
     <button
       @click="showAdditional = !showAdditional"
       class=" rounded w-full h-4 leading-none font-extrabold"
@@ -21,16 +21,16 @@
       >
         <input
           type="text"
-          class="bg-transparent mr-1 w-3/6 text-left text-gray-200"
+          class="bg-transparent mr-1 text-left text-gray-200 w-32"
           v-model="stat.desc"
         >
         <input
           type="text"
-          class="text-gray-800 mr-1 w-1/6"
+          class="text-gray-800 mr-1 w-12"
           v-model.number="stat.value"
         />
         <select
-          class="text-gray-800 mr-1 w-2/6"
+          class="text-gray-800 mr-1 w-24"
           v-model="stat.stat"
         >
           <option

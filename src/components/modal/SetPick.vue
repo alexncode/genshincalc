@@ -1,9 +1,9 @@
 <template>
   <div
-    class="flex bg-gray-800 w-700 p-1 py-4"
+    class="flex flex-col md:flex-row bg-gray-800 max-w-screen-md p-1 py-4"
     @click.stop
   >
-    <div class="flex flex-wrap w-4/6">
+    <div class="flex flex-wrap md:w-4/6">
       <div
         v-for="(char, key) in sets"
         :key="key"
@@ -17,7 +17,7 @@
         >
       </div>
     </div>
-    <div class="w-2/6 text-blueGray-200">
+    <div class="md:w-2/6 text-blueGray-200">
       <div class="text-gay-800 text-center">{{ setName }}</div>
       <div><span class="text-green-200">2pcs:</span> {{ currentSet['2pcs'].bonusText}}</div>
       <div><span class="text-blue-200">4pcs:</span> {{ currentSet['4pcs'].bonusText}}</div>
@@ -61,7 +61,4 @@ export default {
 </script>
 
 <style>
-.w-700 {
-  width: 700px;
-}
 </style>

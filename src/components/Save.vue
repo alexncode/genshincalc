@@ -55,10 +55,12 @@
 <script>
 import { mapFields } from "vuex-map-fields";
 
+import { getCharData } from "@/data/characters";
+import { getWeaponData } from "@/data/weapons";
+
 export default {
   name: "Save",
   props: {
-    weapons: Array,
     artifacts: Array,
   },
   data() {
@@ -69,7 +71,7 @@ export default {
     };
   },
   computed: {
-    ...mapFields(["character", "set", "additionalStats"]),
+    ...mapFields(["character", "set", "additionalStats", "weapon"]),
   },
   methods: {
     save() {
@@ -77,7 +79,7 @@ export default {
         character: this.character,
         sets: this.set,
         additionalStats: this.additionalStats,
-        weapons: this.weapons,
+        weapon: this.weapon,
         artifacts: this.artifacts,
       };
       if (this.saveNames.includes(this.saveName)) {
@@ -93,10 +95,26 @@ export default {
       }
     },
     load(name) {
+      const weapons = {
+        Bow: "Compound Bow",
+        Catalyst: "Mappa Mare",
+        Sword: "Prototype Rancour",
+        Claymore: "Prototype Aminus",
+        Polearm: "Crescent Pike",
+      };
       const loadData = JSON.parse(window.localStorage.getItem(name));
-      this.character = loadData.character;
       this.set = loadData.sets;
       this.additionalStats = loadData.additionalStats;
+      if (Object.prototype.hasOwnProperty.call(loadData, "weapons")) {
+        this.character = getCharData(loadData.character.name, 80, 5);
+        this.weapon = {
+          0: getWeaponData(weapons[this.character.weapon]),
+          1: getWeaponData(weapons[this.character.weapon]),
+        };
+      } else {
+        this.character = loadData.character;
+        this.weapon = loadData.weapon;
+      }
       this.$emit("loadSave", loadData);
     },
     del(index) {
