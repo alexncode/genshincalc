@@ -495,6 +495,17 @@ export const weaponList = {
     refinement: 1,
     "description": "For every character in the party who hails from Mondstadt, the character who equips this weapon gains $eff1% ATK increase and 3/3.5/4/4.5/5% Movement SPD increase."
   },
+  "Frostbearer": {
+    "type": "Catalyst",
+    "dmg": 42,
+    "name": "ATK%",
+    "value": 9,
+    "additional": [],
+    "rarity": 4,
+    refinement: 1,
+    "description": `Hitting an opponent with Normal and Charged Attacks has a 60/70/80/90/100% chance of forming and dropping an Everfrost Icicle above them, dealing 80/95/110/125/140% AoE ATK DMG.
+    Opponents affected by Cryo are dealt 200/240/280/320/360% ATK DMG. Can only occur once every 10s`
+  },
   "Blackcliff Slasher": {
     "type": "Claymore",
     "dmg": 42,
@@ -595,6 +606,17 @@ export const weaponList = {
     refinement: 1,
     "description": "On hit, Normal or Charged Attacks increase ATK and DEF by $eff1% for 6s. Max 4 stacks. Can only occur once every 0.5s."
   },
+  "Snow-Tombed Starsilver": {
+    "type": "Claymore",
+    "dmg": 44,
+    "name": "Physical%",
+    "value": 7.5,
+    "additional": [],
+    "rarity": 4,
+    refinement: 1,
+    "description": `Hitting an opponent with Normal and Charged Attacks has a 60/70/80/90/100% chance of forming and dropping an Everfrost Icicle above them, dealing 80/95/110/125/140% AoE ATK DMG.
+    Opponents affected by Cryo are dealt 200/240/280/320/360% ATK DMG. Can only occur once every 10s`
+  },
   "Blackcliff Pole": {
     "type": "Polearm",
     "dmg": 42,
@@ -674,6 +696,17 @@ export const weaponList = {
     "rarity": 4,
     refinement: 1,
     "description": "Upon damaging an enemy, increases CRIT Rate by $eff1%. Max 5 stacks. A CRIT hit removes all stacks."
+  },
+  "Dragonspine Spear": {
+    "type": "Polearm",
+    "dmg": 41,
+    "name": "Physical%",
+    "value": 15,
+    "additional": [],
+    "rarity": 4,
+    refinement: 1,
+    "description": `Hitting an opponent with Normal and Charged Attacks has a 60/70/80/90/100% chance of forming and dropping an Everfrost Icicle above them, dealing 80/95/110/125/140% AoE ATK DMG.
+    Opponents affected by Cryo are dealt 200/240/280/320/360% ATK DMG. Can only occur once every 10s`
   },
   "Blackcliff Longsword": {
     "type": "Sword",
@@ -800,7 +833,7 @@ export const weaponList = {
     "dmg": 48,
     "name": "CRate%",
     "value": 4.8,
-    "additional": [{ name: "CDMG%", value: 20, inc: 5, active: false }],
+    "additional": [{ name: "CDmg%", value: 20, inc: 5, active: false }],
     "rarity": 5,
     refinement: 1,
     "description": "Increases CRIT DMG by $eff1%. Hits have a 60/70/80/90/100% chance to inflict a small AoE attack, dealing 100% Physical ATK DMG. Can only occur once every 4s."
