@@ -41,7 +41,7 @@
       class="flex flex-col text-gray-900 ml-4 my-2"
     >
       <div
-        v-for="substat in artifact.substats"
+        v-for="(substat, i) in artifact.substats"
         :key="substat.name"
         class="flex"
       >
@@ -65,8 +65,8 @@
           name="subVal"
           id="subVal"
           class="w-range mr-1"
-          :min="possibleStats[substat.name][artifact.rarity].min * (substat.upgrade + 1)"
-          :max="possibleStats[substat.name][artifact.rarity].max * (substat.upgrade + 1)"
+          :min="minSubstats[i]"
+          :max="maxSubstats[i]"
           :step="possibleStats[substat.name].step"
           v-model.number="substat.value"
         >
@@ -103,8 +103,14 @@ function shuffle(array) {
   return array;
 }
 
-function random(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+// function random(min, max) {
+//   return Math.floor(Math.random() * (max - min + 1)) + min;
+// }
+
+function randomSubstatVal(possibleVals) {
+  const i = possibleVals.length;
+  const j = Math.floor(Math.random() * i);
+  return possibleVals[j];
 }
 
 export default {
@@ -117,40 +123,24 @@ export default {
     return {
       showSubstats: false,
       possibleStats: {
-        "HP%": {
-          5: { min: 4.1, max: 5.8 },
-          4: { min: 3.3, max: 4.7 },
-          step: 0.1,
-        },
-        "ATK%": {
-          5: { min: 4.1, max: 5.8 },
-          4: { min: 3.3, max: 4.7 },
-          step: 0.1,
-        },
-        "DEF%": {
-          5: { min: 5.1, max: 7.3 },
-          4: { min: 4.1, max: 5.8 },
-          step: 0.1,
-        },
-        EM: { 5: { min: 16, max: 23 }, 4: { min: 13, max: 19 }, step: 1 },
+        "ATK%": { 5: [4.1, 4.7, 5.3, 5.8], 4: [3.3, 3.7, 4.2, 4.7], step: 0.1 },
+        "DEF%": { 5: [5.1, 5.8, 6.6, 7.3], 4: [4.1, 4.7, 5.3, 5.8], step: 0.1 },
+        "HP%": { 5: [4.1, 4.7, 5.3, 5.8], 4: [3.3, 3.7, 4.2, 4.7], step: 0.1 },
+        EM: { 5: [16, 19, 21, 23], 4: [13, 15, 17, 19], step: 1 },
         "CRate%": {
-          5: { min: 2.7, max: 3.9 },
-          4: { min: 2.2, max: 3.1 },
+          5: [2.7, 3.1, 3.5, 3.9],
+          4: [2.2, 2.5, 2.8, 3.1],
           step: 0.1,
         },
-        "CDmg%": {
-          5: { min: 5.4, max: 7.8 },
-          4: { min: 4.4, max: 6.2 },
-          step: 0.1,
-        },
+        "CDmg%": { 5: [5.4, 6.2, 7, 7.8], 4: [4.4, 5, 5.6, 6.2], step: 0.1 },
         "EnRe%": {
-          5: { min: 4.5, max: 6.5 },
-          4: { min: 3.6, max: 5.2 },
+          5: [4.5, 5.2, 5.8, 6.5],
+          4: [3.6, 4.1, 4.7, 5.2],
           step: 0.1,
         },
-        FlatATK: { 5: { min: 14, max: 19 }, 4: { min: 11, max: 16 }, step: 1 },
-        FlatDEF: { 5: { min: 15, max: 23 }, 4: { min: 13, max: 19 }, step: 1 },
-        HP: { 5: { min: 209, max: 299 }, 4: { min: 167, max: 239 }, step: 1 },
+        FlatATK: { 5: [14, 16, 18, 19], 4: [11, 12, 14, 16], step: 1 },
+        FlatDEF: { 5: [16, 19, 21, 23], 4: [13, 15, 17, 19], step: 1 },
+        HP: { 5: [209, 239, 269, 299], 4: [167, 191, 215, 239], step: 1 },
       },
       maxValues: {
         "HP%": { 4: 34.8, 5: 46.6 },
@@ -181,6 +171,18 @@ export default {
         this.maxUpdates
       );
     },
+    minSubstats() {
+      return this.artifact.substats.map((x) => {
+        const val = this.possibleStats[x.name][this.artifact.rarity][0];
+        return val + val * x.upgrade;
+      });
+    },
+    maxSubstats() {
+      return this.artifact.substats.map((x) => {
+        const val = this.possibleStats[x.name][this.artifact.rarity][3];
+        return val + val * x.upgrade;
+      });
+    },
   },
   methods: {
     substats() {
@@ -203,10 +205,7 @@ export default {
     startingValues() {
       const rarity = this.artifact.rarity;
       this.artifact.substats.forEach((x) => {
-        x.value = random(
-          this.possibleStats[x.name][rarity].min,
-          this.possibleStats[x.name][rarity].max
-        );
+        x.value = randomSubstatVal(this.possibleStats[x.name][rarity]);
         x.upgrade = 0;
       });
     },
@@ -216,9 +215,8 @@ export default {
         let x = Math.floor(Math.random() * 4);
         this.artifact.substats[x].upgrade += 1;
         const name = this.artifact.substats[x].name;
-        this.artifact.substats[x].value += random(
-          this.possibleStats[name][rarity].min,
-          this.possibleStats[name][rarity].max
+        this.artifact.substats[x].value += randomSubstatVal(
+          this.possibleStats[name][rarity]
         );
       }
     },
@@ -241,15 +239,13 @@ export default {
     },
     changeSubstatVal(substat) {
       const rarity = this.artifact.rarity;
-      substat.value =
-        Math.round(
-          random(
-            this.possibleStats[substat.name][rarity].min,
-            this.possibleStats[substat.name][rarity].max
-          ) *
-            100 *
-            (substat.upgrade + 1)
-        ) / 100;
+      substat.value = 0;
+      for (let i = 0; i < substat.upgrade + 1; i++) {
+        substat.value += randomSubstatVal(
+          this.possibleStats[substat.name][rarity]
+        );
+        substat.value = Math.round(substat.value * 10) / 10;
+      }
     },
     minusUpgrade(substat) {
       if (substat.upgrade > 0) {

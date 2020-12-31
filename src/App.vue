@@ -131,6 +131,20 @@
         <Help />
       </Modal>
     </div>
+    <transition name="slide">
+      <div
+        v-if="updateReady"
+        class="absolute mx-auto mt-4 left-1/2"
+      >
+        <div class="flex p-2 items-center bg-gray-700 text-gray-200 rounded relative -left-1/2 shadow-lg">
+          <div>New version available</div>
+          <div
+            class="rounded-xl bg-gray-500 ml-4 px-2 py-1 hover:bg-gray-600 cursor-pointer"
+            @click="update"
+          >Update</div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -154,6 +168,7 @@ import { characters } from "@/data/characters";
 import { sets } from "@/data/sets";
 
 import { mapFields } from "vuex-map-fields";
+import { mapGetters } from "vuex";
 
 function generateResObject() {
   return {
@@ -222,11 +237,12 @@ export default {
         "Defense",
         "Health points",
       ],
-      refreshing: false,
       activeTab: "Stats",
       characterPick: false,
       showSave: false,
       showHelp: false,
+      updateReady: false, //New update ready
+      refreshing: false, //Page is refreshing
     };
   },
   created() {
@@ -247,11 +263,12 @@ export default {
   },
   computed: {
     ...mapFields(["character", "set", "additionalStats", "weapon"]),
-    baseATK() {
-      return Object.keys(this.weapon).map(
-        (x) => this.weapon[x].baseATK + this.character.baseATK
-      );
-    },
+    ...mapGetters(["baseATK"]),
+    // baseATK() {
+    //   return Object.keys(this.weapon).map(
+    //     (x) => this.weapon[x].baseATK + this.character.baseATK
+    //   );
+    // },
     sumAllStats() {
       let allStatsRes = [generateResObject(), generateResObject()];
       let sets = this.set.map((x) => {
@@ -456,9 +473,13 @@ export default {
   },
   methods: {
     updateAvailable(event) {
-      const registration = event.detail;
-      if (!registration || !registration.waiting) return;
-      registration.waiting.postMessage({ type: "SKIP_WAITING" });
+      this.updateReady = true;
+      this.registration = event.detail;
+    },
+    update() {
+      this.updateReady = false;
+      if (!this.registration || !this.registration.waiting) return;
+      this.registration.waiting.postMessage({ type: "SKIP_WAITING" });
     },
     equalize() {
       for (const art in this.artifacts[1]) {
@@ -498,12 +519,31 @@ export default {
   background-color: #1b2027;
 }
 
-.grid-center {
-  grid-template-columns: auto 1fr auto;
-}
-
 input {
   text-align: center;
   border-radius: 3px;
+}
+
+.slide-enter-active {
+  transition-property: transform, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+.slide-leave-active {
+  transition-property: transform, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 600ms;
+}
+.slide-enter {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+.slider-enter-to {
+  opacity: 1;
+  transform: translateY(0px);
+}
+.slide-leave-to {
+  transform: translateY(-20px);
+  opacity: 0;
 }
 </style>

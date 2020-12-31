@@ -59,6 +59,11 @@ export default new Vuex.Store({
   },
   getters: {
     getField,
+    baseATK: (state) => {
+      return Object.keys(state.weapon).map(
+        (x) => state.weapon[x].baseATK + state.character.baseATK
+      );
+    }
   },
   mutations: {
     SET_ALL_DAMAGE(state, val) {

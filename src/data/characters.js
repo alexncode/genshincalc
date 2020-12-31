@@ -185,7 +185,7 @@ export let characters = {
     weapon: "Sword",
     talentsBonus: [
       { desc: "25% more dmg against enemies with 50% or lower HP", name: "AllDMG%", value: 25, active: true },
-      { desc: "After Burst Elemental MAstery increased by 125", name: "EM", value: 125, active: false }]
+      { desc: "After Burst Elemental Mastery increased by 125", name: "EM", value: 125, active: false }]
   },
   Xiao: {
     charName: "Xiao",

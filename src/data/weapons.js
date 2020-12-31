@@ -435,7 +435,7 @@ export const weaponList = {
     refinement: 1,
     "description": "Triggering an Elemental reaction grants a $eff1% Elemental DMG Bonus for 10s. Max 2 stacks."
   },
-  "Prototype Malice": {
+  "Prototype Amber": {
     "type": "Catalyst",
     "dmg": 42,
     "name": "HP%",
@@ -536,7 +536,7 @@ export const weaponList = {
     refinement: 1,
     "description": "For every character in the party who hails from Liyue, the character who equips this weapon gains $eff1% ATK increase and $eff2% CRIT Rate increase."
   },
-  "Prototype Aminus": {
+  "Prototype Archaic": {
     "type": "Claymore",
     "dmg": 44,
     "name": "ATK%",
@@ -833,7 +833,7 @@ export const weaponList = {
     "dmg": 48,
     "name": "CRate%",
     "value": 4.8,
-    "additional": [{ name: "CDmg%", value: 20, inc: 5, active: false }],
+    "additional": [{ name: "CDmg%", value: 20, inc: 5, active: true }],
     "rarity": 5,
     refinement: 1,
     "description": "Increases CRIT DMG by $eff1%. Hits have a 60/70/80/90/100% chance to inflict a small AoE attack, dealing 100% Physical ATK DMG. Can only occur once every 4s."
@@ -901,7 +901,7 @@ export const weaponList = {
   "The Unforged": {
     "type": "Claymore",
     "dmg": 46,
-    "name": "ATK",
+    "name": "ATK%",
     "value": 10.8,
     "additional": [{ name: "ATK%", value: 40, inc: 10, active: false }],
     "rarity": 5,

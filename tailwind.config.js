@@ -12,6 +12,9 @@ module.exports = {
   theme: {
     extend: {
       colors: colors,
+      cursor: {
+        help: "help"
+      }
     },
   },
   variants: {

@@ -21,9 +21,10 @@
           >{{ att }}</td>
           <td
             class="border border-gray-600 px-1 py-1 text-center"
-            :class="j > 0 ? allResults[i].class : ''"
+            :class="[j > 0 ? allResults[i].class : '', infoList.includes(att) ? 'underline cursor-pointer' : '']"
             v-for="(res, j) in allResults[i].value"
             :key="'' + res + j"
+            @click="showModalF(att, j)"
           >{{ res }}<sup v-if="j > 0 && allResults[i].class"> {{ allResults[i].percent }}%</sup></td>
         </tr>
       </tbody>
@@ -49,15 +50,28 @@
         </div>
       </Modal>
     </div>
+    <div
+      v-if="showOptimize"
+      @click="showOptimize = false"
+    >
+      <Modal>
+        <Optimizer
+          :attribute="attribute"
+          :order="setNumber"
+        />
+      </Modal>
+    </div>
   </div>
 </template>
 
 <script>
 import Modal from "./modal/Modal.vue";
 
+import Optimizer from "./modal/Optimizer.vue";
+
 export default {
   name: "StatTable",
-  components: { Modal },
+  components: { Modal, Optimizer },
   props: {
     attributes: Array,
     allResults: Array,
@@ -65,6 +79,16 @@ export default {
   data() {
     return {
       showModal: false,
+      showOptimize: false,
+      setNumber: 0,
+      infoList: [
+        "Attack",
+        "Physical attack",
+        "Elemental attack",
+        "Normal attack",
+        "Charged attack",
+      ],
+      attribute: "Physical attack",
     };
   },
   computed: {
@@ -81,9 +105,14 @@ export default {
     },
   },
   methods: {
-    showModalF(att) {
+    showModalF(att, j) {
       if (att == "Elemental mastery") {
         this.showModal = true;
+      }
+      if (this.infoList.includes(att)) {
+        this.setNumber = j;
+        this.attribute = att;
+        this.showOptimize = true;
       }
     },
     closeModal() {

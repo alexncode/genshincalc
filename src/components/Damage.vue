@@ -261,8 +261,12 @@ export default {
     },
     skillHit() {
       return this.sumAllStats.map((side, i) => {
+        let atk = this.attackPowFood[i];
+        if (this.character.charName == "Albedo") {
+          atk = this.allResults[11][i];
+        }
         return (
-          this.attackPowFood[i] *
+          atk *
           (1 + (side["Elemental%"] + side["AllDMG%"] + side["SkillDMG%"]) / 100)
         );
       });
