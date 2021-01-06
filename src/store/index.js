@@ -7,6 +7,8 @@ import { stats } from "@/store/modules/stats.js"
 
 import { getCharData } from "@/data/characters"
 import { getWeaponData } from "@/data/weapons"
+import { generateArtifacts } from "@/data/artifacts";
+import { sets } from "@/data/sets";
 
 Vue.use(Vuex)
 
@@ -29,6 +31,7 @@ function generateResObject() {
     "NormalATK%": 0,
     "NCATK%": 0,
     "SkillDMG%": 0,
+    "Burst%": 0,
     "AllDMG%": 0,
     Melt: 0,
     Vaporize: 0,
@@ -45,12 +48,12 @@ export default new Vuex.Store({
     elementalDamage: false,
     allDamage: {},
     allElemental: {},
-    allStats: [generateResObject(), generateResObject()],
     character: getCharData("Keqing", 80, 5),
     set: [
       { pieces: "4pcs", set: ["Gladiator's Finale", "none"] },
       { pieces: "4pcs", set: ["Bloodstained Chivalry", "none"] },
     ],
+    artifacts: [generateArtifacts("First"), generateArtifacts("Second")],
     weapon: {
       0: getWeaponData("The Black Sword"),
       1: getWeaponData("The Black Sword")
@@ -63,6 +66,91 @@ export default new Vuex.Store({
       return Object.keys(state.weapon).map(
         (x) => state.weapon[x].baseATK + state.character.baseATK
       );
+    },
+    setsStats: (state) => {
+      let res = state.set.map((x) => {
+        let result = {};
+        if (x.set[0] != "none") {
+          result.a = sets[x.set[0]]["2pcs"]
+          if (x.pieces == "4pcs") {
+            result.b = sets[x.set[0]]["4pcs"]
+          }
+          if (x.pieces == "2pcs" && x.set[1] != "none") {
+            result.b = sets[x.set[1]]["2pcs"];
+          }
+        }
+        return result;
+      });
+      return res;
+    },
+    allStats: (state, getters) => {
+      let allStatsRes = [generateResObject(), generateResObject()];
+      let allEquip = [state.artifacts, getters.setsStats];
+      for (const equip of allEquip) {
+        equip.forEach((x, i) => {
+          for (const key in x) {
+            if (Object.prototype.hasOwnProperty.call(x[key], "name")) {
+              let name = x[key].name;
+              allStatsRes[i][name] =
+                allStatsRes[i][name] + x[key].value || x[key].value;
+            }
+            if (Object.prototype.hasOwnProperty.call(x[key], "substats")) {
+              x[key].substats.forEach((substat) => {
+                let name = substat.name;
+                allStatsRes[i][name] =
+                  allStatsRes[i][name] + substat.value || substat.value;
+              });
+            }
+          }
+        });
+      }
+      state.additionalStats.forEach((side, i) => {
+        side.forEach((stat) => {
+          allStatsRes[i][stat.stat] =
+            allStatsRes[i][stat.stat] + stat.value || stat.value;
+        });
+      });
+
+      const ch = state.character;
+      const wp = state.weapon;
+      for (let i = 0; i < 2; i++) {
+        allStatsRes[i][ch.name] =
+          allStatsRes[i][ch.name] + ch.value || ch.value;
+        if (ch.charName == "Xiao" && ch.talentsBonus[0].active) {
+          allStatsRes[i]["NCATK%"] =
+            allStatsRes[i]["NCATK%"] + ch.burst || ch.burst;
+        }
+        ch.talentsBonus
+          .filter((x) => x.active)
+          .forEach(
+            (x) =>
+            (allStatsRes[i][x.name] =
+              allStatsRes[i][x.name] + x.value || x.value)
+          );
+        ch.constellationBonus
+          .filter((x) => x.active)
+          .forEach(
+            (x) =>
+            (allStatsRes[i][x.name] =
+              allStatsRes[i][x.name] + x.value || x.value)
+          );
+        allStatsRes[i][wp[i].name] =
+          allStatsRes[i][wp[i].name] + wp[i].value || wp[i].value;
+        wp[i].additional
+          .filter((x) => x.active)
+          .forEach(
+            (x) =>
+            (allStatsRes[i][x.name] =
+              allStatsRes[i][x.name] + x.value || x.value)
+          );
+      }
+      if (ch.charName == "Mona" && ch.talentsBonus[0].active) {
+        allStatsRes[0]["Elemental%"] =
+          Math.round((allStatsRes[0]["EnRe%"] + 100) * 0.2 * 10) / 10;
+        allStatsRes[1]["Elemental%"] =
+          Math.round((allStatsRes[1]["EnRe%"] + 100) * 0.2 * 10) / 10;
+      }
+      return allStatsRes;
     }
   },
   mutations: {

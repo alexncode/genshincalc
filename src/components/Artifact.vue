@@ -20,7 +20,7 @@
       <select
         name="mainStat"
         :id="artifact.id + side"
-        v-model="artifact.mainStatName"
+        v-model="artifact.name"
         @change="maxValue"
         class="text-gray-900"
       >
@@ -189,7 +189,7 @@ export default {
       let substats = shuffle(Object.keys(this.possibleStats));
       let i = 0;
       while (this.artifact.substats.length < 4) {
-        if (substats[i] != this.artifact.mainStatName) {
+        if (substats[i] != this.artifact.name) {
           this.artifact.substats.push({
             name: substats[i],
             value: 0,
@@ -226,7 +226,7 @@ export default {
       });
     },
     maxValue() {
-      this.artifact.value = this.maxValues[this.artifact.mainStatName][
+      this.artifact.value = this.maxValues[this.artifact.name][
         this.artifact.rarity
       ];
     },

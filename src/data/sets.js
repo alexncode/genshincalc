@@ -100,7 +100,7 @@ export let sets = {
     rarity: 5,
     "2pcs": { name: "Elemental%", value: 15, bonusText: "Electro DMG Bonus +15%" },
     "4pcs": {
-      name: "ElectroReactions%", value: 40, additional: [
+      name: "ElectroReactions%", value: 40, substats: [
         { name: "Electro-charged", value: 40 },
         { name: "Overload", value: 40 },
         { name: "Superconduct", value: 40 },
@@ -119,7 +119,7 @@ export let sets = {
     rarity: 5,
     "2pcs": { name: "Elemental%", value: 15, bonusText: "Pyro DMG Bonus +15%" },
     "4pcs": {
-      name: "FireReactions%", value: 40, bonusText: "Increases Overloaded and Burning DMG by 40%. Increases Vaporize and Melt DMG by 15%. Using an Elemental Skill increases 2-Piece Set effects by 50% for 10s. Max 3 stacks", additional: [
+      name: "FireReactions%", value: 40, bonusText: "Increases Overloaded and Burning DMG by 40%. Increases Vaporize and Melt DMG by 15%. Using an Elemental Skill increases 2-Piece Set effects by 50% for 10s. Max 3 stacks", substats: [
         { name: "Vaporize", value: 15 },
         { name: "Melt", value: 15 },
         { name: "Overload", value: 40 },

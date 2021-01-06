@@ -1,7 +1,7 @@
 <template>
   <div class="bg-gray-700 text-gray-200 p-2">
     <div v-if="attribute == 'Attack'">
-      <p>Base ATK to ATK% ratio is {{ totalATKPercent[order] }}% should be more than 114% before you start to need to invest in other stats.</p>
+      <p>Base ATK to ATK% ratio is {{ totalATKPercent[order] }}% should be close to 114% before you start to need to invest in other stats.</p>
       <p>Keep in mind that you can have other sources of ATK% like Fire resonance or Thrilling Tales of Dragon Slayers.</p>
     </div>
     <div v-if="attribute == 'Physical attack'">
@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import { mapFields } from "vuex-map-fields";
 import { mapGetters } from "vuex";
 
 export default {
@@ -38,8 +37,7 @@ export default {
     order: Number,
   },
   computed: {
-    ...mapFields(["allStats"]),
-    ...mapGetters(["baseATK"]),
+    ...mapGetters(["baseATK", "allStats"]),
     totalATKPercent() {
       return this.allStats.map((x, i) =>
         Math.round(

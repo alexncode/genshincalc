@@ -60,9 +60,6 @@ import { getWeaponData } from "@/data/weapons";
 
 export default {
   name: "Save",
-  props: {
-    artifacts: Array,
-  },
   data() {
     return {
       saveName: "New save",
@@ -71,7 +68,13 @@ export default {
     };
   },
   computed: {
-    ...mapFields(["character", "set", "additionalStats", "weapon"]),
+    ...mapFields([
+      "character",
+      "set",
+      "additionalStats",
+      "weapon",
+      "artifacts",
+    ]),
   },
   methods: {
     save() {
@@ -115,7 +118,17 @@ export default {
         this.character = loadData.character;
         this.weapon = loadData.weapon;
       }
-      this.$emit("loadSave", loadData);
+      this.artifacts = loadData.artifacts.map((x) => {
+        let res = x;
+        for (const key in x) {
+          if (Object.hasOwnProperty.call(x, key)) {
+            if (x[key].mainStatName) {
+              res[key].name = x[key].mainStatName;
+            }
+          }
+        }
+        return res;
+      });
     },
     del(index) {
       window.localStorage.removeItem(this.saveNames[index]);

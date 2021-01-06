@@ -21,7 +21,7 @@
         </div>
         <div class="flex flex-col ml-2 text-gray-200 w-full">
           <div class="flex justify-between">
-            <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.8</h1>
+            <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.8.5</h1>
             <div class="flex">
               <div
                 class="text-blue-400 mr-2 cursor-pointer"
@@ -106,15 +106,12 @@
         />
         <Damage
           v-show="activeTab == 'Damage'"
-          :sumAllStats="sumAllStats"
           :allResults="allResults"
           :atkPower="atkPower"
         />
         <Reactions
           v-show="activeTab == 'Elemental reactions'"
           :EM="allResults[9]"
-          :hero="characters[character]"
-          :set="set"
         />
       </div>
     </div>
@@ -163,43 +160,8 @@ import Help from "@/components/Help.vue";
 
 import TabButton from "@/components/UI/TabButton.vue";
 
-import { artifactsList } from "@/data/artifacts";
-import { characters } from "@/data/characters";
-import { sets } from "@/data/sets";
-
 import { mapFields } from "vuex-map-fields";
 import { mapGetters } from "vuex";
-
-function generateResObject() {
-  return {
-    "HP%": 0,
-    "ATK%": 0,
-    "DEF%": 0,
-    EM: 0,
-    HP: 0,
-    FlatDEF: 0,
-    FlatATK: 0,
-    "CRate%": 0,
-    "CDmg%": 0,
-    "Healing%": 0,
-    "Elemental%": 0,
-    "Physical%": 0,
-    "EnRe%": 0,
-    "Charged%": 0,
-    "NormalATK%": 0,
-    "NCATK%": 0,
-    "SkillDMG%": 0,
-    "Burst%": 0,
-    "AllDMG%": 0,
-    Melt: 0,
-    Vaporize: 0,
-    Overload: 0,
-    Superconduct: 0,
-    "Electro-charged": 0,
-    Swirl: 0,
-    Shattered: 0,
-  };
-}
 
 export default {
   name: "App",
@@ -219,9 +181,6 @@ export default {
   },
   data() {
     return {
-      artifacts: [artifactsList, JSON.parse(JSON.stringify(artifactsList))],
-      characters: characters,
-      sets: sets,
       attributes: [
         "Attack",
         "Physical attack",
@@ -256,135 +215,36 @@ export default {
       window.location.reload();
     });
   },
-  watch: {
-    sumAllStats(val) {
-      this.$store.commit("SET_ALL_STATS", val);
-    },
-  },
   computed: {
-    ...mapFields(["character", "set", "additionalStats", "weapon"]),
-    ...mapGetters(["baseATK"]),
-    // baseATK() {
-    //   return Object.keys(this.weapon).map(
-    //     (x) => this.weapon[x].baseATK + this.character.baseATK
-    //   );
-    // },
-    sumAllStats() {
-      let allStatsRes = [generateResObject(), generateResObject()];
-      let sets = this.set.map((x) => {
-        let result = {};
-        if (x.set[0] != "none") {
-          if (x.pieces == "4pcs") {
-            result = {
-              a: this.sets[x.set[0]]["2pcs"],
-              b: this.sets[x.set[0]]["4pcs"],
-            };
-          } else {
-            if (x.set[1] != "none") {
-              result = {
-                a: this.sets[x.set[0]]["2pcs"],
-                b: this.sets[x.set[1]]["2pcs"],
-              };
-            } else {
-              result = { a: this.sets[x.set[0]]["2pcs"] };
-            }
-          }
-        }
-        return result;
-      });
-      let allEquip = [this.artifacts, sets];
-      for (const equip of allEquip) {
-        equip.forEach((x, i) => {
-          for (const key in x) {
-            if (Object.prototype.hasOwnProperty.call(x[key], "mainStatName")) {
-              let name = x[key].mainStatName;
-              allStatsRes[i][name] =
-                allStatsRes[i][name] + x[key].value || x[key].value;
-            }
-            if (Object.prototype.hasOwnProperty.call(x[key], "substats")) {
-              x[key].substats.forEach((substat) => {
-                let name = substat.name;
-                allStatsRes[i][name] =
-                  allStatsRes[i][name] + substat.value || substat.value;
-              });
-            }
-            if (Object.prototype.hasOwnProperty.call(x[key], "name")) {
-              let name = x[key].name;
-              allStatsRes[i][name] =
-                allStatsRes[i][name] + x[key].value || x[key].value;
-            }
-            if (Object.prototype.hasOwnProperty.call(x[key], "additional")) {
-              x[key].additional.forEach((substat) => {
-                let name = substat.name;
-                allStatsRes[i][name] =
-                  allStatsRes[i][name] + substat.value || substat.value;
-              });
-            }
-          }
-        });
-      }
-      this.additionalStats.forEach((side, i) => {
-        side.forEach((stat) => {
-          allStatsRes[i][stat.stat] =
-            allStatsRes[i][stat.stat] + stat.value || stat.value;
-        });
-      });
-
-      const ch = this.character;
-      const wp = this.weapon;
-      for (let i = 0; i < 2; i++) {
-        allStatsRes[i][ch.name] =
-          allStatsRes[i][ch.name] + ch.value || ch.value;
-        if (ch.charName == "Xiao" && ch.talentsBonus[0].active) {
-          allStatsRes[i]["NCATK%"] =
-            allStatsRes[i]["NCATK%"] + ch.burst || ch.burst;
-        }
-        ch.talentsBonus
-          .filter((x) => x.active)
-          .forEach(
-            (x) =>
-              (allStatsRes[i][x.name] =
-                allStatsRes[i][x.name] + x.value || x.value)
-          );
-        allStatsRes[i][wp[i].name] =
-          allStatsRes[i][wp[i].name] + wp[i].value || wp[i].value;
-        wp[i].additional
-          .filter((x) => x.active)
-          .forEach(
-            (x) =>
-              (allStatsRes[i][x.name] =
-                allStatsRes[i][x.name] + x.value || x.value)
-          );
-      }
-      if (ch.charName == "Mona" && ch.talentsBonus[0].active) {
-        allStatsRes[0]["Elemental%"] =
-          Math.round((allStatsRes[0]["EnRe%"] + 100) * 0.2 * 10) / 10;
-        allStatsRes[1]["Elemental%"] =
-          Math.round((allStatsRes[1]["EnRe%"] + 100) * 0.2 * 10) / 10;
-      }
-      return allStatsRes;
-    },
+    ...mapFields([
+      "character",
+      "set",
+      "additionalStats",
+      "weapon",
+      "artifacts",
+    ]),
+    ...mapGetters(["baseATK", "setsStats", "allStats"]),
     atkPower() {
-      return this.sumAllStats.map((x, i) => {
+      return this.allStats.map((x, i) => {
         return Math.round(
           this.baseATK[i] * (1 + x["ATK%"] / 100) + x["FlatATK"]
         );
       });
     },
     critDmg() {
-      return this.sumAllStats.map((x) => {
+      return this.allStats.map((x) => {
         return ((50 + x["CDmg%"]) / 100) * ((5 + x["CRate%"]) / 100);
       });
     },
     physAtk() {
-      return this.sumAllStats.map((x, i) => {
+      return this.allStats.map((x, i) => {
         let phys =
           this.atkPower[i] * (1 + (x["Physical%"] + x["AllDMG%"]) / 100);
         return Math.round(phys + phys * this.critDmg[i]);
       });
     },
     normalAtk() {
-      return this.sumAllStats.map((x, i) => {
+      return this.allStats.map((x, i) => {
         let phys =
           this.atkPower[i] *
           (1 +
@@ -397,7 +257,7 @@ export default {
       });
     },
     chargedAtk() {
-      return this.sumAllStats.map((x, i) => {
+      return this.allStats.map((x, i) => {
         let phys =
           this.atkPower[i] *
           (1 +
@@ -410,31 +270,29 @@ export default {
       });
     },
     elemAtk() {
-      return this.sumAllStats.map((x, i) => {
+      return this.allStats.map((x, i) => {
         let elem =
           this.atkPower[i] * (1 + (x["Elemental%"] + x["AllDMG%"]) / 100);
         return Math.round(elem + elem * this.critDmg[i]);
       });
     },
     allResults() {
-      const critChance = this.sumAllStats.map(
+      const critChance = this.allStats.map(
         (x) => Math.round((x["CRate%"] + 5) * 10) / 10
       );
-      const critDamage = this.sumAllStats.map(
+      const critDamage = this.allStats.map(
         (x) => Math.round((x["CDmg%"] + 50) * 10) / 10
       );
-      const elem = this.sumAllStats.map((x) => x["Elemental%"]);
-      const phys = this.sumAllStats.map((x) => x["Physical%"]);
-      const EM = this.sumAllStats.map((x) => x["EM"]);
-      const EnRe = this.sumAllStats.map(
-        (x) => Math.round(x["EnRe%"] * 10) / 10
-      );
-      const DEF = this.sumAllStats.map((x) =>
+      const elem = this.allStats.map((x) => x["Elemental%"]);
+      const phys = this.allStats.map((x) => x["Physical%"]);
+      const EM = this.allStats.map((x) => x["EM"]);
+      const EnRe = this.allStats.map((x) => Math.round(x["EnRe%"] * 10) / 10);
+      const DEF = this.allStats.map((x) =>
         Math.round(
           this.character.baseDEF * (1 + x["DEF%"] / 100) + x["FlatDEF"]
         )
       );
-      const HP = this.sumAllStats.map((x) =>
+      const HP = this.allStats.map((x) =>
         Math.round(this.character.baseHP * (1 + x["HP%"] / 100) + x["HP"])
       );
 
@@ -485,9 +343,7 @@ export default {
       for (const art in this.artifacts[1]) {
         this.artifacts[1][art].value = this.artifacts[0][art].value;
         this.artifacts[1][art].rarity = this.artifacts[0][art].rarity;
-        this.artifacts[1][art].mainStatName = this.artifacts[0][
-          art
-        ].mainStatName;
+        this.artifacts[1][art].name = this.artifacts[0][art].name;
         this.artifacts[1][art].substats = JSON.parse(
           JSON.stringify(this.artifacts[0][art].substats)
         );

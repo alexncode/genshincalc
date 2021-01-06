@@ -67,6 +67,7 @@ export default {
         "CRate%",
         "CDmg%",
         "FlatATK",
+        "EM",
       ],
       showAdditional: false,
     };

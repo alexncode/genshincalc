@@ -88,7 +88,7 @@
 <script>
 import Input from "@/components/UI/Input.vue";
 
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 const reactionElements = {
   Electro: [
@@ -126,7 +126,6 @@ export default {
   },
   props: {
     EM: Array,
-    set: Array,
   },
   data() {
     return {
@@ -139,7 +138,8 @@ export default {
   },
   computed: {
     // Superconductor : Swirl : Electro-charged : Shattered : Overload = 1 : 1.2 : 2.4 : 3 : 4
-    ...mapState(["allElemental", "allStats", "character"]),
+    ...mapState(["allElemental", "character", "set"]),
+    ...mapGetters(["allStats"]),
     percent() {
       return this.EM.map(
         (em) => Math.round(((1 * em * (25 / 9)) / (em + 1400)) * 1000) / 10

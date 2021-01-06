@@ -89,6 +89,26 @@
               >
             </div>
           </div>
+          <div
+            v-if="characters[name].constellationBonus"
+            class="mt-2"
+          >
+            <div class="text-green-200">Constellation Bonuses:</div>
+            <div
+              v-for="bonus in characters[name].constellationBonus"
+              :key="bonus.desc"
+              class="flex mt-1 text-blue-200"
+            >
+              <div><span class="text-amber-300">c{{bonus.c}}</span> {{ bonus.desc }}</div>
+              <input
+                type="checkbox"
+                name="talent"
+                id="bonus"
+                v-model="bonus.active"
+                class="self-center ml-2"
+              >
+            </div>
+          </div>
         </div>
         <button
           class="bg-green-700 px-2 py-1 w-full rounded hover:bg-green-800 font-bold mt-1 mb-4 md:mb-1"

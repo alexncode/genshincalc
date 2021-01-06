@@ -135,20 +135,16 @@
 
 <script>
 import { mapFields } from "vuex-map-fields";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Damage",
   props: {
-    sumAllStats: Array,
     atkPower: Array,
     allResults: Array,
   },
   data() {
     return {
-      // normal: 59.6,
-      // charged: 237,
-      // skill: 235,
-      // burst: 679.8,
       level: 80,
       enemyLevel: 80,
       superc: false,
@@ -172,6 +168,7 @@ export default {
   },
   computed: {
     ...mapFields(["elementalDamage", "character"]),
+    ...mapGetters(["allStats"]),
     def() {
       let superc = 0;
       if (this.superc) {
@@ -197,7 +194,7 @@ export default {
       return (100 + this.level) / (100 + this.level + 100 + this.enemyLevel);
     },
     modific() {
-      return this.sumAllStats.map((side) => {
+      return this.allStats.map((side) => {
         return this.elementalDamage ? side["Elemental%"] : side["Physical%"];
       });
     },
@@ -208,7 +205,7 @@ export default {
       return this.food ? this.atkPower.map((x) => x + 372) : this.atkPower;
     },
     normalHit() {
-      return this.sumAllStats.map((side, i) => {
+      return this.allStats.map((side, i) => {
         return (
           this.attackPowFood[i] *
           (1 +
@@ -221,7 +218,7 @@ export default {
       });
     },
     chargedHit() {
-      return this.sumAllStats.map((side, i) => {
+      return this.allStats.map((side, i) => {
         return (
           this.attackPowFood[i] *
           (1 +
@@ -234,7 +231,7 @@ export default {
       });
     },
     normalHitElem() {
-      return this.sumAllStats.map((side, i) => {
+      return this.allStats.map((side, i) => {
         return (
           this.attackPowFood[i] *
           (1 +
@@ -247,7 +244,7 @@ export default {
       });
     },
     chargedHitElem() {
-      return this.sumAllStats.map((side, i) => {
+      return this.allStats.map((side, i) => {
         return (
           this.attackPowFood[i] *
           (1 +
@@ -260,7 +257,7 @@ export default {
       });
     },
     skillHit() {
-      return this.sumAllStats.map((side, i) => {
+      return this.allStats.map((side, i) => {
         let atk = this.attackPowFood[i];
         if (this.character.charName == "Albedo") {
           atk = this.allResults[11][i];
@@ -272,7 +269,7 @@ export default {
       });
     },
     burstHit() {
-      return this.sumAllStats.map((side, i) => {
+      return this.allStats.map((side, i) => {
         const burstHit =
           this.attackPowFood[i] *
           (1 + (side["Elemental%"] + side["AllDMG%"] + side["Burst%"]) / 100);
@@ -288,8 +285,7 @@ export default {
             x *
               0.33 *
               (1 +
-                (this.sumAllStats[i]["Elemental%"] +
-                  this.sumAllStats[i]["Burst%"]) /
+                (this.allStats[i]["Elemental%"] + this.allStats[i]["Burst%"]) /
                   100)
           );
           res.push({
@@ -298,7 +294,7 @@ export default {
               100,
               hit,
               this.elemDef,
-              this.sumAllStats[i]["CDmg%"]
+              this.allStats[i]["CDmg%"]
             ),
           });
         });
@@ -316,7 +312,7 @@ export default {
         "Burst hit": [0, 0],
         "Burst critical": [0, 0],
       };
-      for (let i = 0; i < this.sumAllStats.length; i++) {
+      for (let i = 0; i < this.allStats.length; i++) {
         result["Normal hit"][i] = this.calcNormal(
           this.character.normal,
           this.normalHit[i],
@@ -326,7 +322,7 @@ export default {
           this.character.normal,
           this.normalHit[i],
           this.defMod,
-          this.sumAllStats[i]["CDmg%"]
+          this.allStats[i]["CDmg%"]
         );
         result["Charged hit"][i] = this.calcNormal(
           this.character.charged,
@@ -337,7 +333,7 @@ export default {
           this.character.charged,
           this.chargedHit[i],
           this.defMod,
-          this.sumAllStats[i]["CDmg%"]
+          this.allStats[i]["CDmg%"]
         );
         result["Skill hit"][i] = this.calcNormal(
           this.character.skill,
@@ -348,7 +344,7 @@ export default {
           this.character.skill,
           this.skillHit[i],
           this.elemDef,
-          this.sumAllStats[i]["CDmg%"]
+          this.allStats[i]["CDmg%"]
         );
         result["Burst hit"][i] =
           this.calcNormal(
@@ -361,7 +357,7 @@ export default {
             this.character.burst,
             this.burstHit[i],
             this.elemDef,
-            this.sumAllStats[i]["CDmg%"]
+            this.allStats[i]["CDmg%"]
           ) + (this.additionalBurst[i] ? this.additionalBurst[i].critical : 0);
       }
       this.$store.commit("SET_ALL_DAMAGE", result);
@@ -379,7 +375,7 @@ export default {
         "Burst critical": this.allDamage["Burst critical"],
       };
 
-      for (let i = 0; i < this.sumAllStats.length; i++) {
+      for (let i = 0; i < this.allStats.length; i++) {
         result["Normal hit"][i] = this.calcNormal(
           this.character.normal,
           this.normalHitElem[i],
@@ -389,7 +385,7 @@ export default {
           this.character.normal,
           this.normalHitElem[i],
           this.defMod,
-          this.sumAllStats[i]["CDmg%"]
+          this.allStats[i]["CDmg%"]
         );
         result["Charged hit"][i] = this.calcNormal(
           this.character.charged,
@@ -400,7 +396,7 @@ export default {
           this.character.charged,
           this.chargedHitElem[i],
           this.defMod,
-          this.sumAllStats[i]["CDmg%"]
+          this.allStats[i]["CDmg%"]
         );
       }
       this.$store.commit("SET_ALL_ELEMENTAL", result);

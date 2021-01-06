@@ -23,37 +23,60 @@ export let characters = {
     weapon: "Sword",
     talentsBonus: [
       { desc: "15% bonus to CRate from Burst", name: "CRate%", value: 15, active: false },
-      { desc: "15% bonus to Energy recharge from Burst", name: "EnRe%", value: 15, active: false }]
+      { desc: "15% bonus to Energy recharge from Burst", name: "EnRe%", value: 15, active: false }],
+    constellationBonus: [
+      { c: 4, desc: "After triggering reaction gain 25% ATK bonus", name: "ATK%", value: 25, active: false },
+      { c: 6, desc: "Gain 6-24%(12) Electro DMG bonus", name: "Elemental%", value: 12, active: false }
+    ]
   },
   Razor: {
     charName: "Razor",
     element: "Electro", rarity: 4,
     weapon: "Claymore",
-    talentsBonus: []
+    talentsBonus: [],
+    constellationBonus: [
+      { c: 1, desc: "Pickng up elemental Orb increases DMG by 10%", name: "AllDMG%", value: 10, active: false },
+      { c: 1, desc: "Crit Rate against enemies with less than 30%HP +10%", name: "CRate%", value: 10, active: false },
+    ]
   },
   Qiqi: {
     charName: "Qiqi",
     element: "Ice", rarity: 5,
     weapon: "Sword",
-    talentsBonus: []
+    talentsBonus: [],
+    constellationBonus: [
+      { c: 2, desc: "Normal and Charged attack gain 15% bonus against Cryo", name: "NCATK%", value: 15, active: false },
+    ]
   },
   Beidou: {
     charName: "Beidou",
     element: "Electro", rarity: 4,
     weapon: "Claymore",
-    talentsBonus: [{ desc: "Bonus after maximum couter attack Normal and Charged +15% dmg.", name: "NCATK", value: 15, active: false }]
+    talentsBonus: [
+      { desc: "Bonus after maximum couter attack Normal and Charged +15% dmg.", name: "NCATK", value: 15, active: false }
+    ],
+    constellationBonus: [
+      { c: 4, desc: "After taking DMG Normal attack deals 20% additional Electo DMG", name: "Elemental%", value: 20, active: false },
+    ]
   },
   Diluc: {
     charName: "Diluc",
     element: "Fire", rarity: 5,
     weapon: "Claymore",
-    talentsBonus: [{ desc: "Effect after burst, Pyro DMG 20% increase", name: "Elemental%", value: 20, active: false }]
+    talentsBonus: [
+      { desc: "Effect after burst, Pyro DMG 20% increase", name: "Elemental%", value: 20, active: false }
+    ],
+    constellationBonus: [
+      { c: 1, desc: "Gain 15% more DMG", name: "AllDMG%", value: 15, active: false },
+      { c: 2, desc: "When takes DMG gain 10-30%(20) ATK% bonus", name: "ATK%", value: 15, active: false },
+      { c: 6, desc: "After Skill use gain 30% bonus to Normal ATK DMG", name: "NormalATK", value: 30, active: false }
+    ]
   },
   Lisa: {
     charName: "Lisa",
     element: "Electro", rarity: 4,
     weapon: "Catalyst",
-    talentsBonus: [{ desc: "Burst applies -15% DEF to opponents", name: "DEFDebuff", value: 15, active: false }]
+    talentsBonus: [] //{ desc: "Burst applies -15% DEF to opponents", name: "DEFDebuff", value: 15, active: false }
   },
   Amber: {
     charName: "Amber",
@@ -62,31 +85,52 @@ export let characters = {
     talentsBonus: [
       { desc: "Burst CRate increased by 10%", name: "BurstCRate%", value: 10, active: true },
       { desc: "ATK after hit on weak point increased by 15%", name: "ATK%", value: 15, active: false }
+    ],
+    constellationBonus: [
+      { c: 1, desc: "Additional charged attack DMG 20%", name: "Charged%", value: 20, active: false },
+      { c: 6, desc: "After Burst ATK +15% for 10s", name: "ATK%", value: 15, active: false }
     ]
   },
   Barbara: {
     charName: "Barbara",
     element: "Water", rarity: 4,
     weapon: "Catalyst",
-    talentsBonus: []
+    talentsBonus: [],
+    constellationBonus: [
+      { c: 2, desc: "During Skill effect gain +15% Hydro DMG bonus", name: "Elemental%", value: 15, active: false },
+      { c: 6, desc: "After Burst ATK +15% for 10s", name: "ATK%", value: 15, active: false }
+    ]
   },
   Venti: {
     charName: "Venti",
     element: "Anemo", rarity: 5,
     weapon: "Bow",
-    talentsBonus: []
+    talentsBonus: [],
+    constellationBonus: [
+      { c: 4, desc: "When obtain a Elemental Particle gain 25% Anemo DMG bonus", name: "Elemental%", value: 25, active: false },
+    ]
   },
   Klee: {
     charName: "Klee",
     element: "Fire", rarity: 5,
     weapon: "Catalyst",
-    talentsBonus: [{ desc: "If you have a spark increases charged attack DMG by 50%", name: "Charged%", value: 50, active: false }]
+    talentsBonus: [
+      { desc: "If you have a spark increases charged attack DMG by 50%", name: "Charged%", value: 50, active: false }
+    ],
+    constellationBonus: [
+      { c: 6, desc: "After Burst gain 10% Pyro DMG bonus", name: "Elemental%", value: 10, active: false }
+    ]
   },
   Mona: {
     charName: "Mona",
     element: "Water", rarity: 5,
     weapon: "Catalyst",
-    talentsBonus: [{ desc: "Increases Hydro DMG by 20% of Energy recharge.", name: "Elemental%", value: 0, active: true }]
+    talentsBonus: [
+      { desc: "Increases Hydro DMG by 20% of Energy recharge.", name: "Elemental%", value: 0, active: true }
+    ],
+    constellationBonus: [
+      { c: 6, desc: "After sprinting gain 60-180%(180) Charged attack bonus", name: "Charged%", value: 180, active: false }
+    ]
   },
   Fischl: {
     charName: "Fischl",
@@ -98,37 +142,56 @@ export let characters = {
     charName: "Jean",
     element: "Anemo", rarity: 5,
     weapon: "Sword",
-    talentsBonus: []
+    talentsBonus: [],
+    constellationBonus: [
+      { c: 1, desc: "Increases Skill DMG by 40%", name: "Skill%", value: 40, active: false },
+    ]
   },
   Bennett: {
     charName: "Bennett",
     element: "Fire", rarity: 4,
     weapon: "Sword",
-    talentsBonus: []
+    talentsBonus: [],
+    constellationBonus: [
+      { c: 6, desc: "Whithin Burst gain 15% Pyro DMG bonus", name: "Elemental%", value: 15, active: false }
+    ]
   },
   Xinyan: {
     charName: "Xinyan",
     element: "Fire", rarity: 4,
     weapon: "Claymore",
-    talentsBonus: [{ desc: "If shielded deals 15% more Physical dmg", name: "Physical%", value: 15, active: false }]
+    talentsBonus: [{ desc: "If shielded deals 15% more Physical dmg", name: "Physical%", value: 15, active: false }],
+    constellationBonus: [
+      { c: 6, desc: "Attack gain additional 50% DEF Bonus", name: "FlatATK", value: 1000, func: def => def * 0.5, active: false },
+    ]
   },
   Kaeya: {
     charName: "Kaeya",
     element: "Ice", rarity: 4,
     weapon: "Sword",
-    talentsBonus: []
+    talentsBonus: [],
+    constellationBonus: [
+      { c: 1, desc: "Gain 15% Crit Rate agains enemies affected by Cryo", name: "CRate%", value: 15, active: false },
+    ]
   },
   Chongyun: {
     charName: "Chongyun",
     element: "Ice", rarity: 4,
     weapon: "Claymore",
-    talentsBonus: []
+    talentsBonus: [],
+    constellationBonus: [
+      { c: 6, desc: "Burst DMG 15% bonus", name: "Burst%", value: 15, active: false }
+    ]
   },
   Diona: {
     charName: "Diona",
     element: "Ice", rarity: 4,
     weapon: "Bow",
-    talentsBonus: []
+    talentsBonus: [],
+    constellationBonus: [
+      { c: 2, desc: "Skill DMG increased by 15%", name: "Skill%", value: 15, active: false },
+      { c: 6, desc: "Inside Burst Elemental Mastery increased by 200", name: "EM", value: 200, active: false },
+    ]
   },
   Tartaglia: {
     charName: "Tartaglia",
@@ -152,7 +215,11 @@ export let characters = {
     charName: "Noelle",
     element: "Geo", rarity: 4,
     weapon: "Claymore",
-    talentsBonus: []
+    talentsBonus: [],
+    constellationBonus: [
+      { c: 2, desc: "Charged ATK DMG increases by 15%", name: "Charged%", value: 15, active: false },
+      { c: 6, desc: "Attack gain additional 50% DEF Bonus", name: "FlatATK", value: 1000, func: def => def * 0.5, active: false },
+    ]
   },
   Sucrose: {
     charName: "Sucrose",
@@ -164,7 +231,10 @@ export let characters = {
     charName: "Xiangling",
     element: "Fire", rarity: 4,
     weapon: "Polearm",
-    talentsBonus: [{ desc: "Chilli peper increases ATK by 10%", name: "ATK%", value: 10, active: false }]
+    talentsBonus: [{ desc: "Chilli peper increases ATK by 10%", name: "ATK%", value: 10, active: false }],
+    constellationBonus: [
+      { c: 6, desc: "During Burst gain 15% Pyro DMG bonus", name: "Elemental%", value: 15, active: false },
+    ]
   },
   Xingqiu: {
     charName: "Xingqiu",
@@ -205,7 +275,11 @@ export let characters = {
     charName: "Traveler (Anemo)",
     element: "Geo", rarity: 5,
     weapon: "Sword",
-    talentsBonus: []
+    talentsBonus: [],
+    constellationBonus: [
+      { c: 1, desc: "Crit Rate inside Burst increased by 10%", name: "CRate%", value: 10, active: false },
+    ]
+
   },
 };
 
