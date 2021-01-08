@@ -127,13 +127,15 @@ export default new Vuex.Store({
             (allStatsRes[i][x.name] =
               allStatsRes[i][x.name] + x.value || x.value)
           );
-        ch.constellationBonus
-          .filter((x) => x.active)
-          .forEach(
-            (x) =>
-            (allStatsRes[i][x.name] =
-              allStatsRes[i][x.name] + x.value || x.value)
-          );
+        if (ch.constellationBonus) {
+          ch.constellationBonus
+            .filter((x) => x.active)
+            .forEach(
+              (x) =>
+              (allStatsRes[i][x.name] =
+                allStatsRes[i][x.name] + x.value || x.value)
+            );
+        }
         allStatsRes[i][wp[i].name] =
           allStatsRes[i][wp[i].name] + wp[i].value || wp[i].value;
         wp[i].additional

@@ -138,6 +138,7 @@ export default {
         "Burst%": "Burst",
         "Elemental%": "Elemental damage",
         "DEF%": "Defence",
+        EM: "Elemental Mastery",
       },
     };
   },

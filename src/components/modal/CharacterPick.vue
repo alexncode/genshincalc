@@ -164,7 +164,8 @@ export default {
   computed: {
     ...mapFields(["character", "weapon"]),
     available() {
-      const wp = this.character.weapon;
+      const wp = getCharData(this.name, this.charLvl, this.talentLvl - 1)
+        .weapon;
       const list = Object.keys(this.weaponList).filter(
         (x) => this.weaponList[x].type == wp
       );

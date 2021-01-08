@@ -37,17 +37,17 @@ export function generateArtifacts(key) {
       value: 46.6,
       label: "Goblet",
       mainStat: ["HP%", "ATK%", "DEF%", "EM", "Elemental%", "Physical%"],
-      name: "ATK%",
+      name: "Elemental%",
       substats: [],
       rarity: 5
     },
     circlet: {
       id: "circlet",
       key: `circlet${key}`,
-      value: 46.6,
+      value: 31.1,
       label: "Circlet",
       mainStat: ["HP%", "ATK%", "DEF%", "EM", "CRate%", "CDmg%", "Healing%"],
-      name: "ATK%",
+      name: "CRate%",
       substats: [],
       rarity: 5
     },

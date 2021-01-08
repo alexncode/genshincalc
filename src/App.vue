@@ -21,7 +21,9 @@
         </div>
         <div class="flex flex-col ml-2 text-gray-200 w-full">
           <div class="flex justify-between">
-            <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.8.5</h1>
+            <a href="">
+              <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.8.5</h1>
+            </a>
             <div class="flex">
               <div
                 class="text-blue-400 mr-2 cursor-pointer"
@@ -73,6 +75,11 @@
             title="Save & Load"
             @click="save"
           >&#128190;</button>
+          <!-- <button
+            class="bg-gray-600 text-gray-100 rounded w-8 mx-2 md:my-2 md:mx-0"
+            title="Share"
+            @click="showShare = true"
+          >&#8682;</button> -->
         </div>
         <div class="md:pl-4">
           <div class="flex justify-between">
@@ -128,6 +135,23 @@
         <Help />
       </Modal>
     </div>
+    <div @click="showShare = false">
+      <Modal v-if="showShare">
+        <div class="bg-gray-900 text-gray-200 p-4 max-w-screen-md flex flex-col">
+          <a
+            :href="shareLink"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-gray-800"
+            ref="link"
+          >{{ domen + shareLink }}</a>
+          <button
+            class="bg-gray-700 px-4 py-2 rounded mt-2 hover:bg-gray-500"
+            @click="copyShareLink"
+          >Copy link</button>
+        </div>
+      </Modal>
+    </div>
     <transition name="slide">
       <div
         v-if="updateReady"
@@ -159,6 +183,9 @@ import Save from "@/components/Save.vue";
 import Help from "@/components/Help.vue";
 
 import TabButton from "@/components/UI/TabButton.vue";
+
+import { getCharData } from "@/data/characters";
+import { getWeaponData } from "@/data/weapons";
 
 import { mapFields } from "vuex-map-fields";
 import { mapGetters } from "vuex";
@@ -200,6 +227,7 @@ export default {
       characterPick: false,
       showSave: false,
       showHelp: false,
+      showShare: false,
       updateReady: false, //New update ready
       refreshing: false, //Page is refreshing
     };
@@ -214,6 +242,17 @@ export default {
 
       window.location.reload();
     });
+  },
+  mounted() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const loadData = decodeURIComponent(urlParams.get("l")).replaceAll(
+      "_",
+      "%"
+    );
+    let arr = loadData.split("-");
+    if (arr.length == 157) {
+      this.loadFromString(arr);
+    }
   },
   computed: {
     ...mapFields([
@@ -328,6 +367,12 @@ export default {
         };
       });
     },
+    shareLink() {
+      return `/?l=${this.buildShareString()}`;
+    },
+    domen() {
+      return window.location.protocol + "//" + window.location.hostname;
+    },
   },
   methods: {
     updateAvailable(event) {
@@ -365,6 +410,54 @@ export default {
     loadSave(data) {
       this.artifacts = data.artifacts;
       this.showSave = !this.showSave;
+    },
+    buildShareString() {
+      let ar = [
+        this.character.charName,
+        this.character.charLvl,
+        this.character.talentLvl,
+      ];
+      for (let i = 0; i < 2; i++) {
+        ar.push(this.set[i].pieces, this.set[i].set[0], this.set[i].set[1]);
+        this.additionalStats[i].forEach((x) => ar.push(x.stat, x.value));
+        ar.push(this.weapon[i].weaponName, this.weapon[i].refinement);
+
+        for (const key in this.artifacts[i]) {
+          const at = this.artifacts[i][key];
+          ar.push(at.name, at.value);
+          at.substats.forEach((x) => ar.push(x.name, x.value, x.upgrade));
+        }
+      }
+      return encodeURIComponent(ar.join("-").replaceAll("%", "_"));
+    },
+    loadFromString(arr) {
+      this.character = getCharData(
+        arr.shift(),
+        parseInt(arr.shift()),
+        parseInt(arr.shift() - 1)
+      );
+      for (let i = 0; i < 2; i++) {
+        this.set[i].pieces = arr.shift();
+        this.set[i].set = [arr.shift(), arr.shift()];
+        this.additionalStats[i].forEach((x) => {
+          x.stat = arr.shift();
+          x.value = parseFloat(arr.shift());
+        });
+        this.weapon[i] = getWeaponData(arr.shift(), parseInt(arr.shift()));
+        for (const key in this.artifacts[i]) {
+          const at = this.artifacts[i][key];
+          at.name = arr.shift();
+          at.value = parseFloat(arr.shift());
+          at.substats.forEach((x) => {
+            x.name = arr.shift();
+            x.value = parseFloat(arr.shift());
+            x.upgrade = parseInt(arr.shift());
+          });
+        }
+      }
+    },
+    copyShareLink() {
+      console.log(this.$refs.link.href);
     },
   },
 };
