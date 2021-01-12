@@ -223,7 +223,7 @@ export default {
       "%"
     );
     let arr = loadData.split("-");
-    if (arr.length == 157) {
+    if (arr.length == 167) {
       this.loadFromString(arr);
     }
   },
@@ -293,7 +293,7 @@ export default {
 
         for (const key in this.artifacts[i]) {
           const at = this.artifacts[i][key];
-          ar.push(at.name, at.value);
+          ar.push(at.name, at.value, at.rarity);
           at.substats.forEach((x) => ar.push(x.name, x.value, x.upgrade));
         }
       }
@@ -317,6 +317,7 @@ export default {
           const at = this.artifacts[i][key];
           at.name = arr.shift();
           at.value = parseFloat(arr.shift());
+          at.rarity = parseInt(arr.shift());
           at.substats.forEach((x) => {
             x.name = arr.shift();
             x.value = parseFloat(arr.shift());
