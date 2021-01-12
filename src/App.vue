@@ -21,13 +21,9 @@
         </div>
         <div class="flex flex-col ml-2 text-gray-200 w-full">
           <div class="flex justify-between">
-            <!-- <a href="">
+            <a href="">
               <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.9</h1>
-            </a> -->
-            <div class="text-red-400">No longer would be updated new version is <a
-                class="text-blue-500"
-                href="https://buildsim.netlify.app/"
-              >here</a></div>
+            </a>
             <div class="flex">
               <div
                 class="text-blue-400 mr-2 cursor-pointer"
@@ -79,11 +75,11 @@
             title="Save & Load"
             @click="save"
           >&#128190;</button>
-          <!-- <button
+          <button
             class="bg-blueGray-600 text-gray-100 rounded w-8 mx-2 md:my-2 md:mx-0 hover:bg-blueGray-400"
             title="Share"
             @click="showShare = true"
-          >&#8682;</button> -->
+          >&#8682;</button>
         </div>
         <div class="md:pl-4">
           <div class="flex justify-between">
