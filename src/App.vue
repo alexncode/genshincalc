@@ -302,7 +302,7 @@ export default {
     loadFromString(arr) {
       this.character = getCharData(
         arr.shift(),
-        parseInt(arr.shift()),
+        arr.shift(),
         parseInt(arr.shift() - 1)
       );
       for (let i = 0; i < 2; i++) {
