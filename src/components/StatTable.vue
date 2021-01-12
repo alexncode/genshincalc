@@ -16,16 +16,17 @@
         >
           <td
             class="border border-gray-600 px-1 py-1"
-            :class="att == 'Elemental mastery' ? 'underline cursor-pointer' : ''"
-            @click="showModalF(att)"
+            :class="[att == 'Elemental mastery' ? 'underline cursor-pointer' : '',
+            formulaList.includes(att) ? 'underline cursor-pointer' : '']"
+            @click="showModalF(att, 2)"
           >{{ att }}</td>
           <td
             class="border border-gray-600 px-1 py-1 text-center"
-            :class="[j > 0 ? allResults[i].class : '', infoList.includes(att) ? 'underline cursor-pointer' : '']"
-            v-for="(res, j) in allResults[i].value"
+            :class="[j > 0 ? allResultsFormatted[i].class : '', infoList.includes(att) ? 'underline cursor-pointer' : '']"
+            v-for="(res, j) in allResultsFormatted[i].value"
             :key="'' + res + j"
             @click="showModalF(att, j)"
-          >{{ res }}<sup v-if="j > 0 && allResults[i].class"> {{ allResults[i].percent }}%</sup></td>
+          >{{ res }}<sup v-if="j > 0 && allResultsFormatted[i].class"> {{ allResultsFormatted[i].percent }}%</sup></td>
         </tr>
       </tbody>
     </table>
@@ -61,10 +62,32 @@
         />
       </Modal>
     </div>
+    <div
+      v-if="showFormula"
+      @click="showFormula = false"
+    >
+      <Modal>
+        <div class="bg-gray-800 text-gray-200 p-4 max-w-screen-md">
+          <div v-if="attribute == 'Elemental attack'">
+            Formula: <code class="text-blue-300">Attack * (1 + (ElemBonus% + AllBonus%)) * (CritRate% * CritDMG%)</code>
+          </div>
+          <div v-if="attribute == 'Physical attack'">
+            Formula: <code class="text-blue-300">Attack * (1 + (PhysBonus% + AllBonus%)) * (CritRate% * CritDMG%)</code>
+          </div>
+          <div v-if="attribute == 'Normal attack'">
+            Formula: <code class="text-blue-300">Attack * (1 + (max(PhysBonus%, ElemBonus%) + NormalBonus% + AllBonus%)) * (CritRate% * CritDMG%)</code>
+          </div>
+          <div v-if="attribute == 'Charged attack'">
+            Formula: <code class="text-blue-300">Attack * (1 + (max(PhysBonus%, ElemBonus%) + ChargedBonus% + AllBonus%)) * (CritRate% * CritDMG%)</code>
+          </div>
+        </div>
+      </Modal>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import Modal from "./modal/Modal.vue";
 
 import Optimizer from "./modal/Optimizer.vue";
@@ -72,14 +95,11 @@ import Optimizer from "./modal/Optimizer.vue";
 export default {
   name: "StatTable",
   components: { Modal, Optimizer },
-  props: {
-    attributes: Array,
-    allResults: Array,
-  },
   data() {
     return {
       showModal: false,
       showOptimize: false,
+      showFormula: false,
       setNumber: 0,
       infoList: [
         "Attack",
@@ -88,12 +108,34 @@ export default {
         "Normal attack",
         "Charged attack",
       ],
+      formulaList: [
+        "Physical attack",
+        "Elemental attack",
+        "Normal attack",
+        "Charged attack",
+      ],
+      attributes: [
+        "Attack",
+        "Physical attack",
+        "Elemental attack",
+        "Normal attack",
+        "Charged attack",
+        "Crit chance%",
+        "Crit damage%",
+        "Elemental bonus%",
+        "Physical bonus%",
+        "Elemental mastery",
+        "Energy recharge%",
+        "Defense",
+        "Health points",
+      ],
       attribute: "Physical attack",
     };
   },
   computed: {
+    ...mapGetters(["allResultsFormatted"]),
     melt() {
-      return this.allResults[9].value.map(
+      return this.allResultsFormatted[9].value.map(
         (em) => Math.round(((1 * em * (25 / 9)) / (em + 1400)) * 1000) / 10
       );
     },
@@ -106,12 +148,15 @@ export default {
   },
   methods: {
     showModalF(att, j) {
+      this.attribute = att;
       if (att == "Elemental mastery") {
         this.showModal = true;
       }
-      if (this.infoList.includes(att)) {
+      if (this.formulaList.includes(att) && j == 2) {
+        this.showFormula = true;
+      }
+      if (this.infoList.includes(att) && j < 2) {
         this.setNumber = j;
-        this.attribute = att;
         this.showOptimize = true;
       }
     },

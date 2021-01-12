@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-700 text-gray-200 p-2">
+  <div class="bg-gray-700 text-gray-200 p-2 max-w-screen-md">
     <div v-if="attribute == 'Attack'">
       <p>Base ATK to ATK% ratio is {{ totalATKPercent[order] }}% should be close to 114% before you start to need to invest in other stats.</p>
       <p>Keep in mind that you can have other sources of ATK% like Fire resonance or Thrilling Tales of Dragon Slayers.</p>
@@ -11,16 +11,16 @@
     </div>
     <div v-if="attribute == 'Elemental attack'">
       <p>If you building character who deals Elemental damage or mainly uses Skill and Burst optimize this stat.</p>
-      <p>ATK% to Elemental dmg ratio is {{ dmg }} should be close to 1.</p>
-      <p>ATK% to Skill dmg ratio is {{ dmg }} should be close to 1.</p>
-      <p>ATK% to Burst dmg ratio is {{ dmg }} should be close to 1.</p>
+      <p>ATK% to Elemental dmg ratio is {{ dmg[0] }} should be close to 1.</p>
+      <p>ATK% to Skill dmg ratio is {{ dmg[1] }} should be close to 1.</p>
+      <p>ATK% to Burst dmg ratio is {{ dmg[2] }} should be close to 1.</p>
     </div>
     <div v-if="attribute == 'Normal attack'">
-      <p>If you manly use normal attack optimize this stat.</p>
+      <p>If you mainly use normal attacks optimize this stat.</p>
       <p>ATK% to Normal dmg ratio is {{ dmg }} should be close to 1.</p>
     </div>
     <div v-if="attribute == 'Charged attack'">
-      <p>If you manly use charged attack optimize this stat.</p>
+      <p>If you mainly use charged attacks optimize this stat.</p>
       <p>ATK% to Charged dmg ratio is {{ dmg }} should be close to 1.</p>
     </div>
 
@@ -48,7 +48,10 @@ export default {
       );
     },
     elementalDMG() {
-      return this.dmgType(["Elemental%"], [0, 0]);
+      const e = this.dmgType(["Elemental%"], [0, 0]);
+      const s = this.dmgType(["Elemental%", "SkillDMG%"], [0, 0]);
+      const b = this.dmgType(["Elemental%", "Burst%"], [0, 0]);
+      return e.map((x, i) => [x, s[i], b[i]]);
     },
     physicalDMG() {
       return this.dmgType(["Physical%"], [0, 0]);

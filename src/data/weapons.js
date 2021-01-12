@@ -863,7 +863,7 @@ export const weaponList = {
     "dmg": 48,
     "name": "ATK%",
     "value": 7.2,
-    "additional": [{ name: "Elemental%", value: 12, inc: 3, active: false }],
+    "additional": [{ name: "Elemental%", value: 12, inc: 3, active: true }],
     "rarity": 5,
     refinement: 1,
     "description": "Increases Elemental DMG Bonus by $eff1%. Normal Attack hits have a 50% chance to earn the favor of the clouds. which actively seek out nearby enemies to attack for 15s, dealing 160/200/240/280/320% ATK DMG. Can only occur once every 30s."

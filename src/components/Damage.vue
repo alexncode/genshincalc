@@ -139,10 +139,6 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "Damage",
-  props: {
-    atkPower: Array,
-    allResults: Array,
-  },
   data() {
     return {
       level: 80,
@@ -168,7 +164,7 @@ export default {
   },
   computed: {
     ...mapFields(["elementalDamage", "character"]),
-    ...mapGetters(["allStats"]),
+    ...mapGetters(["allStats", "allResults", "atkPower"]),
     def() {
       let superc = 0;
       if (this.superc) {

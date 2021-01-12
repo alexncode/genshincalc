@@ -21,9 +21,13 @@
         </div>
         <div class="flex flex-col ml-2 text-gray-200 w-full">
           <div class="flex justify-between">
-            <a href="">
-              <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.8.5</h1>
-            </a>
+            <!-- <a href="">
+              <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.9</h1>
+            </a> -->
+            <div class="text-red-400">No longer would be updated new version is <a
+                class="text-blue-500"
+                href="https://buildsim.netlify.app/"
+              >here</a></div>
             <div class="flex">
               <div
                 class="text-blue-400 mr-2 cursor-pointer"
@@ -61,22 +65,22 @@
         </div>
         <div class="flex md:flex-col justify-center mx-2 px-2 border-l-2 border-r-2 border-gray-700">
           <button
-            class="bg-gray-600 text-gray-100 rounded w-8"
+            class="bg-gray-600 text-gray-100 rounded w-8 hover:bg-gray-400"
             title="Equalize artifacts"
             @click="equalize"
           >=</button>
           <button
-            class="bg-gray-600 text-gray-100 rounded w-8 mx-2 md:my-2 md:mx-0"
+            class="bg-gray-600 text-gray-100 rounded w-8 mx-2 md:my-2 md:mx-0 hover:bg-gray-400"
             title="Randomize substats"
             @click="randomize"
           >&#10227;</button>
           <button
-            class="bg-gray-600 text-gray-100 rounded w-8"
+            class="bg-gray-600 text-gray-100 rounded w-8 hover:bg-gray-400"
             title="Save & Load"
             @click="save"
           >&#128190;</button>
           <!-- <button
-            class="bg-gray-600 text-gray-100 rounded w-8 mx-2 md:my-2 md:mx-0"
+            class="bg-blueGray-600 text-gray-100 rounded w-8 mx-2 md:my-2 md:mx-0 hover:bg-blueGray-400"
             title="Share"
             @click="showShare = true"
           >&#8682;</button> -->
@@ -106,28 +110,16 @@
           />
         </div>
         <StatTable
-          :attributes="attributes"
-          :allResults="allResultsFormatted"
           v-show="activeTab == 'Stats'"
           class="overflow-y-auto"
         />
-        <Damage
-          v-show="activeTab == 'Damage'"
-          :allResults="allResults"
-          :atkPower="atkPower"
-        />
-        <Reactions
-          v-show="activeTab == 'Elemental reactions'"
-          :EM="allResults[9]"
-        />
+        <Damage v-show="activeTab == 'Damage'" />
+        <Reactions v-show="activeTab == 'Elemental reactions'" />
       </div>
     </div>
     <div @click="save">
       <Modal v-if="showSave">
-        <Save
-          :artifacts="artifacts"
-          @loadSave="loadSave"
-        />
+        <Save @loadSave="loadSave" />
       </Modal>
     </div>
     <div @click="showHelp = false">
@@ -208,21 +200,6 @@ export default {
   },
   data() {
     return {
-      attributes: [
-        "Attack",
-        "Physical attack",
-        "Elemental attack",
-        "Normal attack",
-        "Charged attack",
-        "Crit chance%",
-        "Crit damage%",
-        "Elemental bonus%",
-        "Physical bonus%",
-        "Elemental mastery",
-        "Energy recharge%",
-        "Defense",
-        "Health points",
-      ],
       activeTab: "Stats",
       characterPick: false,
       showSave: false,
@@ -262,111 +239,7 @@ export default {
       "weapon",
       "artifacts",
     ]),
-    ...mapGetters(["baseATK", "setsStats", "allStats"]),
-    atkPower() {
-      return this.allStats.map((x, i) => {
-        return Math.round(
-          this.baseATK[i] * (1 + x["ATK%"] / 100) + x["FlatATK"]
-        );
-      });
-    },
-    critDmg() {
-      return this.allStats.map((x) => {
-        return ((50 + x["CDmg%"]) / 100) * ((5 + x["CRate%"]) / 100);
-      });
-    },
-    physAtk() {
-      return this.allStats.map((x, i) => {
-        let phys =
-          this.atkPower[i] * (1 + (x["Physical%"] + x["AllDMG%"]) / 100);
-        return Math.round(phys + phys * this.critDmg[i]);
-      });
-    },
-    normalAtk() {
-      return this.allStats.map((x, i) => {
-        let phys =
-          this.atkPower[i] *
-          (1 +
-            (Math.max(x["Physical%"], x["Elemental%"]) +
-              x["NormalATK%"] +
-              x["AllDMG%"] +
-              x["NCATK%"]) /
-              100);
-        return Math.round(phys + phys * this.critDmg[i]);
-      });
-    },
-    chargedAtk() {
-      return this.allStats.map((x, i) => {
-        let phys =
-          this.atkPower[i] *
-          (1 +
-            (Math.max(x["Physical%"], x["Elemental%"]) +
-              x["Charged%"] +
-              x["AllDMG%"] +
-              x["NCATK%"]) /
-              100);
-        return Math.round(phys + phys * this.critDmg[i]);
-      });
-    },
-    elemAtk() {
-      return this.allStats.map((x, i) => {
-        let elem =
-          this.atkPower[i] * (1 + (x["Elemental%"] + x["AllDMG%"]) / 100);
-        return Math.round(elem + elem * this.critDmg[i]);
-      });
-    },
-    allResults() {
-      const critChance = this.allStats.map(
-        (x) => Math.round((x["CRate%"] + 5) * 10) / 10
-      );
-      const critDamage = this.allStats.map(
-        (x) => Math.round((x["CDmg%"] + 50) * 10) / 10
-      );
-      const elem = this.allStats.map((x) => x["Elemental%"]);
-      const phys = this.allStats.map((x) => x["Physical%"]);
-      const EM = this.allStats.map((x) => x["EM"]);
-      const EnRe = this.allStats.map((x) => Math.round(x["EnRe%"] * 10) / 10);
-      const DEF = this.allStats.map((x) =>
-        Math.round(
-          this.character.baseDEF * (1 + x["DEF%"] / 100) + x["FlatDEF"]
-        )
-      );
-      const HP = this.allStats.map((x) =>
-        Math.round(this.character.baseHP * (1 + x["HP%"] / 100) + x["HP"])
-      );
-
-      return [
-        this.atkPower,
-        this.physAtk,
-        this.elemAtk,
-        this.normalAtk,
-        this.chargedAtk,
-        critChance,
-        critDamage,
-        elem,
-        phys,
-        EM,
-        EnRe,
-        DEF,
-        HP,
-      ];
-    },
-    allResultsFormatted() {
-      return this.allResults.map((x) => {
-        let cs = "";
-        if (x[0] < x[1]) {
-          cs = "text-green-400";
-        }
-        if (x[0] > x[1]) {
-          cs = "text-red-400";
-        }
-        return {
-          class: cs,
-          value: x,
-          percent: cs ? (((x[1] - x[0]) / Math.abs(x[0])) * 100).toFixed(1) : 0,
-        };
-      });
-    },
+    ...mapGetters(["baseATK"]),
     shareLink() {
       return `/?l=${this.buildShareString()}`;
     },
@@ -457,7 +330,7 @@ export default {
       }
     },
     copyShareLink() {
-      console.log(this.$refs.link.href);
+      navigator.clipboard.writeText(this.$refs.link.href);
     },
   },
 };

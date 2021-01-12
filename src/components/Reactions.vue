@@ -124,9 +124,6 @@ export default {
   components: {
     Input,
   },
-  props: {
-    EM: Array,
-  },
   data() {
     return {
       level: 80,
@@ -139,7 +136,10 @@ export default {
   computed: {
     // Superconductor : Swirl : Electro-charged : Shattered : Overload = 1 : 1.2 : 2.4 : 3 : 4
     ...mapState(["allElemental", "character", "set"]),
-    ...mapGetters(["allStats"]),
+    ...mapGetters(["allStats", "allResults"]),
+    EM() {
+      return this.allResults[9];
+    },
     percent() {
       return this.EM.map(
         (em) => Math.round(((1 * em * (25 / 9)) / (em + 1400)) * 1000) / 10
