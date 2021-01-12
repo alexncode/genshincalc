@@ -55,9 +55,6 @@
 <script>
 import { mapFields } from "vuex-map-fields";
 
-import { getCharData } from "@/data/characters";
-import { getWeaponData } from "@/data/weapons";
-
 export default {
   name: "Save",
   data() {
@@ -98,37 +95,11 @@ export default {
       }
     },
     load(name) {
-      const weapons = {
-        Bow: "Compound Bow",
-        Catalyst: "Mappa Mare",
-        Sword: "Prototype Rancour",
-        Claymore: "Prototype Aminus",
-        Polearm: "Crescent Pike",
-      };
       const loadData = JSON.parse(window.localStorage.getItem(name));
       this.set = loadData.sets;
-      this.additionalStats = loadData.additionalStats;
-      if (Object.prototype.hasOwnProperty.call(loadData, "weapons")) {
-        this.character = getCharData(loadData.character.name, 80, 5);
-        this.weapon = {
-          0: getWeaponData(weapons[this.character.weapon]),
-          1: getWeaponData(weapons[this.character.weapon]),
-        };
-      } else {
-        this.character = loadData.character;
-        this.weapon = loadData.weapon;
-      }
-      this.artifacts = loadData.artifacts.map((x) => {
-        let res = x;
-        for (const key in x) {
-          if (Object.hasOwnProperty.call(x, key)) {
-            if (x[key].mainStatName) {
-              res[key].name = x[key].mainStatName;
-            }
-          }
-        }
-        return res;
-      });
+      this.character = loadData.character;
+      this.weapon = loadData.weapon;
+      this.artifacts = loadData.artifacts;
     },
     del(index) {
       window.localStorage.removeItem(this.saveNames[index]);
