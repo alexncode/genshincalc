@@ -100,6 +100,7 @@ export default {
       this.character = loadData.character;
       this.weapon = loadData.weapon;
       this.artifacts = loadData.artifacts;
+      this.$emit("visibility");
     },
     del(index) {
       window.localStorage.removeItem(this.saveNames[index]);

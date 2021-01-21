@@ -823,7 +823,7 @@ export const weaponList = {
     "dmg": 46,
     "name": "ATK%",
     "value": 10.8,
-    "additional": [{ name: "NCATK%", value: 12, inc: 3, active: true }, { name: "NCATK%", value: 40, inc: 10, active: false }],
+    "additional": [{ name: "NCATK%", value: 12, inc: 3, active: true }, { name: "Charged%", value: 40, inc: 10, active: false }],
     "rarity": 5,
     refinement: 1,
     "description": "Increases Normal Attack and Aimed Shot DMG by $eff1%. Increases DMG from arrows shot by a further $eff2% for every 0.1s that the arrow is in flight, up to 0.5s. Stacks up to 5 times on each arrow."

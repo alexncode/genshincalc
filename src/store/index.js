@@ -45,8 +45,6 @@ function generateResObject() {
 
 export default new Vuex.Store({
   state: {
-    elementalDamage: false,
-    allDamage: {},
     allElemental: {},
     character: getCharData("Keqing", 80, 5),
     set: [
@@ -58,7 +56,17 @@ export default new Vuex.Store({
       0: getWeaponData("The Black Sword"),
       1: getWeaponData("The Black Sword")
     },
-    additionalStats: [[{ stat: "ATK%", value: 0, desc: "Description" }], [{ stat: "ATK%", value: 0, desc: "Description" }]]
+    additionalStats: [
+      [{ stat: "ATK%", value: 0, desc: "Description" }],
+      [{ stat: "ATK%", value: 0, desc: "Description" }]
+    ],
+    buffs: {
+      flatATK: 0,
+      DEF: 0,
+      CRate: 0,
+      RES: 0,
+      ERES: 0,
+    }
   },
   getters: {
     getField,
@@ -287,9 +295,6 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    SET_ALL_DAMAGE(state, val) {
-      state.allDamage = val
-    },
     SET_ALL_ELEMENTAL(state, val) {
       state.allElemental = val
     },

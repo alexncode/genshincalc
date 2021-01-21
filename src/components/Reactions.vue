@@ -13,7 +13,6 @@
         Attack type:
         <label class="px-2 text-gray-200">Normal<input
             type="radio"
-            name="normal"
             id="normal"
             value="Normal"
             v-model="attackType"
@@ -21,7 +20,6 @@
           ></label>
         <label class="px-2 text-yellow-200">Charged<input
             type="radio"
-            name="Charged"
             id="Charged"
             value="Charged"
             v-model="attackType"
@@ -29,7 +27,6 @@
           ></label>
         <label class="px-2 text-green-200">Skill<input
             type="radio"
-            name="Skill"
             id="Skill"
             value="Skill"
             v-model="attackType"
@@ -37,7 +34,6 @@
           ></label>
         <label class="px-2 text-blue-200">Burst<input
             type="radio"
-            name="Burst"
             id="Burst"
             value="Burst"
             v-model="attackType"
@@ -45,21 +41,6 @@
           ></label>
       </div>
     </div>
-    <!-- <label class="ml-4">Charged attack?<input
-        type="checkbox"
-        v-model="charged"
-        class="ml-2"
-      ></label> -->
-    <p
-      v-show="note"
-      class="text-gray-100 bg-blue-600 rounded mt-4 px-4 py-2 border-blue-300 border-2 flex justify-between"
-    >
-      NOTE: To view different reactions pick different characters.
-      <span
-        class="text-red-400 text-2xl leading-none hover:text-red-300 cursor-pointer"
-        @click="note = false"
-      >&#11199;</span>
-    </p>
     <table class="table-auto w-full mt-4 text-gray-300 leading-none bg-gray-900">
       <thead>
         <tr>
@@ -91,32 +72,26 @@ import Input from "@/components/UI/Input.vue";
 import { mapGetters, mapState } from "vuex";
 
 const reactionElements = {
-  Electro: [
-    { name: "Superconductor" },
-    { name: "Electro-charged" },
-    { name: "Overload" },
-  ],
+  Electro: ["Superconductor", "Electro-charged", "Overload"],
   Fire: [
-    { name: "Melt" },
-    { name: "Melt critical" },
-    { name: "Vaporize" },
-    { name: "Vaporize critical" },
-    { name: "Overload" },
+    "Melt",
+    "Melt critical",
+    "Melt average",
+    "Vaporize",
+    "Vaporize critical",
+    "Vaporize average",
+    "Overload",
   ],
-  Ice: [
-    { name: "Superconductor" },
-    { name: "Melt" },
-    { name: "Melt critical" },
-    { name: "Shattered" },
-  ],
-  Anemo: [{ name: "Swirl" }],
+  Ice: ["Superconductor", "Melt", "Melt critical", "Shattered"],
+  Anemo: ["Swirl"],
   Water: [
-    { name: "Vaporize" },
-    { name: "Vaporize critical" },
-    { name: "Shattered" },
-    { name: "Electro-charged" },
+    "Vaporize",
+    "Vaporize critical",
+    "Vaporize average",
+    "Shattered",
+    "Electro-charged",
   ],
-  Geo: [{ name: "Crystalize" }],
+  Geo: ["Crystalize"],
 };
 
 export default {
@@ -129,7 +104,6 @@ export default {
       level: 80,
       reactionElements: reactionElements,
       charged: false,
-      note: true,
       attackType: "Normal",
     };
   },
@@ -164,52 +138,58 @@ export default {
       return this.charged ? "Charged" : "Normal";
     },
     melt() {
-      return this.allElemental[`${this.attackType} hit`].map(
-        (x, i) =>
-          x *
-          (1 + (this.percent[i] + this.allStats[i]["Melt"]) / 100) *
-          (this.character.element == "Fire" ? 2 : 1.5)
-      );
+      return this.reacDamage(`${this.attackType} hit`, "Melt");
     },
     meltCritical() {
-      return this.allElemental[`${this.attackType} critical`].map(
-        (x, i) =>
-          x *
-          (1 + (this.percent[i] + this.allStats[i]["Melt"]) / 100) *
-          (this.character.element == "Fire" ? 2 : 1.5)
-      );
+      return this.reacDamage(`${this.attackType} critical`, "Melt");
+    },
+    meltAverage() {
+      return this.reacDamage(`${this.attackType} average`, "Melt");
     },
     vaporize() {
-      return this.allElemental[`${this.attackType} hit`].map(
-        (x, i) =>
-          x *
-          (1 + (this.percent[i] + this.allStats[i]["Vaporize"]) / 100) *
-          (this.character.element == "Fire" ? 1.5 : 2)
-      );
+      return this.reacDamage(`${this.attackType} hit`, "Vaporize");
     },
     vaporizeCritical() {
-      return this.allElemental[`${this.attackType} critical`].map(
-        (x, i) =>
-          x *
-          (1 + (this.percent[i] + this.allStats[i]["Vaporize"]) / 100) *
-          (this.character.element == "Fire" ? 1.5 : 2)
-      );
+      return this.reacDamage(`${this.attackType} critical`, "Vaporize");
+    },
+    vaporizeAverage() {
+      return this.reacDamage(`${this.attackType} average`, "Vaporize");
+    },
+    crystalize() {
+      const shield = {
+        1: 91,
+        10: 159,
+        20: 304,
+        30: 438,
+        40: 557,
+        50: 715,
+        60: 896,
+        70: 1096,
+        80: 1277,
+        90: 1424,
+      };
+      return this.percent.map((x) => {
+        return shield[parseInt(this.character.charLvl)] * (1 + (x * 1.6) / 100);
+      });
     },
     reactions() {
       const reac = this.reactionElements[this.character.element];
       const damage = {
-        Superconductor: this.superconduct,
-        Swirl: this.swirl,
-        "Electro-charged": this.electroCharge,
-        Shattered: this.shattered,
-        Overload: this.overload,
-        Melt: this.melt,
-        Vaporize: this.vaporize,
-        "Melt critical": this.meltCritical,
-        "Vaporize critical": this.vaporizeCritical,
+        Superconductor: () => this.superconduct,
+        Swirl: () => this.swirl,
+        "Electro-charged": () => this.electroCharge,
+        Shattered: () => this.shattered,
+        Overload: () => this.overload,
+        Melt: () => this.melt,
+        Vaporize: () => this.vaporize,
+        "Melt critical": () => this.meltCritical,
+        "Melt average": () => this.meltAverage,
+        "Vaporize critical": () => this.vaporizeCritical,
+        "Vaporize average": () => this.vaporizeAverage,
+        Crystalize: () => this.crystalize,
       };
       return reac.map((x) => {
-        return { ...x, damage: damage[x.name] || [0, 0] };
+        return { name: x, damage: damage[x]() };
       });
     },
   },
@@ -227,6 +207,15 @@ export default {
           start * k * (1 + (p * 2.4 + this.allStats[i][name]) / 100) * 0.9
         );
       });
+    },
+    reacDamage(type, reaction) {
+      let mod = 1.5;
+      if (reaction == "Melt" && this.character.element == "Fire") mod = 2;
+      if (reaction == "Vaporize" && this.character.element == "Water") mod = 2;
+      return this.allElemental[type].map(
+        (x, i) =>
+          x * (1 + (this.percent[i] + this.allStats[i][reaction]) / 100) * mod
+      );
     },
     damageClass(dmg) {
       let cs = "";

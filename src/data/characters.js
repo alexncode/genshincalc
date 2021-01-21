@@ -4993,56 +4993,56 @@ export const charactersData = {
       "baseATK": 26,
       "baseDEF": 49,
       "value": 0,
-      "name": "CDMG%"
+      "name": "CDmg%"
     },
     20: {
       "baseHP": 1978,
       "baseATK": 68,
       "baseDEF": 127,
       "value": 0,
-      "name": "CDMG%"
+      "name": "CDmg%"
     },
     40: {
       "baseHP": 3939,
       "baseATK": 135,
       "baseDEF": 253,
       "value": 0,
-      "name": "CDMG%"
+      "name": "CDmg%"
     },
     50: {
       "baseHP": 5066,
       "baseATK": 173,
       "baseDEF": 326,
       "value": 9.6,
-      "name": "CDMG%"
+      "name": "CDmg%"
     },
     60: {
       "baseHP": 6355,
       "baseATK": 217,
       "baseDEF": 409,
       "value": 19.2,
-      "name": "CDMG%"
+      "name": "CDmg%"
     },
     70: {
       "baseHP": 7495,
       "baseATK": 256,
       "baseDEF": 482,
       "value": 19.2,
-      "name": "CDMG%"
+      "name": "CDmg%"
     },
     80: {
       "baseHP": 8643,
       "baseATK": 295,
       "baseDEF": 556,
       "value": 28.8,
-      "name": "CDMG%"
+      "name": "CDmg%"
     },
     90: {
       "baseHP": 9797,
       "baseATK": 335,
       "baseDEF": 630,
       "value": 38.4,
-      "name": "CDMG%"
+      "name": "CDmg%"
     },
     "normal": [
       31.73,
@@ -5117,42 +5117,42 @@ export const charactersData = {
       "baseATK": 94,
       "baseDEF": 215,
       "value": 0,
-      "name": "CDMG%"
+      "name": "CDmg%"
     },
     "40+": {
       "baseHP": 4403,
       "baseATK": 157,
       "baseDEF": 359,
       "value": 9.6,
-      "name": "CDMG%"
+      "name": "CDmg%"
     },
     "50+": {
       "baseHP": 5686,
       "baseATK": 203,
       "baseDEF": 464,
       "value": 19.2,
-      "name": "CDMG%"
+      "name": "CDmg%"
     },
     "60+": {
       "baseHP": 6820,
       "baseATK": 243,
       "baseDEF": 556,
       "value": 19.2,
-      "name": "CDMG%"
+      "name": "CDmg%"
     },
     "70+": {
       "baseHP": 7960,
       "baseATK": 284,
       "baseDEF": 649,
       "value": 28.8,
-      "name": "CDMG%"
+      "name": "CDmg%"
     },
     "80+": {
       "baseHP": 9108,
       "baseATK": 325,
       "baseDEF": 743,
       "value": 38.4,
-      "name": "CDMG%"
+      "name": "CDmg%"
     }
   },
   "Xiao": {

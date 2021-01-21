@@ -22,7 +22,7 @@
         <div class="flex flex-col ml-2 text-gray-200 w-full">
           <div class="flex justify-between">
             <a href="">
-              <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.9</h1>
+              <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.9.1</h1>
             </a>
             <div class="flex">
               <div
@@ -115,7 +115,7 @@
     </div>
     <div @click="save">
       <Modal v-if="showSave">
-        <Save @loadSave="loadSave" />
+        <Save @visibility="showSave = false" />
       </Modal>
     </div>
     <div @click="showHelp = false">
@@ -274,10 +274,6 @@ export default {
       this.activeTab = name;
     },
     save() {
-      this.showSave = !this.showSave;
-    },
-    loadSave(data) {
-      this.artifacts = data.artifacts;
       this.showSave = !this.showSave;
     },
     buildShareString() {
