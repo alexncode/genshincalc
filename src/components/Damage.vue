@@ -227,7 +227,10 @@ export default {
     levelNerf() {
       const lvl = parseInt(this.character.charLvl);
       const nw =
-        (lvl + 100) / Math.abs((1 - 0) * (lvl + 100 + this.enemyLevel + 100)); //Insert DEF reduction%
+        (lvl + 100) /
+        Math.abs(
+          (1 - this.buffs.DEF / 100) * (lvl + 100 + this.enemyLevel + 100)
+        );
       return nw;
     },
     modific() {
@@ -277,25 +280,72 @@ export default {
     },
     additionalBurst() {
       const res = [];
-      if (this.character.charName == "Zhongli") {
-        let zhongliHP = this.allResults[this.allResults.length - 1];
-        zhongliHP.forEach((x, i) => {
+      if (
+        this.character.charName == "Zhongli" &&
+        this.character.talentsBonus[0].active
+      ) {
+        this.allStats.forEach((x, i) => {
           const vals = {
             def: this.elemDef,
-            cDmg: this.allStats[i]["CDmg%"],
-            cRate: this.allStats[i]["CRate%"],
+            cDmg: x["CDmg%"],
+            cRate: x["CRate%"],
           };
-          const hit = Math.round(
-            x *
-              0.33 *
-              (1 +
-                (this.allStats[i]["Elemental%"] + this.allStats[i]["Burst%"]) /
-                  100)
-          );
+          const hit = this.calcHitHP(0.33, this.elemMod, ["AllDMG%", "Burst%"]);
           res.push({
-            normal: this.calcNormal(100, hit, vals),
-            critical: this.calcCritical(100, hit, vals),
-            average: this.calcAverage(100, hit, vals),
+            normal: this.calcNormal(100, hit[i], vals),
+            critical: this.calcCritical(100, hit[i], vals),
+            average: this.calcAverage(100, hit[i], vals),
+          });
+        });
+      }
+      return res;
+    },
+    additionalNormal() {
+      const res = [];
+      if (
+        this.character.charName == "Zhongli" &&
+        this.character.talentsBonus[0].active
+      ) {
+        this.allStats.forEach((x, i) => {
+          const vals = {
+            def: this.defMod,
+            cDmg: x["CDmg%"],
+            cRate: x["CRate%"],
+          };
+          const hit = this.calcHitHP(0.0139, this.modific, [
+            "AllDMG%",
+            "NormalATK%",
+            "NCATK%",
+          ]);
+          res.push({
+            normal: this.calcNormal(100, hit[i], vals),
+            critical: this.calcCritical(100, hit[i], vals),
+            average: this.calcAverage(100, hit[i], vals),
+          });
+        });
+      }
+      return res;
+    },
+    additionalSkill() {
+      const res = [];
+      if (
+        this.character.charName == "Zhongli" &&
+        this.character.talentsBonus[0].active
+      ) {
+        this.allStats.forEach((x, i) => {
+          const vals = {
+            def: this.defMod,
+            cDmg: x["CDmg%"],
+            cRate: x["CRate%"],
+          };
+          const hit = this.calcHitHP(0.019, this.modific, [
+            "AllDMG%",
+            "SkillDMG%",
+          ]);
+          res.push({
+            normal: this.calcNormal(100, hit[i], vals),
+            critical: this.calcCritical(100, hit[i], vals),
+            average: this.calcAverage(100, hit[i], vals),
           });
         });
       }
@@ -346,6 +396,20 @@ export default {
         if (this.additionalBurst[i]) {
           result["Burst hit"][i] += this.additionalBurst[i].normal;
           result["Burst critical"][i] += this.additionalBurst[i].critical;
+          result["Burst average"][i] += this.additionalBurst[i].average;
+        }
+        if (this.additionalNormal[i]) {
+          result["Normal hit"][i] += this.additionalNormal[i].normal;
+          result["Normal critical"][i] += this.additionalNormal[i].critical;
+          result["Normal average"][i] += this.additionalNormal[i].average;
+          result["Charged hit"][i] += this.additionalNormal[i].normal;
+          result["Charged critical"][i] += this.additionalNormal[i].critical;
+          result["Charged average"][i] += this.additionalNormal[i].average;
+        }
+        if (this.additionalSkill[i]) {
+          result["Skill hit"][i] += this.additionalSkill[i].normal;
+          result["Skill critical"][i] += this.additionalSkill[i].critical;
+          result["Skill average"][i] += this.additionalSkill[i].average;
         }
       }
 
@@ -423,6 +487,16 @@ export default {
           this.attackPowFood[i] *
           (1 + (mods[i] + bonuses.reduce((a, b) => a + side[b], 0)) / 100)
       );
+    },
+    calcHitHP(percent, mods, bonuses) {
+      return this.allStats.map((side, i) => {
+        const hp = this.allResults[this.allResults.length - 1][i];
+        return (
+          hp *
+          percent *
+          (1 + (mods[i] + bonuses.reduce((a, b) => a + side[b], 0)) / 100)
+        );
+      });
     },
     calcNormal(mod, hit, { def }) {
       return Math.round(hit * (mod / 100) * this.levelNerf * def);

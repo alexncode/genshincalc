@@ -138,6 +138,8 @@ export default {
         "Burst%": "Burst",
         "Elemental%": "Elemental damage",
         "DEF%": "Defence",
+        "HP%": "Health Points",
+        ATKByHP: "Attack by HP%",
         EM: "Elemental Mastery",
       },
     };

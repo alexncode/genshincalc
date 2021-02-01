@@ -186,6 +186,12 @@ export default new Vuex.Store({
           }
           all[i]["FlatATK"] += bonus
         }
+        //Weapons effects
+        if (state.weapon[i].additional[1]?.name == "ATKByHP" && state.weapon[i].additional[1]?.active) {
+          const hp = Math.round(ch.baseHP * (1 + all[i]["HP%"] / 100) + all[i]["HP"])
+          const bonus = hp * (state.weapon[i].additional[1].value / 100)
+          all[i]["FlatATK"] += bonus
+        }
       }
       return all
     },

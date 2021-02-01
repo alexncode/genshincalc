@@ -21,8 +21,8 @@
         </div>
         <div class="flex flex-col ml-2 text-gray-200 w-full">
           <div class="flex justify-between">
-            <a href="">
-              <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.9.1</h1>
+            <a href="https://buildsim.netlify.app/">
+              <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.9.2</h1>
             </a>
             <div class="flex">
               <div

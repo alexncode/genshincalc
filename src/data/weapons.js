@@ -42,6 +42,7 @@ export const bonus = {
   11.3: [11.3, 19.9, 29, 33.5, 38.1, 42.6, 47.2, 51.7],
   12: [12, 21.2, 30.9, 35.7, 40.6, 45.4, 50.3, 55.1],
   13.3: [13.3, 23.6, 34.3, 39.7, 45.1, 50.5, 55.9, 61.3],
+  14.4: [14.4, 25.4, 37.7, 42.9, 48.7, 54.5, 60.3, 66.2],
   15: [15, 26.5, 38.7, 44.7, 50.8, 56.8, 62.9, 69],
   16: [16, 28.3, 41.2, 47.7, 54.1, 60.6, 67.1, 73.6],
 
@@ -528,10 +529,10 @@ export const weaponList = {
   },
   "Lithic Blade": {
     "type": "Claymore",
-    "dmg": 41,
-    "name": "CDmg%",
-    "value": 16,
-    "additional": [{ name: "ATK%", value: 24, inc: 4, active: false }, { name: "CRate%", value: 8, inc: 4, active: false }],
+    "dmg": 42,
+    "name": "ATK%",
+    "value": 9,
+    "additional": [{ name: "ATK%", value: 28, inc: 4, active: true }, { name: "CRate%", value: 12, inc: 4, active: true }],
     "rarity": 4,
     refinement: 1,
     "description": "For every character in the party who hails from Liyue, the character who equips this weapon gains $eff1% ATK increase and $eff2% CRIT Rate increase."
@@ -669,13 +670,13 @@ export const weaponList = {
   },
   "Lithic Spear": {
     "type": "Polearm",
-    "dmg": 42,
-    "name": "Physical%",
-    "value": 9,
-    "additional": [],
+    "dmg": 44,
+    "name": "ATK%",
+    "value": 6,
+    "additional": [{ name: "ATK%", value: 28, inc: 4, active: true }, { name: "CRate%", value: 12, inc: 4, active: true }],
     "rarity": 4,
     refinement: 1,
-    "description": "Unknown"
+    "description": "For every character in the party who hails from Liyue, the character who equips this weapon gains $eff1% ATK increase and $eff2% CRIT Rate increase."
   },
   "Prototype Grudge": {
     "type": "Polearm",
@@ -948,6 +949,19 @@ export const weaponList = {
     refinement: 1,
     "description": "Increases Shield Strength by 20/25/30/35/40%. Scoring hits on opponents increases ATK by $eff1% for 8s. Max 5 stacks. Can only occur once every 0.3s. While protected by a shield, this ATK increase effect is increased by 100%."
   },
+  "Staff of Homa": {
+    "type": "Polearm",
+    "dmg": 46,
+    "name": "CDmg%",
+    "value": 14.4,
+    "additional": [
+      { name: "HP%", value: 20, inc: 5, active: true },
+      { name: "ATKByHP", value: 0.8, inc: 0.2, active: true }
+    ],
+    "rarity": 5,
+    refinement: 1,
+    "description": "HP increased by $eff1%. Additionally, provides an ATK Bonus based on $eff2% of the wielder's Max HP. When the wielder's HP is less than 50%, this ATK Bonus is increased by an additional 1% of Max HP."
+  },
   "Aquila Favonia": {
     "type": "Sword",
     "dmg": 48,
@@ -967,6 +981,19 @@ export const weaponList = {
     "rarity": 5,
     refinement: 1,
     "description": "Increases Shield Strength by 20/25/30/35/40%. Scoring hits on opponents increases ATK by $eff1% for 8s. Max 5 stacks. Can only occur once every 0.3s. While protected by a shield, this ATK increase effect is increased by 100%."
+  },
+  "Primordial Jade Cutter": {
+    "type": "Sword",
+    "dmg": 44,
+    "name": "CRate%",
+    "value": 9.6,
+    "additional": [
+      { name: "HP%", value: 20, inc: 5, active: true },
+      { name: "ATKByHP", value: 1.2, inc: 0.3, active: true }
+    ],
+    "rarity": 5,
+    refinement: 1,
+    "description": "HP increased by $eff1%. Additionally, provides an ATK Bonus based on $eff2% of the wielder's Max HP."
   },
   "Skyward Blade": {
     "type": "Sword",
