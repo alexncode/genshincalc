@@ -181,8 +181,8 @@ export default new Vuex.Store({
           const hp = Math.round(ch.baseHP * (1 + all[i]["HP%"] / 100) + all[i]["HP"])
           const skillBonus = [3.84, 4.07, 4.3, 4.6, 4.83, 5.06, 5.36, 5.66, 5.96, 6.26, 6.56, 6.85, 7.15, 7.45, 7.75]
           let bonus = hp * (skillBonus[ch.talentLvl - 1] / 100)
-          if (bonus > getters.baseATK * 3) {
-            bonus = getters.baseATK * 3
+          if (bonus > getters.baseATK * 4) {
+            bonus = getters.baseATK * 4
           }
           all[i]["FlatATK"] += bonus
         }

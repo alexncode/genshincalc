@@ -5324,56 +5324,56 @@ export const charactersData = {
     }
   },
   "Hutao": {
-    1: {
+    "1": {
       "baseHP": 1211,
       "baseATK": 8,
       "baseDEF": 68,
       "value": 0,
       "name": "CDmg%"
     },
-    20: {
+    "20": {
       "baseHP": 3141,
       "baseATK": 21,
       "baseDEF": 177,
       "value": 0,
       "name": "CDmg%"
     },
-    40: {
+    "40": {
       "baseHP": 6253,
       "baseATK": 43,
       "baseDEF": 352,
       "value": 0,
       "name": "CDmg%"
     },
-    50: {
+    "50": {
       "baseHP": 8042,
       "baseATK": 55,
       "baseDEF": 453,
       "value": 9.6,
       "name": "CDmg%"
     },
-    60: {
+    "60": {
       "baseHP": 10089,
       "baseATK": 69,
       "baseDEF": 568,
       "value": 19.2,
       "name": "CDmg%"
     },
-    70: {
+    "70": {
       "baseHP": 11899,
       "baseATK": 81,
       "baseDEF": 670,
       "value": 19.2,
       "name": "CDmg%"
     },
-    80: {
+    "80": {
       "baseHP": 13721,
       "baseATK": 94,
       "baseDEF": 773,
       "value": 28.8,
       "name": "CDmg%"
     },
-    90: {
+    "90": {
       "baseHP": 15552,
       "baseATK": 106,
       "baseDEF": 876,

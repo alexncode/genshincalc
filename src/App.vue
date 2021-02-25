@@ -22,18 +22,26 @@
         <div class="flex flex-col ml-2 text-gray-200 w-full">
           <div class="flex justify-between">
             <a href="https://buildsim.netlify.app/">
-              <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.9.2</h1>
+              <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.9.3</h1>
             </a>
             <div class="flex">
               <div
-                class="text-blue-400 mr-2 cursor-pointer"
+                class="text-blue-400 mr-2 cursor-pointer hover:text-blue-200"
                 @click="showHelp = true"
               >Help</div>
-              <div><a
-                  class="text-blue-400"
+              <div>
+                <a
+                  class="text-blue-400 mr-2 hover:text-blue-200"
                   href="mailto:alexnkcode@gmail.com"
                   target="_blank"
-                >Feedback</a></div>
+                >Feedback</a>
+              </div>
+              <div
+                class="text-blue-400 cursor-pointer hover:text-blue-200"
+                @click="showAbout = true"
+              >
+                About
+              </div>
             </div>
           </div>
           <div class="flex mt-1">
@@ -123,6 +131,11 @@
         <Help />
       </Modal>
     </div>
+    <div @click="showAbout = false">
+      <Modal v-if="showAbout">
+        <About />
+      </Modal>
+    </div>
     <div @click="showShare = false">
       <Modal v-if="showShare">
         <div class="bg-gray-900 text-gray-200 p-4 max-w-screen-md flex flex-col">
@@ -165,10 +178,10 @@ import StatTable from "@/components/StatTable.vue";
 import Damage from "@/components/Damage.vue";
 import Reactions from "@/components/Reactions.vue";
 import Modal from "@/components/modal/Modal.vue";
-import CharacterPick from "@/components/modal/CharacterPick.vue";
+// import CharacterPick from "@/components/modal/CharacterPick.vue";
 import Additional from "@/components/Additional.vue";
-import Save from "@/components/Save.vue";
-import Help from "@/components/Help.vue";
+// import Save from "@/components/Save.vue";
+// import Help from "@/components/Help.vue";
 
 import TabButton from "@/components/UI/TabButton.vue";
 
@@ -189,10 +202,15 @@ export default {
     TabButton,
     Reactions,
     Modal,
-    CharacterPick,
+    CharacterPick: () =>
+      import(
+        /* webpackChunkName: "characters" */ "@/components/modal/CharacterPick.vue"
+      ),
     Additional,
-    Save,
-    Help,
+    Save: () => import(/* webpackChunkName: "save" */ "@/components/Save.vue"),
+    Help: () => import(/* webpackChunkName: "help" */ "@/components/Help.vue"),
+    About: () =>
+      import(/* webpackChunkName: "about" */ "@/components/modal/About.vue"),
   },
   data() {
     return {
@@ -200,6 +218,7 @@ export default {
       characterPick: false,
       showSave: false,
       showHelp: false,
+      showAbout: false,
       showShare: false,
       updateReady: false, //New update ready
       refreshing: false, //Page is refreshing

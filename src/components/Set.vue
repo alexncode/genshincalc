@@ -43,7 +43,7 @@
       </label>
     </div>
     <div @click="setPick = false">
-      <Modal v-show="setPick">
+      <Modal v-if="setPick">
         <SetPick
           @set-set="setSet"
           @visibility="setPick = !setPick"
@@ -52,7 +52,7 @@
       </Modal>
     </div>
     <div @click="secondSetPick = false">
-      <Modal v-show="secondSetPick">
+      <Modal v-if="secondSetPick">
         <SetPick
           @set-set="secondSetSet"
           @visibility="secondSetPick = !secondSetPick"
@@ -65,7 +65,7 @@
 
 <script>
 import Modal from "@/components/modal/Modal.vue";
-import SetPick from "./modal/SetPick.vue";
+// import SetPick from "./modal/SetPick.vue";
 
 import { mapFields } from "vuex-map-fields";
 
@@ -73,7 +73,8 @@ export default {
   name: "Weapon",
   components: {
     Modal,
-    SetPick,
+    SetPick: () =>
+      import(/* webpackChunkName: "set" */ "@/components/modal/SetPick.vue"),
   },
   props: {
     side: Number,
@@ -103,5 +104,3 @@ export default {
   },
 };
 </script>
-//https://uploadstatic-sea.mihoyo.com/contentweb/20200616/2020061611214389168.png
-//https://uploadstatic-sea.mihoyo.com/contentweb/20200828/2020082817192486254.png

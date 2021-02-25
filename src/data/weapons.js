@@ -849,6 +849,20 @@ export const weaponList = {
     refinement: 1,
     "description": "Increases Shield Strength by 20/25/30/35/40%. Scoring hits on opponents increases ATK by $eff1% for 8s. Max 5 stacks. Can only occur once every 0.3s. While protected by a shield, this ATK increase effect is increased by 100%."
   },
+  "Elegy for the End": {
+    "type": "Bow",
+    "dmg": 46,
+    "name": "EnRe%",
+    "value": 12,
+    "additional": [
+      { name: "EM", value: 40, inc: 10, active: true },
+      { name: "EM", value: 100, inc: 25, active: false },
+      { name: "ATK%", value: 20, inc: 5, active: false }
+    ],
+    "rarity": 5,
+    refinement: 1,
+    "description": "Increases EM by $eff1. When 'Farewell Song' triggers get additional $eff2 EM and $eff3% ATK"
+  },
   "Lost Prayer to the Sacred Winds": {
     "type": "Catalyst",
     "dmg": 46,
