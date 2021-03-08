@@ -8,7 +8,10 @@
         v-for="(char, key) in characters"
         :key="key"
         class="m-2 cursor-pointer rounded"
-        :class="char.rarity == 4 ? 'hover:bg-purple-500' : 'hover:bg-amber-400'"
+        :class="[
+          'hover:'+ rarityColor(key),
+          key == name ? rarityColor(key) : ''
+         ]"
         @click="name = key"
       >
         <img
@@ -188,6 +191,11 @@ export default {
       }
       this.character = charData;
       this.$emit("visibility");
+    },
+    rarityColor(name) {
+      return this.characters[name].rarity == 4
+        ? "bg-purple-500"
+        : "bg-amber-400";
     },
   },
 };

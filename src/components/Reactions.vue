@@ -53,6 +53,7 @@
         <tr
           v-for="reaction in reactions"
           :key="reaction.name"
+          class="bg-gray-800 even:bg-gray-900"
         >
           <td class="border border-gray-600 px-1 py-1">{{ reaction.name }}</td>
           <td class="border border-gray-600 px-1 py-1">{{ reaction.damage[0] | round }}</td>
@@ -82,7 +83,7 @@ const reactionElements = {
     "Vaporize average",
     "Overload",
   ],
-  Ice: ["Superconductor", "Melt", "Melt critical", "Shattered"],
+  Ice: ["Superconductor", "Melt", "Melt critical", "Melt average", "Shattered"],
   Anemo: ["Swirl"],
   Water: [
     "Vaporize",

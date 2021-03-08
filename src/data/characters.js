@@ -280,6 +280,17 @@ export let characters = {
       { c: 6, desc: "When almost died CRate gains 100% bonus", name: "CRate%", value: 100, active: false },
     ]
   },
+  Rosaria: {
+    charName: "Rosaria",
+    element: "Ice", rarity: 4,
+    weapon: "Polearm",
+    talentsBonus: [
+      { desc: "When strikes from behind gain 12% CRate ", name: "CRate%", value: 12, active: false },
+    ],
+    constellationBonus: [
+      { c: 1, desc: "When crit have Normal ATK DMG increased by 10%", name: "NormalATK%", value: 10, active: false },
+    ]
+  },
   "Traveler (Anemo)": {
     charName: "Traveler (Anemo)",
     element: "Anemo", rarity: 5,
@@ -5489,6 +5500,174 @@ export const charactersData = {
       "baseDEF": 815,
       "value": 38.4,
       "name": "CDmg%"
+    }
+  },
+  "Rosaria": {
+    "1": {
+      "baseHP": 1030,
+      "baseATK": 20,
+      "baseDEF": 60,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "20": {
+      "baseHP": 2647,
+      "baseATK": 52,
+      "baseDEF": 153,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "40": {
+      "baseHP": 5118,
+      "baseATK": 100,
+      "baseDEF": 296,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "50": {
+      "baseHP": 6516,
+      "baseATK": 127,
+      "baseDEF": 376,
+      "value": 6,
+      "name": "ATK%"
+    },
+    "60": {
+      "baseHP": 8096,
+      "baseATK": 158,
+      "baseDEF": 468,
+      "value": 12,
+      "name": "ATK%"
+    },
+    "70": {
+      "baseHP": 9493,
+      "baseATK": 185,
+      "baseDEF": 548,
+      "value": 12,
+      "name": "ATK%"
+    },
+    "80": {
+      "baseHP": 10891,
+      "baseATK": 213,
+      "baseDEF": 629,
+      "value": 18,
+      "name": "ATK%"
+    },
+    "90": {
+      "baseHP": 12289,
+      "baseATK": 240,
+      "baseDEF": 710,
+      "value": 24,
+      "name": "ATK%"
+    },
+    "normal": [
+      52.46,
+      56.73,
+      61,
+      67.1,
+      71.37,
+      76.25,
+      82.96,
+      89.67,
+      96.38,
+      103.7,
+      111.02,
+      118.34,
+      125.66,
+      132.98,
+      140.3
+    ],
+    "charged": [
+      136.74,
+      147.87,
+      159,
+      174.9,
+      186.03,
+      198.75,
+      216.24,
+      233.73,
+      251.22,
+      270.3,
+      289.38,
+      308.46,
+      327.54,
+      346.62,
+      365.7
+    ],
+    "skill": [
+      194.4,
+      208.98,
+      223.56,
+      243,
+      257.58,
+      272.16,
+      291.6,
+      311.04,
+      330.48,
+      349.92,
+      369.36,
+      388.8,
+      413.1,
+      437.4,
+      461.7
+    ],
+    "burst": [
+      132,
+      141.9,
+      151.8,
+      165,
+      174.9,
+      184.8,
+      198,
+      211.2,
+      224.4,
+      237.6,
+      250.8,
+      264,
+      280.5,
+      297,
+      313.5
+    ],
+    "20+": {
+      "baseHP": 3417,
+      "baseATK": 67,
+      "baseDEF": 197,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "40+": {
+      "baseHP": 5665,
+      "baseATK": 111,
+      "baseDEF": 327,
+      "value": 6,
+      "name": "ATK%"
+    },
+    "50+": {
+      "baseHP": 7245,
+      "baseATK": 141,
+      "baseDEF": 418,
+      "value": 12,
+      "name": "ATK%"
+    },
+    "60+": {
+      "baseHP": 8643,
+      "baseATK": 169,
+      "baseDEF": 499,
+      "value": 12,
+      "name": "ATK%"
+    },
+    "70+": {
+      "baseHP": 10040,
+      "baseATK": 196,
+      "baseDEF": 580,
+      "value": 18,
+      "name": "ATK%"
+    },
+    "80+": {
+      "baseHP": 11438,
+      "baseATK": 223,
+      "baseDEF": 661,
+      "value": 24,
+      "name": "ATK%"
     }
   }
 }

@@ -9,9 +9,11 @@ export function getWeaponData(name) {
   }
 }
 
+// 1 20 20+ 40 40+ 50 50+ 60 60+ 70 70+ 80 80+ 90
 export const baseATK = {
-  48: [48, 133, 164, 261, 292, 341, 373, 423, 455, 506, 537, 590, 621, 674], // 1 20 20+ 40 40+ 50 50+ 60 60+ 70 70+ 80 80+ 90
+  48: [48, 133, 164, 261, 292, 341, 373, 423, 455, 506, 537, 590, 621, 674],
   46: [46, 122, 153, 235, 266, 308, 340, 382, 414, 457, 488, 532, 563, 608],
+  45: [45, 134, 160, 261, 287, 340, 366, 419, 445, 499, 525, 579, 605, 660],
   44: [44, 119, 144, 226, 252, 293, 319, 361, 387, 429, 455, 497, 523, 565],
   42: [42, 109, 135, 205, 231, 266, 292, 327, 353, 388, 414, 449, 475, 510],
   41: [41, 99, 125, 184, 210, 238, 264, 293, 319, 347, 373, 401, 427, 454],
@@ -298,13 +300,13 @@ export const weaponList = {
   },
   "Alley Hunter": {
     "type": "Bow",
-    "dmg": 41,
-    "name": "CRate%",
-    "value": 8,
-    "additional": [{ name: "ATK%", value: 20, inc: 5, active: false }, { name: "CDmg%", value: 20, inc: 5, active: false }],
-    "rarity": 3,
+    "dmg": 44,
+    "name": "ATK%",
+    "value": 6,
+    "additional": [{ name: "AllDMG%", value: 20, inc: 5, active: false }],
+    "rarity": 4,
     refinement: 1,
-    "description": "Every 4s a character is on the field, their ATK increases by $eff1% and their CRIT DMG increases by $eff2%. This effect has a maximum of 5 stacks and will not be reset if the character leaves the field, but will be cleared when the character takes DMG."
+    "description": "If character is not on the field All DMG increased by $eff1%."
   },
   "Blackcliff Warbow": {
     "type": "Bow",
@@ -395,6 +397,16 @@ export const weaponList = {
     "rarity": 4,
     refinement: 1,
     "description": "Upon hit, Normal and Aimed Shot Attacks have a 50% chance to generate a Cyclone, which will continuously attract surrounding enemies, dealing 40/50/60/70/80% of ATK as DMG to these enemies every 0.5s for 4s. This effect can only occur once every 14/13/12/11/10s."
+  },
+  "Windblume Ode": {
+    "type": "Bow",
+    "dmg": 42,
+    "name": "EM",
+    "value": 36,
+    "additional": [{ name: "ATK%", value: 16, inc: 4, active: false }],
+    "rarity": 4,
+    refinement: 1,
+    "description": "After using Elemental Skill gain $eff1% bonus ATK."
   },
   "Blackcliff Amulet": {
     "type": "Catalyst",
@@ -488,13 +500,13 @@ export const weaponList = {
   },
   "Wine and Song": {
     "type": "Catalyst",
-    "dmg": 42,
+    "dmg": 44,
     "name": "EnRe%",
-    "value": 10,
-    "additional": [{ name: "ATK%", value: 32, inc: 8, active: false }],
+    "value": 6.7,
+    "additional": [{ name: "ATK%", value: 20, inc: 5, active: false }],
     "rarity": 4,
     refinement: 1,
-    "description": "For every character in the party who hails from Mondstadt, the character who equips this weapon gains $eff1% ATK increase and 3/3.5/4/4.5/5% Movement SPD increase."
+    "description": "Sprinting increases ATK by $eff1% for 5s."
   },
   "Frostbearer": {
     "type": "Catalyst",
@@ -678,7 +690,7 @@ export const weaponList = {
     refinement: 1,
     "description": "For every character in the party who hails from Liyue, the character who equips this weapon gains $eff1% ATK increase and $eff2% CRIT Rate increase."
   },
-  "Prototype Grudge": {
+  "Prototype Starglitter": {
     "type": "Polearm",
     "dmg": 42,
     "name": "EnRe%",
@@ -781,13 +793,13 @@ export const weaponList = {
   },
   "The Alley Flash": {
     "type": "Sword",
-    "dmg": 44,
-    "name": "CRate%",
-    "value": 4,
-    "additional": [{ name: "ATK%", value: 28, inc: 6, active: false }],
+    "dmg": 45,
+    "name": "EM",
+    "value": 12,
+    "additional": [{ name: "AllDMG%", value: 12, inc: 3, active: true }],
     "rarity": 4,
     refinement: 1,
-    "description": "Continuosly sprinting for at least 1s increases ATK by $eff1% for 6s. This effect cannot stack."
+    "description": "Increases All DMG by $eff1%."
   },
   "The Black Sword": {
     "type": "Sword",
