@@ -4,6 +4,7 @@
     @click.stop
   >
     <div class="flex flex-wrap md:w-4/6">
+      <div class="hidden hover:bg-purple-500 hover:bg-amber-400"></div>
       <div
         v-for="(char, key) in characters"
         :key="key"

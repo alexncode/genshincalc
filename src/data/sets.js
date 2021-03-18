@@ -151,8 +151,8 @@ export let sets = {
     "2pcs": { name: "Elemental%", value: 15, bonusText: "Cryo DMG Bonus +15%" },
     "4pcs": { name: "CRate%", value: 20, bonusText: "When a character attacks an enemy affected by Cryo, their CRIT Rate is increased by 20%. If the enemy is Frozen, CRIT Rate is increased by an additional 20%" },
   },
-  "Ocean Conqueror": {
-    name: "Ocean Conqueror",
+  "Heart of Depth": {
+    name: "Heart of Depth",
     rarity: 5,
     "2pcs": { name: "Elemental%", value: 15, bonusText: "Hydro DMG Bonus +15%" },
     "4pcs": { name: "NCATK%", value: 30, bonusText: "After using Elemental Skill, increases Normal Attack and Charged Attack DMG by 30% for 15s" },

@@ -11,6 +11,7 @@ export function getWeaponData(name) {
 
 // 1 20 20+ 40 40+ 50 50+ 60 60+ 70 70+ 80 80+ 90
 export const baseATK = {
+  49: [49, 152, 183, 302, 334, 397, 428, 492, 523, 589, 621, 688, 719, 787],
   48: [48, 133, 164, 261, 292, 341, 373, 423, 455, 506, 537, 590, 621, 674],
   46: [46, 122, 153, 235, 266, 308, 340, 382, 414, 457, 488, 532, 563, 608],
   45: [45, 134, 160, 261, 287, 340, 366, 419, 445, 499, 525, 579, 605, 660],
@@ -25,6 +26,7 @@ export const baseATK = {
 export const bonus = {
   3.4: [3.4, 6, 8.8, 10.1, 11.5, 12.9, 14.2, 15.6],
   4: [4, 7.1, 10.3, 11.9, 13.6, 15.2, 16.8, 18.4],
+  4.5: [4.5, 8, 11.6, 13.4, 15.2, 17, 18.9, 20.7],
   4.8: [4.8, 8.5, 12.4, 14.3, 16.2, 18.2, 20.1, 22.1],
   5.1: [5.1, 9, 13.1, 15.2, 17.3, 19.3, 21.4, 23.4],
   6: [6, 10.6, 15.5, 17.9, 20.3, 22.7, 25.1, 27.5],
@@ -934,6 +936,19 @@ export const weaponList = {
     "rarity": 5,
     refinement: 1,
     "description": "Increases Shield Strength by 20/25/30/35/40%. Scoring hits on opponents increases ATK by $eff1% for 8s. Max 5 stacks. Can only occur once every 0.3s. While protected by a shield, this ATK increase effect is increased by 100%."
+  },
+  "Song of Broken Pines": {
+    "type": "Claymore",
+    "dmg": 49,
+    "name": "Physical%",
+    "value": 4.5,
+    "additional": [
+      { name: "ATK%", value: 16, inc: 4, active: true },
+      { name: "ATK%", value: 20, inc: 5, active: false }
+    ],
+    "rarity": 5,
+    refinement: 1,
+    "description": "Increases ATK by $eff1%, additionally Sigil of Whispers increses ATK by $eff2% and ATK Spd by 12/15/18/21/24%"
   },
   "Kunwus Iris Rift": {
     "type": "Polearm",

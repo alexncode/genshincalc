@@ -291,6 +291,22 @@ export let characters = {
       { c: 1, desc: "When crit have Normal ATK DMG increased by 10%", name: "NormalATK%", value: 10, active: false },
     ]
   },
+  Feiyan: {
+    charName: "Feiyan",
+    element: "Fire", rarity: 4,
+    weapon: "Catalyst",
+    talentsBonus: [],
+    constellationBonus: [
+      { c: 2, desc: "Against enemies with less than 50% gain 20% CRate", name: "CRate%", value: 20, active: false },
+    ]
+  },
+  Eula: {
+    charName: "Eula",
+    element: "Ice", rarity: 5,
+    weapon: "Claymore",
+    talentsBonus: [
+    ],
+  },
   "Traveler (Anemo)": {
     charName: "Traveler (Anemo)",
     element: "Anemo", rarity: 5,
@@ -5668,6 +5684,342 @@ export const charactersData = {
       "baseDEF": 661,
       "value": 24,
       "name": "ATK%"
+    }
+  },
+  "Feiyan": {
+    "1": {
+      "baseHP": 784,
+      "baseATK": 20,
+      "baseDEF": 49,
+      "value": 0,
+      "name": "Elemental%"
+    },
+    "20": {
+      "baseHP": 2014,
+      "baseATK": 52,
+      "baseDEF": 126,
+      "value": 0,
+      "name": "Elemental%"
+    },
+    "40": {
+      "baseHP": 3895,
+      "baseATK": 100,
+      "baseDEF": 244,
+      "value": 0,
+      "name": "Elemental%"
+    },
+    "50": {
+      "baseHP": 4959,
+      "baseATK": 127,
+      "baseDEF": 311,
+      "value": 6,
+      "name": "Elemental%"
+    },
+    "60": {
+      "baseHP": 6161,
+      "baseATK": 158,
+      "baseDEF": 387,
+      "value": 12,
+      "name": "Elemental%"
+    },
+    "70": {
+      "baseHP": 7225,
+      "baseATK": 185,
+      "baseDEF": 453,
+      "value": 12,
+      "name": "Elemental%"
+    },
+    "80": {
+      "baseHP": 8289,
+      "baseATK": 213,
+      "baseDEF": 520,
+      "value": 18,
+      "name": "Elemental%"
+    },
+    "90": {
+      "baseHP": 9352,
+      "baseATK": 240,
+      "baseDEF": 587,
+      "value": 24,
+      "name": "Elemental%"
+    },
+    "normal": [
+      58.34,
+      62.72,
+      67.09,
+      72.93,
+      77.3,
+      81.68,
+      87.51,
+      93.35,
+      99.18,
+      105.01,
+      110.85,
+      116.68,
+      123.98,
+      131.27,
+      138.56
+    ],
+    "charged": [
+      167.57,
+      177.6,
+      187.64,
+      200.68,
+      210.71,
+      220.75,
+      233.79,
+      246.84,
+      259.88,
+      272.92,
+      285.97,
+      299.01,
+      312.06,
+      325.1,
+      338.15
+    ],
+    "skill": [
+      169.6,
+      182.32,
+      195.04,
+      212,
+      224.72,
+      237.44,
+      254.4,
+      271.36,
+      288.32,
+      305.28,
+      322.24,
+      339.2,
+      360.4,
+      381.6,
+      402.8
+    ],
+    "burst": [
+      182.4,
+      196.08,
+      209.76,
+      228,
+      241.68,
+      255.36,
+      273.6,
+      291.84,
+      310.08,
+      328.32,
+      346.56,
+      364.8,
+      387.6,
+      410.4,
+      433.2
+    ],
+    "20+": {
+      "baseHP": 2600,
+      "baseATK": 67,
+      "baseDEF": 163,
+      "value": 0,
+      "name": "Elemental%"
+    },
+    "40+": {
+      "baseHP": 4311,
+      "baseATK": 111,
+      "baseDEF": 271,
+      "value": 6,
+      "name": "Elemental%"
+    },
+    "50+": {
+      "baseHP": 5514,
+      "baseATK": 141,
+      "baseDEF": 346,
+      "value": 12,
+      "name": "Elemental%"
+    },
+    "60+": {
+      "baseHP": 6578,
+      "baseATK": 169,
+      "baseDEF": 413,
+      "value": 12,
+      "name": "Elemental%"
+    },
+    "70+": {
+      "baseHP": 7641,
+      "baseATK": 196,
+      "baseDEF": 480,
+      "value": 18,
+      "name": "Elemental%"
+    },
+    "80+": {
+      "baseHP": 8705,
+      "baseATK": 223,
+      "baseDEF": 546,
+      "value": 24,
+      "name": "Elemental%"
+    }
+  },
+  "Eula": {
+    "1": {
+      "baseHP": 1030,
+      "baseATK": 27,
+      "baseDEF": 58,
+      "value": 0,
+      "name": "CDmg%"
+    },
+    "20": {
+      "baseHP": 2671,
+      "baseATK": 69,
+      "baseDEF": 152,
+      "value": 0,
+      "name": "CDmg%"
+    },
+    "40": {
+      "baseHP": 5317,
+      "baseATK": 138,
+      "baseDEF": 302,
+      "value": 0,
+      "name": "CDmg%"
+    },
+    "50": {
+      "baseHP": 6839,
+      "baseATK": 177,
+      "baseDEF": 388,
+      "value": 9.6,
+      "name": "CDmg%"
+    },
+    "60": {
+      "baseHP": 8579,
+      "baseATK": 222,
+      "baseDEF": 487,
+      "value": 19.2,
+      "name": "CDmg%"
+    },
+    "70": {
+      "baseHP": 10119,
+      "baseATK": 262,
+      "baseDEF": 574,
+      "value": 19.2,
+      "name": "CDmg%"
+    },
+    "80": {
+      "baseHP": 11669,
+      "baseATK": 302,
+      "baseDEF": 662,
+      "value": 28.8,
+      "name": "CDmg%"
+    },
+    "90": {
+      "baseHP": 13226,
+      "baseATK": 342,
+      "baseDEF": 751,
+      "value": 38.4,
+      "name": "CDmg%"
+    },
+    "normal": [
+      75.42,
+      81.56,
+      87.7,
+      96.47,
+      102.61,
+      109.63,
+      119.27,
+      128.92,
+      138.57,
+      149.09,
+      161.15,
+      175.33,
+      189.51,
+      203.69,
+      219.16
+    ],
+    "charged": [
+      68.8,
+      74.4,
+      80,
+      88,
+      93.6,
+      100,
+      108.8,
+      117.6,
+      126.4,
+      136,
+      147,
+      159.94,
+      172.87,
+      185.81,
+      199.92
+    ],
+    "skill": [
+      245.6,
+      264.02,
+      282.44,
+      307,
+      325.42,
+      343.84,
+      368.4,
+      392.96,
+      417.52,
+      442.08,
+      466.64,
+      491.2,
+      521.9,
+      552.6,
+      583.3
+    ],
+    "burst": [
+      352.6,
+      381.3,
+      410,
+      451,
+      479.7,
+      512.5,
+      557.6,
+      602.7,
+      647.8,
+      697,
+      753.38,
+      819.67,
+      885.97,
+      952.27,
+      1024.59
+    ],
+    "20+": {
+      "baseHP": 3554,
+      "baseATK": 92,
+      "baseDEF": 202,
+      "value": 0,
+      "name": "CDmg%"
+    },
+    "40+": {
+      "baseHP": 5944,
+      "baseATK": 154,
+      "baseDEF": 337,
+      "value": 9.6,
+      "name": "CDmg%"
+    },
+    "50+": {
+      "baseHP": 7675,
+      "baseATK": 198,
+      "baseDEF": 436,
+      "value": 19.2,
+      "name": "CDmg%"
+    },
+    "60+": {
+      "baseHP": 9207,
+      "baseATK": 238,
+      "baseDEF": 523,
+      "value": 19.2,
+      "name": "CDmg%"
+    },
+    "70+": {
+      "baseHP": 10746,
+      "baseATK": 278,
+      "baseDEF": 610,
+      "value": 28.8,
+      "name": "CDmg%"
+    },
+    "80+": {
+      "baseHP": 12296,
+      "baseATK": 318,
+      "baseDEF": 698,
+      "value": 38.4,
+      "name": "CDmg%"
     }
   }
 }
