@@ -22,7 +22,7 @@
         <div class="flex flex-col ml-2 text-gray-200 w-full">
           <div class="flex justify-between">
             <a href="https://buildsim.netlify.app/">
-              <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.9.4</h1>
+              <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.9.5</h1>
             </a>
             <div class="flex">
               <div
@@ -138,19 +138,7 @@
     </div>
     <div @click="showShare = false">
       <Modal v-if="showShare">
-        <div class="bg-gray-900 text-gray-200 p-4 max-w-screen-md flex flex-col">
-          <a
-            :href="shareLink"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-gray-800"
-            ref="link"
-          >{{ domen + shareLink }}</a>
-          <button
-            class="bg-gray-700 px-4 py-2 rounded mt-2 hover:bg-gray-500"
-            @click="copyShareLink"
-          >Copy link</button>
-        </div>
+        <Share :shareLink="shareLink" />
       </Modal>
     </div>
     <transition name="slide">
@@ -178,10 +166,8 @@ import StatTable from "@/components/StatTable.vue";
 import Damage from "@/components/Damage.vue";
 import Reactions from "@/components/Reactions.vue";
 import Modal from "@/components/modal/Modal.vue";
-// import CharacterPick from "@/components/modal/CharacterPick.vue";
 import Additional from "@/components/Additional.vue";
-// import Save from "@/components/Save.vue";
-// import Help from "@/components/Help.vue";
+import Share from '@/components/modal/Share.vue';
 
 import TabButton from "@/components/UI/TabButton.vue";
 
@@ -202,6 +188,7 @@ export default {
     TabButton,
     Reactions,
     Modal,
+    Share,
     CharacterPick: () =>
       import(
         /* webpackChunkName: "characters" */ "@/components/modal/CharacterPick.vue"
@@ -257,9 +244,6 @@ export default {
     ...mapGetters(["baseATK"]),
     shareLink() {
       return `/?l=${this.buildShareString()}`;
-    },
-    domen() {
-      return window.location.protocol + "//" + window.location.hostname;
     },
   },
   methods: {
@@ -340,9 +324,6 @@ export default {
           });
         }
       }
-    },
-    copyShareLink() {
-      navigator.clipboard.writeText(this.$refs.link.href);
     },
   },
 };

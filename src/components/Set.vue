@@ -3,11 +3,13 @@
     <div
       @click="setPick = true"
       class="bg-gray-800 rounded pt-1 px-1 cursor-pointer hover:bg-gray-700"
+      
     >
       <img
         :src="`/img/sets/${fileName[0]}.png`"
         :alt="currentSet.set[0]"
         :title="currentSet.set[0]"
+        style="background-color: #c28135"
       >
     </div>
     <div
@@ -19,6 +21,7 @@
         :src="`/img/sets/${fileName[1]}.png`"
         :alt="currentSet.set[1]"
         :title="currentSet.set[1]"
+        style="background-color: #c28135"
       >
     </div>
     <div class="bg-gray-800 rounded px-1">

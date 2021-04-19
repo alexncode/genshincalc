@@ -8,6 +8,7 @@
         v-for="(char, key) in sets"
         :key="key"
         class="m-2 cursor-pointer"
+        style="background-color: #c28135"
         @click.stop="setName = key"
       >
         <img

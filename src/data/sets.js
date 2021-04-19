@@ -157,6 +157,21 @@ export let sets = {
     "2pcs": { name: "Elemental%", value: 15, bonusText: "Hydro DMG Bonus +15%" },
     "4pcs": { name: "NCATK%", value: 30, bonusText: "After using Elemental Skill, increases Normal Attack and Charged Attack DMG by 30% for 15s" },
   },
+  "Tenacity of the Millelith": {
+    name: "Tenacity of the Millelith",
+    rarity: 5,
+    "2pcs": { name: "HP%", value: 20, bonusText: "HP increased by 20%" },
+    "4pcs": { name: "ATK%", value: 20, bonusText: "When Elemental skill hits an opponent, increases ATK by 20% and shield strength by 30%" },
+  },
+  "Pale Flame": {
+    name: "Pale Flame",
+    rarity: 5,
+    "2pcs": { name: "Physical%", value: 25, bonusText: "Physical DMG +25%" },
+    "4pcs": { name: "ATK%", value: 18, bonusText: "When Elemental skill hits an opponent twice, increases ATK by 18% and Physical DMG by 25% for 7s",
+    substats: [
+      {name: "Physical%", value: 25}
+    ] },
+  },
   none: {
     name: "none",
     "2pcs": { bonusText: "Nothing" },
