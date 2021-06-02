@@ -55,6 +55,7 @@ export const bonus = {
   31: [31, 54, 79, 91, 104, 116, 128, 141],
   36: [36, 64, 93, 107, 122, 136, 151, 165],
   41: [41, 72, 105, 122, 138, 154, 171, 187],
+  43: [43, 76, 111, 129, 146, 165, 181, 198],
   48: [48, 85, 124, 143, 162, 182, 201, 221],
 
 }
@@ -520,6 +521,16 @@ export const weaponList = {
     refinement: 1,
     "description": `Hitting an opponent with Normal and Charged Attacks has a 60/70/80/90/100% chance of forming and dropping an Everfrost Icicle above them, dealing 80/95/110/125/140% AoE ATK DMG.
     Opponents affected by Cryo are dealt 200/240/280/320/360% ATK DMG. Can only occur once every 10s`
+  },
+  "Dodoco Tales": {
+    "type": "Catalyst",
+    "dmg": 41,
+    "name": "ATK%",
+    "value": 12,
+    "additional": [{ name: "Charged%", value: 16, inc: 4, active: false }, { name: "ATK%", value: 8, inc: 2, active: false }],
+    "rarity": 4,
+    refinement: 1,
+    "description": "Normal Attacks increse Charged Attack by $eff1% for 6s. Charged Attack increases ATK by $eff2%"
   },
   "Blackcliff Slasher": {
     "type": "Claymore",
@@ -1045,5 +1056,19 @@ export const weaponList = {
     "rarity": 5,
     refinement: 1,
     "description": "CRIT Rate increased by $eff1%. Gains Skypiercing Might upon using an Elemental Burst: Increases Movement SPD by 10%, increases ATK SPD by 10%, and increases the DMG of Normal and Charged Attack hits by $eff2% for 12s."
+  },
+  "Boreas Precocity": {
+    "type": "Sword",
+    "dmg": 46,
+    "name": "EM",
+    "value": 43,
+    "additional": [
+      { name: "AllDMG%", value: 10, inc: 2.5, active: true },
+      { name: "NCATK%", value: 16, inc: 4, active: false },
+      { name: "ATK%", value: 20, inc: 5, active: false }
+    ],
+    "rarity": 5,
+    refinement: 1,
+    "description": "Increases All DMG by $eff1%. Additionally when you posses 2 Sigils of Rebbelion get Normal, Charged, Plunging attack $eff2% bonus and $eff3 ATK% bonus."
   }
 }

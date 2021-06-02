@@ -307,6 +307,15 @@ export let characters = {
     talentsBonus: [
     ],
   },
+  Kazuha: {
+    charName: "Kazuha",
+    element: "Anemo", rarity: 5,
+    weapon: "Sword",
+    talentsBonus: [],
+    constellationBonus: [
+      { c: 2, desc: "Inside Burst increases EM by 200", name: "EM", value: 200, active: false },
+    ]
+  },
   "Traveler (Anemo)": {
     charName: "Traveler (Anemo)",
     element: "Anemo", rarity: 5,
@@ -6020,6 +6029,149 @@ export const charactersData = {
       "baseDEF": 698,
       "value": 38.4,
       "name": "CDmg%"
+    }
+  },
+  "Kazuha": {
+    "1": {
+      "baseHP": 1039,
+      "baseATK": 23,
+      "baseDEF": 63,
+      "value": 0,
+      "name": "EM"
+    },
+    "20": {
+      "baseHP": 2695,
+      "baseATK": 60,
+      "baseDEF": 163,
+      "value": 0,
+      "name": "EM"
+    },
+    "40": {
+      "baseHP": 5366,
+      "baseATK": 119,
+      "baseDEF": 324,
+      "value": 0,
+      "name": "EM"
+    },
+    "50": {
+      "baseHP": 6902,
+      "baseATK": 153,
+      "baseDEF": 417,
+      "value": 28.8,
+      "name": "EM"
+    },
+    "60": {
+      "baseHP": 8659,
+      "baseATK": 192,
+      "baseDEF": 523,
+      "value": 57.6,
+      "name": "EM"
+    },
+    "70": {
+      "baseHP": 10213,
+      "baseATK": 227,
+      "baseDEF": 617,
+      "value": 57.6,
+      "name": "EM"
+    },
+    "80": {
+      "baseHP": 11777,
+      "baseATK": 262,
+      "baseDEF": 712,
+      "value": 86.4,
+      "name": "EM"
+    },
+    "90": {
+      "baseHP": 13348,
+      "baseATK": 297,
+      "baseDEF": 807,
+      "value": 115.2,
+      "name": "EM"
+    },
+    "normal": [
+      44.98,
+      48.64,
+      52.3,
+      57.53,
+      61.19,
+      65.38,
+      71.13,
+      76.88,
+      82.63,
+      88.91,
+      96.1,
+      104.56,
+      113.02,
+      121.47,
+      130.7
+    ],
+    "charged": [
+      25.37,
+      27.44,
+      29.5,
+      32.45,
+      34.52,
+      36.88,
+      40.12,
+      43.37,
+      46.61,
+      50.15,
+      54.21,
+      58.98,
+      63.75,
+      68.52,
+      73.72
+    ],
+    "skill": [],
+    "burst": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "20+": {
+      "baseHP": 3586,
+      "baseATK": 80,
+      "baseDEF": 217,
+      "value": 0,
+      "name": "EM"
+    },
+    "40+": {
+      "baseHP": 5999,
+      "baseATK": 133,
+      "baseDEF": 363,
+      "value": 28.8,
+      "name": "EM"
+    },
+    "50+": {
+      "baseHP": 7747,
+      "baseATK": 172,
+      "baseDEF": 468,
+      "value": 57.6,
+      "name": "EM"
+    },
+    "60+": {
+      "baseHP": 9292,
+      "baseATK": 206,
+      "baseDEF": 562,
+      "value": 57.6,
+      "name": "EM"
+    },
+    "70+": {
+      "baseHP": 10846,
+      "baseATK": 241,
+      "baseDEF": 656,
+      "value": 86.4,
+      "name": "EM"
+    },
+    "80+": {
+      "baseHP": 12410,
+      "baseATK": 276,
+      "baseDEF": 750,
+      "value": 115.2,
+      "name": "EM"
     }
   }
 }
