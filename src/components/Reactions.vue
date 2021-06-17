@@ -117,7 +117,17 @@ export default {
     },
     percent() {
       return this.EM.map(
-        (em) => Math.round(((1 * em * (25 / 9)) / (em + 1400)) * 1000) / 10
+        (em) => Math.round(278 * (em / (em + 1400)) * 10) / 10
+      );
+    },
+    majorPercent() {
+      return this.EM.map(
+        (em) => Math.round(1600 * (em / (em + 2000)) * 10) / 10
+      );
+    },
+    crystalPercent() {
+      return this.EM.map(
+        (em) => Math.round(444 * (em / (em + 1400)) * 10) / 10
       );
     },
     superconduct() {
@@ -169,7 +179,7 @@ export default {
         80: 1277,
         90: 1424,
       };
-      return this.percent.map((x) => {
+      return this.crystalPercent.map((x) => {
         return shield[parseInt(this.character.charLvl)] * (1 + (x * 1.6) / 100);
       });
     },
@@ -196,16 +206,21 @@ export default {
   },
   methods: {
     reaction(k, x, name) {
-      const start =
-        -0.0000006815 * x ** 5 +
-        0.0001257728 * x ** 4 -
-        0.0073286198 * x ** 3 +
-        0.2100526539 * x ** 2 -
-        0.5937899697 * x +
-        8.4614696213;
-      return this.percent.map((p, i) => {
+      const start = {
+        1: 9,
+        10: 17,
+        20: 40,
+        30: 68,
+        40: 104,
+        50: 162,
+        60: 245,
+        70: 383,
+        80: 540,
+        90: 725,
+      };
+      return this.majorPercent.map((p, i) => {
         return Math.round(
-          start * k * (1 + (p * 2.4 + this.allStats[i][name]) / 100) * 0.9
+          start[parseInt(this.character.charLvl)] * k * (1 + ((p + this.allStats[i][name])) / 100) * 0.9
         );
       });
     },

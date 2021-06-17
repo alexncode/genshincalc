@@ -136,14 +136,18 @@ export default {
     ...mapGetters(["allResultsFormatted"]),
     melt() {
       return this.allResultsFormatted[9].value.map(
-        (em) => Math.round(((1 * em * (25 / 9)) / (em + 1400)) * 1000) / 10
+        (em) => Math.round(278 * (em / (em + 1400)) * 10) / 10
       );
     },
     overload() {
-      return this.melt.map((x) => Math.round(x * 2.4 * 10) / 10);
+      return this.allResultsFormatted[9].value.map(
+        (em) => Math.round(1600 * (em / (em + 2000)) * 10) / 10
+      );
     },
     crystal() {
-      return this.melt.map((x) => Math.round(x * 1.5 * 10) / 10);
+      return this.allResultsFormatted[9].value.map(
+        (em) => Math.round(444 * (em / (em + 1400)) * 10) / 10
+      );
     },
   },
   methods: {
