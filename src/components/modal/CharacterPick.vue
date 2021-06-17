@@ -3,7 +3,26 @@
     class="max-w-screen-md bg-gray-800 rounded flex flex-col md:flex-row overflow-y-auto max-h-screen"
     @click.stop
   >
-    <div class="flex flex-wrap md:w-4/6">
+    <div class="md:w-4/6">
+      <div class="flex justify-end">
+        <div class="flex gap-1 bg-gray-700 rounded">
+          <div 
+          class="text-gray-300 bg-gray-600 rounded hover:bg-blueGray-700 cursor-pointer"
+          @click="filterBy('All')"
+          >
+            ALL
+          </div>
+          <img 
+            class="bg-gray-600 rounded hover:bg-blueGray-700 cursor-pointer"
+            v-for="el in ['Anemo', 'Geo', 'Electro', 'Fire', 'Water', 'Ice']" 
+            :key="el" 
+            :src="`/img/elements/${el}.png`" alt="element pic"
+            width="24px"
+            @click="filterBy(el)"
+          >
+        </div>
+      </div>
+      <div class="flex flex-wrap">
       <div class="hidden hover:bg-purple-500 hover:bg-amber-400"></div>
       <div
         v-for="(char, key) in characters"
@@ -21,6 +40,7 @@
           :title="key"
         >
       </div>
+    </div>
     </div>
     <div class="md:w-2/6 text-gray-200 flex flex-col p-2">
       <h3 class="text-xl text-center">{{ name }}</h3>
@@ -133,7 +153,6 @@ export default {
   name: "CharacterPick",
   data() {
     return {
-      characters,
       note: true,
       baseATK,
       bonus,
@@ -158,6 +177,7 @@ export default {
         "80+",
         90,
       ],
+      filtered: "All"
     };
   },
   mounted() {
@@ -177,6 +197,17 @@ export default {
       const result = getWeaponData(weapon);
       return result;
     },
+    characters() {
+      if (this.filtered == "All") return characters
+      else {
+        const chars = {}
+        Object.values(characters).forEach(char =>
+            char.element == this.filtered ? chars[char.charName] = char : null
+          )
+        this.changeName(Object.keys(chars)[0])
+        return chars
+      }
+    }
   },
   methods: {
     setCharacter() {
@@ -194,10 +225,16 @@ export default {
       this.$emit("visibility");
     },
     rarityColor(name) {
-      return this.characters[name].rarity == 4
+      return characters[name].rarity == 4
         ? "bg-purple-500"
         : "bg-amber-400";
     },
+    filterBy(val) {
+      this.filtered = val
+    },
+    changeName(name) {
+      this.name = name
+    }
   },
 };
 </script>

@@ -190,7 +190,7 @@ export let characters = {
     talentsBonus: [],
     constellationBonus: [
       { c: 2, desc: "Skill DMG increased by 15%", name: "Skill%", value: 15, active: false },
-      { c: 6, desc: "Inside Burst Elemental Mastery increased by 200", name: "EM", value: 200, active: false },
+      { c: 6, desc: "Inside Burst EM increased by 200", name: "EM", value: 200, active: false },
     ]
   },
   Tartaglia: {
@@ -259,7 +259,7 @@ export let characters = {
     weapon: "Sword",
     talentsBonus: [
       { desc: "25% more dmg against enemies with 50% or lower HP", name: "AllDMG%", value: 25, active: true },
-      { desc: "After Burst Elemental Mastery increased by 125", name: "EM", value: 125, active: false }]
+      { desc: "After Burst EM increased by 125", name: "EM", value: 125, active: false }]
   },
   Xiao: {
     charName: "Xiao",
@@ -316,6 +316,34 @@ export let characters = {
       { c: 2, desc: "Inside Burst increases EM by 200", name: "EM", value: 200, active: false },
     ]
   },
+  Ayaka: {
+    charName: "Ayaka",
+    element: "Ice", rarity: 5,
+    weapon: "Sword",
+    talentsBonus: [
+      { desc: "Use of skill increases Normal and Charged DMG by 30% for 6s", name: "NCATK%", value: 30, active: false },
+      { desc: "When Burst hit opponent gain 10% of Cryo DMG", name: "Elemental%", value: 10, active: false },
+    ],
+  },
+  Yoimiya: {
+    charName: "Yoimiya",
+    element: "Fire", rarity: 5,
+    weapon: "Bow",
+    talentsBonus: [
+      { desc: "During elemental skill Normal attacks will increase Pyro DMG by maximum of 20% for 3s", name: "Elemental%", value: 20, active: false },
+    ],
+    constellationBonus: [
+      { c: 1, desc: "If opponent defeated by Burst gain 20% ATK", name: "ATK%", value: 20, active: false },
+      { c: 2, desc: "When Pyro DMG scores a crit gain 25% Pyro DMG", name: "Elemental%", value: 25, active: false }
+    ]
+  },
+  Sayu: {
+    charName: "Sayu",
+    element: "Anemo", rarity: 4,
+    weapon: "Claymore",
+    talentsBonus: [
+    ],
+  },
   "Traveler (Anemo)": {
     charName: "Traveler (Anemo)",
     element: "Anemo", rarity: 5,
@@ -330,7 +358,12 @@ export let characters = {
     constellationBonus: [
       { c: 1, desc: "Crit Rate inside Burst increased by 10%", name: "CRate%", value: 10, active: false },
     ]
-
+  },
+  "Traveler (Electro)": {
+    charName: "Traveler (Electro)",
+    element: "Electro", rarity: 5,
+    weapon: "Sword",
+    talentsBonus: []
   },
 };
 
@@ -6106,30 +6139,55 @@ export const charactersData = {
       130.7
     ],
     "charged": [
-      25.37,
-      27.44,
-      29.5,
-      32.45,
-      34.52,
-      36.88,
-      40.12,
-      43.37,
-      46.61,
-      50.15,
-      54.21,
-      58.98,
-      63.75,
-      68.52,
-      73.72
+      117.65,
+      127.22,
+      136.8,
+      150.48,
+      160.06,
+      171,
+      186.05,
+      201.1,
+      216.14,
+      232.56,
+      251.38,
+      273.49,
+      295.62,
+      317.73,
+      341.86
     ],
-    "skill": [],
+    "skill": [
+      192,
+      206.4,
+      220.8,
+      240,
+      254.4,
+      268.8,
+      288,
+      307.2,
+      326.4,
+      345.6,
+      364.8,
+      384,
+      408,
+      432,
+      456
+    ],
     "burst": [
-      10,
-      11,
-      12,
-      13,
-      14,
-      15
+      262.4,
+      282.08,
+      301.76,
+      328,
+      347.68,
+      367.36,
+      393.6,
+      419.84,
+      446.08,
+      472.32,
+      498.56,
+      524.8,
+      557.6,
+      590.4,
+      623.2
     ],
     "20+": {
       "baseHP": 3586,
@@ -6172,6 +6230,678 @@ export const charactersData = {
       "baseDEF": 750,
       "value": 115.2,
       "name": "EM"
+    }
+  },
+  "Ayaka": {
+    "1": {
+      "baseHP": 1001,
+      "baseATK": 27,
+      "baseDEF": 61,
+      "value": 50,
+      "name": "CDmg%"
+    },
+    "20": {
+      "baseHP": 2597,
+      "baseATK": 69,
+      "baseDEF": 158,
+      "value": 50,
+      "name": "CDmg%"
+    },
+    "40": {
+      "baseHP": 5170,
+      "baseATK": 138,
+      "baseDEF": 315,
+      "value": 50,
+      "name": "CDmg%"
+    },
+    "50": {
+      "baseHP": 6649,
+      "baseATK": 177,
+      "baseDEF": 405,
+      "value": 59.6,
+      "name": "CDmg%"
+    },
+    "60": {
+      "baseHP": 8341,
+      "baseATK": 222,
+      "baseDEF": 509,
+      "value": 69.2,
+      "name": "CDmg%"
+    },
+    "70": {
+      "baseHP": 9838,
+      "baseATK": 262,
+      "baseDEF": 600,
+      "value": 69.2,
+      "name": "CDmg%"
+    },
+    "80": {
+      "baseHP": 11345,
+      "baseATK": 302,
+      "baseDEF": 692,
+      "value": 78.8,
+      "name": "CDmg%"
+    },
+    "90": {
+      "baseHP": 12858,
+      "baseATK": 342,
+      "baseDEF": 784,
+      "value": 88.4,
+      "name": "CDmg%"
+    },
+    "normal": [
+      48.68,
+      52.65,
+      56.61,
+      62.27,
+      66.23,
+      70.76,
+      76.99,
+      83.22,
+      89.44,
+      96.24,
+      103.03,
+      109.82,
+      116.62,
+      123.41,
+      130.2
+    ],
+    "charged": [
+      165.39,
+      178.83,
+      192.3,
+      211.53,
+      225,
+      240.39,
+      261.54,
+      282.69,
+      303.84,
+      326.91,
+      349.98,
+      373.05,
+      396.15,
+      419.22,
+      442.29
+    ],
+    "skill": [
+      239.2,
+      257.14,
+      275.08,
+      299,
+      316.94,
+      334.88,
+      358.8,
+      382.72,
+      406.64,
+      430.56,
+      454.48,
+      478.4,
+      508.3,
+      538.2,
+      568.1
+    ],
+    "burst": [
+      168.45,
+      181.08,
+      193.72,
+      210.56,
+      223.2,
+      235.83,
+      252.68,
+      269.52,
+      286.36,
+      303.21,
+      320.05,
+      336.9,
+      357.96,
+      379.01,
+      400.07
+    ],
+    "20+": {
+      "baseHP": 3455,
+      "baseATK": 92,
+      "baseDEF": 211,
+      "value": 50,
+      "name": "CDmg%"
+    },
+    "40+": {
+      "baseHP": 5779,
+      "baseATK": 154,
+      "baseDEF": 352,
+      "value": 59.6,
+      "name": "CDmg%"
+    },
+    "50+": {
+      "baseHP": 7462,
+      "baseATK": 198,
+      "baseDEF": 455,
+      "value": 69.2,
+      "name": "CDmg%"
+    },
+    "60+": {
+      "baseHP": 8951,
+      "baseATK": 238,
+      "baseDEF": 546,
+      "value": 69.2,
+      "name": "CDmg%"
+    },
+    "70+": {
+      "baseHP": 10448,
+      "baseATK": 278,
+      "baseDEF": 637,
+      "value": 78.8,
+      "name": "CDmg%"
+    },
+    "80+": {
+      "baseHP": 11954,
+      "baseATK": 318,
+      "baseDEF": 729,
+      "value": 88.4,
+      "name": "CDmg%"
+    }
+  },
+  "Yoimiya": {
+    "1": {
+      "baseHP": 791,
+      "baseATK": 25,
+      "baseDEF": 48,
+      "value": 5,
+      "name": "CRate%"
+    },
+    "20": {
+      "baseHP": 2053,
+      "baseATK": 65,
+      "baseDEF": 124,
+      "value": 5,
+      "name": "CRate%"
+    },
+    "40": {
+      "baseHP": 4086,
+      "baseATK": 130,
+      "baseDEF": 247,
+      "value": 5,
+      "name": "CRate%"
+    },
+    "50": {
+      "baseHP": 5256,
+      "baseATK": 167,
+      "baseDEF": 318,
+      "value": 9.8,
+      "name": "CRate%"
+    },
+    "60": {
+      "baseHP": 6593,
+      "baseATK": 209,
+      "baseDEF": 399,
+      "value": 14.6,
+      "name": "CRate%"
+    },
+    "70": {
+      "baseHP": 7777,
+      "baseATK": 247,
+      "baseDEF": 470,
+      "value": 14.6,
+      "name": "CRate%"
+    },
+    "80": {
+      "baseHP": 8968,
+      "baseATK": 285,
+      "baseDEF": 542,
+      "value": 19.4,
+      "name": "CRate%"
+    },
+    "90": {
+      "baseHP": 10164,
+      "baseATK": 323,
+      "baseDEF": 615,
+      "value": 24.2,
+      "name": "CRate%"
+    },
+    "normal": [
+      71.28,
+      76.14,
+      81,
+      87.48,
+      92.34,
+      98.02,
+      105.3,
+      112.58,
+      119.88,
+      127.18,
+      134.46,
+      141.76,
+      149.04,
+      156.34,
+      163.62
+    ],
+    "charged": [
+      124,
+      133.3,
+      142.6,
+      155,
+      164.3,
+      173.6,
+      186,
+      198.4,
+      210.8,
+      223.2,
+      235.6,
+      248,
+      263.5,
+      279,
+      294.5
+    ],
+    "skill": [
+      137.91,
+      140.18,
+      142.45,
+      145.4,
+      147.67,
+      149.94,
+      152.89,
+      155.84,
+      158.79,
+      161.74,
+      164.7,
+      167.65,
+      170.6,
+      173.55,
+      176.5
+    ],
+    "burst": [
+      127.2,
+      136.74,
+      146.28,
+      159,
+      168.54,
+      178.08,
+      190.8,
+      203.52,
+      216.24,
+      228.96,
+      241.68,
+      254.4,
+      270.3,
+      286.2,
+      302.1
+    ],
+    "20+": {
+      "baseHP": 2731,
+      "baseATK": 87,
+      "baseDEF": 165,
+      "value": 5,
+      "name": "CRate%"
+    },
+    "40+": {
+      "baseHP": 4568,
+      "baseATK": 145,
+      "baseDEF": 276,
+      "value": 9.8,
+      "name": "CRate%"
+    },
+    "50+": {
+      "baseHP": 5899,
+      "baseATK": 187,
+      "baseDEF": 357,
+      "value": 14.6,
+      "name": "CRate%"
+    },
+    "60+": {
+      "baseHP": 7075,
+      "baseATK": 225,
+      "baseDEF": 428,
+      "value": 14.6,
+      "name": "CRate%"
+    },
+    "70+": {
+      "baseHP": 8259,
+      "baseATK": 262,
+      "baseDEF": 500,
+      "value": 19.4,
+      "name": "CRate%"
+    },
+    "80+": {
+      "baseHP": 9450,
+      "baseATK": 300,
+      "baseDEF": 572,
+      "value": 24.2,
+      "name": "CRate%"
+    }
+  },
+  "Sayu": {
+    "1": {
+      "baseHP": 994,
+      "baseATK": 20,
+      "baseDEF": 62,
+      "value": 0,
+      "name": "EM"
+    },
+    "20": {
+      "baseHP": 2553,
+      "baseATK": 53,
+      "baseDEF": 160,
+      "value": 0,
+      "name": "EM"
+    },
+    "40": {
+      "baseHP": 4937,
+      "baseATK": 102,
+      "baseDEF": 310,
+      "value": 0,
+      "name": "EM"
+    },
+    "50": {
+      "baseHP": 6285,
+      "baseATK": 130,
+      "baseDEF": 395,
+      "value": 24,
+      "name": "EM"
+    },
+    "60": {
+      "baseHP": 7809,
+      "baseATK": 161,
+      "baseDEF": 491,
+      "value": 48,
+      "name": "EM"
+    },
+    "70": {
+      "baseHP": 9157,
+      "baseATK": 189,
+      "baseDEF": 575,
+      "value": 48,
+      "name": "EM"
+    },
+    "80": {
+      "baseHP": 10505,
+      "baseATK": 216,
+      "baseDEF": 660,
+      "value": 72,
+      "name": "EM"
+    },
+    "90": {
+      "baseHP": 11854,
+      "baseATK": 244,
+      "baseDEF": 745,
+      "value": 96,
+      "name": "EM"
+    },
+    "normal": [
+      72.24,
+      78.12,
+      84,
+      92.4,
+      98.28,
+      105,
+      114.24,
+      123.48,
+      132.72,
+      142.8,
+      154.35,
+      167.93,
+      181.52,
+      195.1,
+      209.92
+    ],
+    "charged": [
+      62.55,
+      67.64,
+      72.73,
+      80,
+      85.09,
+      90.91,
+      98.91,
+      106.91,
+      114.91,
+      123.64,
+      133.64,
+      145.4,
+      157.16,
+      168.92,
+      181.75
+    ],
+    "skill": [
+      217.6,
+      233.92,
+      250.24,
+      272,
+      288.32,
+      304.64,
+      326.4,
+      348.16,
+      369.92,
+      391.68,
+      413.44,
+      435.2,
+      462.4,
+      489.6,
+      516.8
+    ],
+    "burst": [
+      116.8,
+      125.56,
+      134.32,
+      146,
+      154.76,
+      163.52,
+      175.2,
+      186.88,
+      198.56,
+      210.24,
+      221.92,
+      233.6,
+      248.2,
+      262.8,
+      277.4
+    ],
+    "20+": {
+      "baseHP": 3296,
+      "baseATK": 68,
+      "baseDEF": 207,
+      "value": 0,
+      "name": "EM"
+    },
+    "40+": {
+      "baseHP": 5464,
+      "baseATK": 113,
+      "baseDEF": 343,
+      "value": 24,
+      "name": "EM"
+    },
+    "50+": {
+      "baseHP": 6988,
+      "baseATK": 144,
+      "baseDEF": 439,
+      "value": 48,
+      "name": "EM"
+    },
+    "60+": {
+      "baseHP": 8337,
+      "baseATK": 172,
+      "baseDEF": 524,
+      "value": 48,
+      "name": "EM"
+    },
+    "70+": {
+      "baseHP": 9684,
+      "baseATK": 200,
+      "baseDEF": 608,
+      "value": 72,
+      "name": "EM"
+    },
+    "80+": {
+      "baseHP": 11033,
+      "baseATK": 227,
+      "baseDEF": 693,
+      "value": 96,
+      "name": "EM"
+    }
+  },
+  "Traveler (Electro)": {
+    "1": {
+      "baseHP": 912,
+      "baseATK": 18,
+      "baseDEF": 57,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "20": {
+      "baseHP": 2342,
+      "baseATK": 46,
+      "baseDEF": 147,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "40": {
+      "baseHP": 4529,
+      "baseATK": 88,
+      "baseDEF": 284,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "50": {
+      "baseHP": 5766,
+      "baseATK": 113,
+      "baseDEF": 362,
+      "value": 6,
+      "name": "ATK%"
+    },
+    "60": {
+      "baseHP": 7164,
+      "baseATK": 140,
+      "baseDEF": 450,
+      "value": 12,
+      "name": "ATK%"
+    },
+    "70": {
+      "baseHP": 8401,
+      "baseATK": 164,
+      "baseDEF": 527,
+      "value": 12,
+      "name": "ATK%"
+    },
+    "80": {
+      "baseHP": 9638,
+      "baseATK": 188,
+      "baseDEF": 605,
+      "value": 18,
+      "name": "ATK%"
+    },
+    "90": {
+      "baseHP": 10875,
+      "baseATK": 212,
+      "baseDEF": 683,
+      "value": 24,
+      "name": "ATK%"
+    },
+    "normal": [
+      44.46,
+      48.08,
+      51.7,
+      56.87,
+      60.49,
+      64.63,
+      70.31,
+      76,
+      81.69,
+      87.89,
+      94.09,
+      100.3,
+      106.5,
+      112.71,
+      118.91
+    ],
+    "charged": [
+      116.62,
+      126.11,
+      135.6,
+      149.16,
+      158.65,
+      169.5,
+      184.42,
+      199.33,
+      214.25,
+      230.52,
+      246.79,
+      263.06,
+      279.34,
+      295.61,
+      311.88
+    ],
+    "skill": [
+      78.66,
+      84.56,
+      90.46,
+      98.33,
+      104.23,
+      110.13,
+      118,
+      125.86,
+      133.73,
+      141.6,
+      149.46,
+      157.33,
+      167.16,
+      176.99,
+      186.83
+    ],
+    "burst": [
+      114.4,
+      122.98,
+      131.56,
+      143,
+      151.58,
+      160.16,
+      171.6,
+      183.04,
+      194.48,
+      205.92,
+      217.36,
+      228.8,
+      243.1,
+      257.4,
+      271.7
+    ],
+    "20+": {
+      "baseHP": 3024,
+      "baseATK": 59,
+      "baseDEF": 190,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "40+": {
+      "baseHP": 5013,
+      "baseATK": 98,
+      "baseDEF": 315,
+      "value": 6,
+      "name": "ATK%"
+    },
+    "50+": {
+      "baseHP": 6411,
+      "baseATK": 125,
+      "baseDEF": 402,
+      "value": 12,
+      "name": "ATK%"
+    },
+    "60+": {
+      "baseHP": 7648,
+      "baseATK": 149,
+      "baseDEF": 480,
+      "value": 12,
+      "name": "ATK%"
+    },
+    "70+": {
+      "baseHP": 8885,
+      "baseATK": 174,
+      "baseDEF": 558,
+      "value": 18,
+      "name": "ATK%"
+    },
+    "80+": {
+      "baseHP": 10122,
+      "baseATK": 198,
+      "baseDEF": 635,
+      "value": 24,
+      "name": "ATK%"
     }
   }
 }

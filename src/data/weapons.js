@@ -411,6 +411,19 @@ export const weaponList = {
     refinement: 1,
     "description": "After using Elemental Skill gain $eff1% bonus ATK."
   },
+  "Mitternachts Waltz": {
+    "type": "Bow",
+    "dmg": 42,
+    "name": "Physical%",
+    "value": 11.3,
+    "additional": [
+      { name: "SkillDMG%", value: 20, inc: 5, active: false },
+      { name: "NormalATK%", value: 20, inc: 5, active: false },
+    ],
+    "rarity": 4,
+    refinement: 1,
+    "description": "Normal attack increase Skill DMG by $eff1%. Elemental skill hit increases Normal Attack by $eff2%."
+  },
   "Blackcliff Amulet": {
     "type": "Catalyst",
     "dmg": 42,
@@ -1057,7 +1070,7 @@ export const weaponList = {
     refinement: 1,
     "description": "CRIT Rate increased by $eff1%. Gains Skypiercing Might upon using an Elemental Burst: Increases Movement SPD by 10%, increases ATK SPD by 10%, and increases the DMG of Normal and Charged Attack hits by $eff2% for 12s."
   },
-  "Boreas Precocity": {
+  "Freedom Sworn": {
     "type": "Sword",
     "dmg": 46,
     "name": "EM",
