@@ -541,56 +541,56 @@ export const charactersData = {
       "baseHP": 820,
       "baseATK": 20,
       "baseDEF": 52,
-      "value": 100,
+      "value": 0,
       "name": "EnRe%"
     },
     20: {
       "baseHP": 2127,
       "baseATK": 53,
       "baseDEF": 135,
-      "value": 100,
+      "value": 0,
       "name": "EnRe%"
     },
     40: {
       "baseHP": 4234,
       "baseATK": 106,
       "baseDEF": 269,
-      "value": 100,
+      "value": 0,
       "name": "EnRe%"
     },
     50: {
       "baseHP": 5446,
       "baseATK": 136,
       "baseDEF": 346,
-      "value": 108,
+      "value": 8,
       "name": "EnRe%"
     },
     60: {
       "baseHP": 6832,
       "baseATK": 171,
       "baseDEF": 434,
-      "value": 116,
+      "value": 16,
       "name": "EnRe%"
     },
     70: {
       "baseHP": 8058,
       "baseATK": 201,
       "baseDEF": 512,
-      "value": 116,
+      "value": 16,
       "name": "EnRe%"
     },
     80: {
       "baseHP": 9292,
       "baseATK": 232,
       "baseDEF": 590,
-      "value": 124,
+      "value": 24,
       "name": "EnRe%"
     },
     90: {
       "baseHP": 10531,
       "baseATK": 263,
       "baseDEF": 669,
-      "value": 132,
+      "value": 32,
       "name": "EnRe%"
     },
     "normal": [
@@ -665,42 +665,42 @@ export const charactersData = {
       "baseHP": 2830,
       "baseATK": 71,
       "baseDEF": 180,
-      "value": 100,
+      "value": 0,
       "name": "EnRe%"
     },
     "40+": {
       "baseHP": 4734,
       "baseATK": 118,
       "baseDEF": 301,
-      "value": 108,
+      "value": 8,
       "name": "EnRe%"
     },
     "50+": {
       "baseHP": 6112,
       "baseATK": 153,
       "baseDEF": 388,
-      "value": 116,
+      "value": 16,
       "name": "EnRe%"
     },
     "60+": {
       "baseHP": 7331,
       "baseATK": 183,
       "baseDEF": 465,
-      "value": 116,
+      "value": 16,
       "name": "EnRe%"
     },
     "70+": {
       "baseHP": 8557,
       "baseATK": 214,
       "baseDEF": 543,
-      "value": 124,
+      "value": 24,
       "name": "EnRe%"
     },
     "80+": {
       "baseHP": 9791,
       "baseATK": 245,
       "baseDEF": 622,
-      "value": 132,
+      "value": 32,
       "name": "EnRe%"
     }
   },
@@ -1213,56 +1213,56 @@ export const charactersData = {
       "baseHP": 1039,
       "baseATK": 16,
       "baseDEF": 65,
-      "value": 100,
+      "value": 0,
       "name": "EnRe%"
     },
     20: {
       "baseHP": 2670,
       "baseATK": 41,
       "baseDEF": 166,
-      "value": 100,
+      "value": 0,
       "name": "EnRe%"
     },
     40: {
       "baseHP": 5163,
       "baseATK": 80,
       "baseDEF": 321,
-      "value": 100,
+      "value": 0,
       "name": "EnRe%"
     },
     50: {
       "baseHP": 6573,
       "baseATK": 101,
       "baseDEF": 409,
-      "value": 106.7,
+      "value": 6.7,
       "name": "EnRe%"
     },
     60: {
       "baseHP": 8168,
       "baseATK": 126,
       "baseDEF": 508,
-      "value": 113.3,
+      "value": 13.3,
       "name": "EnRe%"
     },
     70: {
       "baseHP": 9577,
       "baseATK": 148,
       "baseDEF": 596,
-      "value": 113.3,
+      "value": 13.3,
       "name": "EnRe%"
     },
     80: {
       "baseHP": 10987,
       "baseATK": 169,
       "baseDEF": 684,
-      "value": 120,
+      "value": 20,
       "name": "EnRe%"
     },
     90: {
       "baseHP": 12397,
       "baseATK": 191,
       "baseDEF": 771,
-      "value": 126.7,
+      "value": 26.7,
       "name": "EnRe%"
     },
     "normal": [
@@ -1337,42 +1337,42 @@ export const charactersData = {
       "baseHP": 3447,
       "baseATK": 53,
       "baseDEF": 214,
-      "value": 100,
+      "value": 0,
       "name": "EnRe%"
     },
     "40+": {
       "baseHP": 5715,
       "baseATK": 88,
       "baseDEF": 356,
-      "value": 106.7,
+      "value": 6.7,
       "name": "EnRe%"
     },
     "50+": {
       "baseHP": 7309,
       "baseATK": 113,
       "baseDEF": 455,
-      "value": 113.3,
+      "value": 13.3,
       "name": "EnRe%"
     },
     "60+": {
       "baseHP": 8719,
       "baseATK": 134,
       "baseDEF": 542,
-      "value": 113.3,
+      "value": 13.3,
       "name": "EnRe%"
     },
     "70+": {
       "baseHP": 10129,
       "baseATK": 156,
       "baseDEF": 630,
-      "value": 120,
+      "value": 20,
       "name": "EnRe%"
     },
     "80+": {
       "baseHP": 11539,
       "baseATK": 178,
       "baseDEF": 718,
-      "value": 126.7,
+      "value": 26.7,
       "name": "EnRe%"
     }
   },
@@ -3885,56 +3885,56 @@ export const charactersData = {
       "baseHP": 976,
       "baseATK": 19,
       "baseDEF": 66,
-      "value": 100,
+      "value": 0,
       "name": "EnRe%"
     },
     20: {
       "baseHP": 2506,
       "baseATK": 48,
       "baseDEF": 171,
-      "value": 100,
+      "value": 0,
       "name": "EnRe%"
     },
     40: {
       "baseHP": 4846,
       "baseATK": 93,
       "baseDEF": 330,
-      "value": 100,
+      "value": 0,
       "name": "EnRe%"
     },
     50: {
       "baseHP": 6170,
       "baseATK": 118,
       "baseDEF": 420,
-      "value": 106.7,
+      "value": 6.7,
       "name": "EnRe%"
     },
     60: {
       "baseHP": 7666,
       "baseATK": 147,
       "baseDEF": 522,
-      "value": 113.3,
+      "value": 13.3,
       "name": "EnRe%"
     },
     70: {
       "baseHP": 8989,
       "baseATK": 172,
       "baseDEF": 612,
-      "value": 113.3,
+      "value": 13.3,
       "name": "EnRe%"
     },
     80: {
       "baseHP": 10312,
       "baseATK": 198,
       "baseDEF": 702,
-      "value": 120,
+      "value": 20,
       "name": "EnRe%"
     },
     90: {
       "baseHP": 11636,
       "baseATK": 223,
       "baseDEF": 792,
-      "value": 126.7,
+      "value": 26.7,
       "name": "EnRe%"
     },
     "normal": [
@@ -4009,42 +4009,42 @@ export const charactersData = {
       "baseHP": 3235,
       "baseATK": 62,
       "baseDEF": 220,
-      "value": 100,
+      "value": 0,
       "name": "EnRe%"
     },
     "40+": {
       "baseHP": 5364,
       "baseATK": 103,
       "baseDEF": 365,
-      "value": 106.7,
+      "value": 6.7,
       "name": "EnRe%"
     },
     "50+": {
       "baseHP": 6860,
       "baseATK": 131,
       "baseDEF": 467,
-      "value": 113.3,
+      "value": 13.3,
       "name": "EnRe%"
     },
     "60+": {
       "baseHP": 8184,
       "baseATK": 157,
       "baseDEF": 557,
-      "value": 113.3,
+      "value": 13.3,
       "name": "EnRe%"
     },
     "70+": {
       "baseHP": 9507,
       "baseATK": 182,
       "baseDEF": 647,
-      "value": 120,
+      "value": 20,
       "name": "EnRe%"
     },
     "80+": {
       "baseHP": 10830,
       "baseATK": 208,
       "baseDEF": 737,
-      "value": 126.7,
+      "value": 26.7,
       "name": "EnRe%"
     }
   },

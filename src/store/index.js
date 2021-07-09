@@ -257,7 +257,7 @@ export default new Vuex.Store({
       const elem = getters.allStats.map((x) => x["Elemental%"]);
       const phys = getters.allStats.map((x) => x["Physical%"]);
       const EM = getters.allStats.map((x) => x["EM"]);
-      const EnRe = getters.allStats.map((x) => Math.round(x["EnRe%"] * 10) / 10);
+      const EnRe = getters.allStats.map((x) => Math.round(x["EnRe%"] * 10) / 10 + 100);
       const DEF = getters.allStats.map((x) =>
         Math.round(
           state.character.baseDEF * (1 + x["DEF%"] / 100) + x["FlatDEF"]
