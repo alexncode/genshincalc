@@ -67,7 +67,7 @@
             v-for="(addi, i) in currentWeapon.additional"
             :key="addi.name + i"
           >
-            <label :for="'effect' + i">
+            <label :for="'effect' + i" v-if="statNames[addi.name]">
               {{ statNames[addi.name] }}
               <input
                 type="checkbox"

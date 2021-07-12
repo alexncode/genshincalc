@@ -424,6 +424,21 @@ export const weaponList = {
     refinement: 1,
     "description": "Normal attack increase Skill DMG by $eff1%. Elemental skill hit increases Normal Attack by $eff2%."
   },
+  "Demon-Slayer Bow": {
+    "type": "Bow",
+    "dmg": 41,
+    "name": "ATK%",
+    "value": 12,
+    "additional": [
+      { name: "NormalATK%", value: 16, inc: 4, active: true },
+      { name: "Charged%", value: 12, inc: 3, active: true },
+      { name: "NormalATK%", value: 32, inc: 8, active: false },
+      { name: "Charged%", value: 24, inc: 6, active: false },
+    ],
+    "rarity": 4,
+    refinement: 1,
+    "description": "Increses Normal and Charged attack by $eff1%/$eff3% and $eff2%/$eff4%. When Burst is ready doubles the bonuses."
+  },
   "Blackcliff Amulet": {
     "type": "Catalyst",
     "dmg": 42,
@@ -540,10 +555,25 @@ export const weaponList = {
     "dmg": 41,
     "name": "ATK%",
     "value": 12,
-    "additional": [{ name: "Charged%", value: 16, inc: 4, active: false }, { name: "ATK%", value: 8, inc: 2, active: false }],
+    "additional": [
+      { name: "Charged%", value: 16, inc: 4, active: false },
+      { name: "ATK%", value: 8, inc: 2, active: false }
+    ],
     "rarity": 4,
     refinement: 1,
     "description": "Normal Attacks increse Charged Attack by $eff1% for 6s. Charged Attack increases ATK by $eff2%"
+  },
+  "White Dragon Ring": {
+    "type": "Catalyst",
+    "dmg": 44,
+    "name": "EnRe%",
+    "value": 6.7,
+    "additional": [
+      { name: "Elemental%", value: 10, inc: 2.5, active: false }
+    ],
+    "rarity": 4,
+    refinement: 1,
+    "description": "After wielder triggers elemental reaction others gain $eff1% bonus to Elemental DMG"
   },
   "Blackcliff Slasher": {
     "type": "Claymore",
@@ -656,6 +686,19 @@ export const weaponList = {
     "description": `Hitting an opponent with Normal and Charged Attacks has a 60/70/80/90/100% chance of forming and dropping an Everfrost Icicle above them, dealing 80/95/110/125/140% AoE ATK DMG.
     Opponents affected by Cryo are dealt 200/240/280/320/360% ATK DMG. Can only occur once every 10s`
   },
+  "Katsuragi's Slasher": {
+    "type": "Claymore",
+    "dmg": 42,
+    "name": "EnRe%",
+    "value": 10,
+    "additional": [
+      { name: "SkillDMG%", value: 6, inc: 1.5, active: true },
+      { name: "Energy", value: 3, inc: 0.5, active: false }
+    ],
+    "rarity": 4,
+    refinement: 1,
+    "description": "Get $eff1% Skill DMG bonus. After Elemental skill hits regenerate $eff2 energy every 2s for 6s."
+  },
   "Blackcliff Pole": {
     "type": "Polearm",
     "dmg": 42,
@@ -746,6 +789,19 @@ export const weaponList = {
     refinement: 1,
     "description": `Hitting an opponent with Normal and Charged Attacks has a 60/70/80/90/100% chance of forming and dropping an Everfrost Icicle above them, dealing 80/95/110/125/140% AoE ATK DMG.
     Opponents affected by Cryo are dealt 200/240/280/320/360% ATK DMG. Can only occur once every 10s`
+  },
+  "Kitain Cross Spear": {
+    "type": "Polearm",
+    "dmg": 44,
+    "name": "EM",
+    "value": 24,
+    "additional": [
+      { name: "SkillDMG%", value: 6, inc: 1.5, active: true },
+      { name: "Energy", value: 3, inc: 0.5, active: false }
+    ],
+    "rarity": 4,
+    refinement: 1,
+    "description": "Get $eff1% Skill DMG bonus. After Elemental skill hits regenerate $eff2 energy every 2s for 6s."
   },
   "Blackcliff Longsword": {
     "type": "Sword",
@@ -856,6 +912,16 @@ export const weaponList = {
     "rarity": 4,
     refinement: 1,
     "description": "Increases Elemental Skill DMG by $eff1% and Elemental Skill crit rate by 6/7.5/9/10.5/12%"
+  },
+  "Amenoma Kageuta Blade": {
+    "type": "Sword",
+    "dmg": 41,
+    "name": "ATK%",
+    "value": 12,
+    "additional": [{ name: "Energy", value: 18, inc: 4.5, active: false }],
+    "rarity": 4,
+    refinement: 1,
+    "description": "Regenerate up to $eff1 energy after using Burst."
   },
   "Amos Bow": {
     "type": "Bow",

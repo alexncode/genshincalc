@@ -172,6 +172,18 @@ export let sets = {
       {name: "Physical%", value: 25}
     ] },
   },
+  "Reminiscence of Shime": {
+    name: "Reminiscence of Shime",
+    rarity: 5,
+    "2pcs": { name: "ATK%", value: 18, bonusText: "ATK +18%" },
+    "4pcs": { name: "NCATK%", value: 50, bonusText: "When Elemental skill used lose 15 energy and gain 50% Normal/Charged and Plunging bonus attack for 10s." },
+  },
+  "Seal of Insulation": {
+    name: "Seal of Insulation",
+    rarity: 5,
+    "2pcs": { name: "EnRe%", value: 20, bonusText: "Energy recharge +20%" },
+    "4pcs": { name: "BusrtByER", value: 0, bonusText: "Increases Burst damage by 30% of energy recharge." },
+  },
   none: {
     name: "none",
     "2pcs": { bonusText: "Nothing" },

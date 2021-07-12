@@ -192,6 +192,12 @@ export default new Vuex.Store({
           const bonus = hp * (state.weapon[i].additional[1].value / 100)
           all[i]["FlatATK"] += bonus
         }
+        //Artifact effects
+        if (state.set[i].set[0] == "Seal of Insulation" && state.set[i].pieces == "4pcs") {
+          let bonus = Math.round((all[i]["EnRe%"] + 100) * 0.3 * 10) / 10
+          bonus = bonus < 75 ? bonus : 75
+          all[i]["Burst%"] = all[i]["Burst%"] + bonus || bonus
+        }
       }
       return all
     },

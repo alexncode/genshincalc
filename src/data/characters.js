@@ -6237,56 +6237,56 @@ export const charactersData = {
       "baseHP": 1001,
       "baseATK": 27,
       "baseDEF": 61,
-      "value": 50,
+      "value": 0,
       "name": "CDmg%"
     },
     "20": {
       "baseHP": 2597,
       "baseATK": 69,
       "baseDEF": 158,
-      "value": 50,
+      "value": 0,
       "name": "CDmg%"
     },
     "40": {
       "baseHP": 5170,
       "baseATK": 138,
       "baseDEF": 315,
-      "value": 50,
+      "value": 0,
       "name": "CDmg%"
     },
     "50": {
       "baseHP": 6649,
       "baseATK": 177,
       "baseDEF": 405,
-      "value": 59.6,
+      "value": 9.6,
       "name": "CDmg%"
     },
     "60": {
       "baseHP": 8341,
       "baseATK": 222,
       "baseDEF": 509,
-      "value": 69.2,
+      "value": 19.2,
       "name": "CDmg%"
     },
     "70": {
       "baseHP": 9838,
       "baseATK": 262,
       "baseDEF": 600,
-      "value": 69.2,
+      "value": 19.2,
       "name": "CDmg%"
     },
     "80": {
       "baseHP": 11345,
       "baseATK": 302,
       "baseDEF": 692,
-      "value": 78.8,
+      "value": 28.8,
       "name": "CDmg%"
     },
     "90": {
       "baseHP": 12858,
       "baseATK": 342,
       "baseDEF": 784,
-      "value": 88.4,
+      "value": 38.4,
       "name": "CDmg%"
     },
     "normal": [
@@ -6361,42 +6361,42 @@ export const charactersData = {
       "baseHP": 3455,
       "baseATK": 92,
       "baseDEF": 211,
-      "value": 50,
+      "value": 0,
       "name": "CDmg%"
     },
     "40+": {
       "baseHP": 5779,
       "baseATK": 154,
       "baseDEF": 352,
-      "value": 59.6,
+      "value": 9.6,
       "name": "CDmg%"
     },
     "50+": {
       "baseHP": 7462,
       "baseATK": 198,
       "baseDEF": 455,
-      "value": 69.2,
+      "value": 19.2,
       "name": "CDmg%"
     },
     "60+": {
       "baseHP": 8951,
       "baseATK": 238,
       "baseDEF": 546,
-      "value": 69.2,
+      "value": 19.2,
       "name": "CDmg%"
     },
     "70+": {
       "baseHP": 10448,
       "baseATK": 278,
       "baseDEF": 637,
-      "value": 78.8,
+      "value": 28.8,
       "name": "CDmg%"
     },
     "80+": {
       "baseHP": 11954,
       "baseATK": 318,
       "baseDEF": 729,
-      "value": 88.4,
+      "value": 38.4,
       "name": "CDmg%"
     }
   },
@@ -6405,56 +6405,56 @@ export const charactersData = {
       "baseHP": 791,
       "baseATK": 25,
       "baseDEF": 48,
-      "value": 5,
+      "value": 0,
       "name": "CRate%"
     },
     "20": {
       "baseHP": 2053,
       "baseATK": 65,
       "baseDEF": 124,
-      "value": 5,
+      "value": 0,
       "name": "CRate%"
     },
     "40": {
       "baseHP": 4086,
       "baseATK": 130,
       "baseDEF": 247,
-      "value": 5,
+      "value": 0,
       "name": "CRate%"
     },
     "50": {
       "baseHP": 5256,
       "baseATK": 167,
       "baseDEF": 318,
-      "value": 9.8,
+      "value": 4.8,
       "name": "CRate%"
     },
     "60": {
       "baseHP": 6593,
       "baseATK": 209,
       "baseDEF": 399,
-      "value": 14.6,
+      "value": 9.6,
       "name": "CRate%"
     },
     "70": {
       "baseHP": 7777,
       "baseATK": 247,
       "baseDEF": 470,
-      "value": 14.6,
+      "value": 9.6,
       "name": "CRate%"
     },
     "80": {
       "baseHP": 8968,
       "baseATK": 285,
       "baseDEF": 542,
-      "value": 19.4,
+      "value": 14.4,
       "name": "CRate%"
     },
     "90": {
       "baseHP": 10164,
       "baseATK": 323,
       "baseDEF": 615,
-      "value": 24.2,
+      "value": 19.2,
       "name": "CRate%"
     },
     "normal": [
@@ -6529,42 +6529,42 @@ export const charactersData = {
       "baseHP": 2731,
       "baseATK": 87,
       "baseDEF": 165,
-      "value": 5,
+      "value": 0,
       "name": "CRate%"
     },
     "40+": {
       "baseHP": 4568,
       "baseATK": 145,
       "baseDEF": 276,
-      "value": 9.8,
+      "value": 4.8,
       "name": "CRate%"
     },
     "50+": {
       "baseHP": 5899,
       "baseATK": 187,
       "baseDEF": 357,
-      "value": 14.6,
+      "value": 9.6,
       "name": "CRate%"
     },
     "60+": {
       "baseHP": 7075,
       "baseATK": 225,
       "baseDEF": 428,
-      "value": 14.6,
+      "value": 9.6,
       "name": "CRate%"
     },
     "70+": {
       "baseHP": 8259,
       "baseATK": 262,
       "baseDEF": 500,
-      "value": 19.4,
+      "value": 14.4,
       "name": "CRate%"
     },
     "80+": {
       "baseHP": 9450,
       "baseATK": 300,
       "baseDEF": 572,
-      "value": 24.2,
+      "value": 19.2,
       "name": "CRate%"
     }
   },
