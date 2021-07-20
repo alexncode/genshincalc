@@ -967,6 +967,21 @@ export const weaponList = {
     refinement: 1,
     "description": "Increases EM by $eff1. When 'Farewell Song' triggers get additional $eff2 EM and $eff3% ATK"
   },
+  "Thundering Pulse": {
+    "type": "Bow",
+    "dmg": 46,
+    "name": "CDmg%",
+    "value": 14.4,
+    "additional": [
+      { name: "ATK%", value: 20, inc: 5, active: true },
+      { name: "NormalATK%", value: 12, inc: 3, active: false },
+      { name: "NormalATK%", value: 24, inc: 6, active: false },
+      { name: "NormalATK%", value: 40, inc: 10, active: false },
+    ],
+    "rarity": 5,
+    refinement: 1,
+    "description": "Gain $eff1% Attack% bonus. Additionaly gain $eff2%/$eff3%/$eff4% Normal Attack DMG bonus for 1/2/3 (3) stack accordingly."
+  },
   "Lost Prayer to the Sacred Winds": {
     "type": "Catalyst",
     "dmg": 46,
@@ -1149,5 +1164,20 @@ export const weaponList = {
     "rarity": 5,
     refinement: 1,
     "description": "Increases All DMG by $eff1%. Additionally when you posses 2 Sigils of Rebbelion get Normal, Charged, Plunging attack $eff2% bonus and $eff3 ATK% bonus."
-  }
+  },
+  "Mistsplitter Reforged": {
+    "type": "Sword",
+    "dmg": 48,
+    "name": "CDmg%",
+    "value": 9.6,
+    "additional": [
+      { name: "Elemental%", value: 12, inc: 3, active: true },
+      { name: "Elemental%", value: 10, inc: 2, active: false},
+      { name: "Elemental%", value: 16, inc: 4, active: false},
+      { name: "Elemental%", value: 28, inc: 7, active: false}
+    ],
+    "rarity": 5,
+    refinement: 1,
+    "description": "Gain $eff1% Elemental DMG bonus. Additionaly gain $eff2%/$eff3%/$eff4% Elemental DMG bonus for 1/2/3 stack accordingly."
+  },
 }
