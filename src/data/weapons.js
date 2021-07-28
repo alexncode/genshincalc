@@ -524,7 +524,11 @@ export const weaponList = {
     "dmg": 42,
     "name": "CDmg%",
     "value": 12,
-    "additional": [{ name: "ATK%", value: 60, inc: 15, active: false }, { name: "EM", value: 240, inc: 60, active: false }, { name: "Elemental%", value: 48, inc: 12, active: false }],
+    "additional": [
+      { name: "ATK%", value: 60, inc: 15, active: false, group: 1 },
+      { name: "EM", value: 240, inc: 60, active: false, group: 2 },
+      { name: "Elemental%", value: 48, inc: 12, active: false, group: 3 }
+    ],
     "rarity": 4,
     refinement: 1,
     "description": "When a character takes the field, they gain a random theme song for 10s: Recitative: Increases ATK by $eff1%. Interlude: Elemental Mastery is increased by $eff2. Aria: Increases all Elemental DMG by $eff3%. Can only occur once every 30s."
@@ -1172,9 +1176,9 @@ export const weaponList = {
     "value": 9.6,
     "additional": [
       { name: "Elemental%", value: 12, inc: 3, active: true },
-      { name: "Elemental%", value: 10, inc: 2, active: false},
-      { name: "Elemental%", value: 16, inc: 4, active: false},
-      { name: "Elemental%", value: 28, inc: 7, active: false}
+      { name: "Elemental%", value: 8, inc: 2, active: false, group: 1},
+      { name: "Elemental%", value: 16, inc: 4, active: false, group: 2},
+      { name: "Elemental%", value: 28, inc: 7, active: false, group: 3}
     ],
     "rarity": 5,
     refinement: 1,

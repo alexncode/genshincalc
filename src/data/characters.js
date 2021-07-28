@@ -322,7 +322,7 @@ export let characters = {
     weapon: "Sword",
     talentsBonus: [
       { desc: "Use of skill increases Normal and Charged DMG by 30% for 6s", name: "NCATK%", value: 30, active: false },
-      { desc: "When Burst hit opponent gain 10% of Cryo DMG", name: "Elemental%", value: 10, active: false },
+      { desc: "When sprint cryo hit opponent gain 18% of Cryo DMG", name: "Elemental%", value: 18, active: false },
     ],
   },
   Yoimiya: {

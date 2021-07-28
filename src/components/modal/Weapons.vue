@@ -67,7 +67,7 @@
             v-for="(addi, i) in currentWeapon.additional"
             :key="addi.name + i"
           >
-            <label :for="'effect' + i" v-if="statNames[addi.name]">
+            <label :for="'effect' + i" v-if="statNames[addi.name] && !addi.group">
               {{ statNames[addi.name] }}
               <input
                 type="checkbox"
@@ -77,6 +77,19 @@
                 class="ml-2"
               >
             </label>
+            <div v-if="addi.group">
+              <label :for="'group' + i">
+              {{ statNames[addi.name] }} {{ addi.group }}
+              <input
+                type="radio"
+                name="group"
+                :id="'group' + i"
+                v-model="groupValue"
+                class="ml-2"
+                :value="i"
+              >
+              </label>
+            </div>
           </div>
         </div>
         <button
@@ -101,6 +114,7 @@ export default {
   data() {
     return {
       note: true,
+      groupValue: 1,
       baseATK,
       bonus,
       weaponList,
@@ -185,6 +199,14 @@ export default {
       });
       return desc;
     },
+  },
+  watch: {
+    groupValue(val) {
+      this.currentWeapon.additional
+        .forEach((x, i) => {
+          if (x.group) return i == val ? x.active = true : x.active = false
+          })
+    }
   },
   methods: {
     setWeapon() {
