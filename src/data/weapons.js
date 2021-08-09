@@ -811,7 +811,7 @@ export const weaponList = {
     "type": "Sword",
     "dmg": 44,
     "name": "CDmg%",
-    "value": 12,
+    "value": 8,
     "additional": [{ name: "ATK%", value: 36, inc: 9, active: false }],
     "rarity": 4,
     refinement: 1,

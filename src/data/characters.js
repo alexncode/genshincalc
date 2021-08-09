@@ -275,7 +275,7 @@ export let characters = {
     weapon: "Polearm",
     talentsBonus: [
       { desc: "Bonus to ATK from Skill based on MaxHP", name: "FlatATK", value: 0, active: false },
-      { desc: "When HP <= 50% gains 25% Pyro DMG bonus", name: "Elemental%", value: 25, active: false },],
+      { desc: "When HP <= 50% gains 33% Pyro DMG bonus", name: "Elemental%", value: 33, active: false },],
     constellationBonus: [
       { c: 6, desc: "When almost died CRate gains 100% bonus", name: "CRate%", value: 100, active: false },
     ]

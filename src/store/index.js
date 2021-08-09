@@ -49,9 +49,12 @@ export default new Vuex.Store({
     character: getCharData("Keqing", 80, 5),
     set: [
       { pieces: "4pcs", set: ["Gladiator's Finale", "none"] },
-      { pieces: "4pcs", set: ["Bloodstained Chivalry", "none"] },
+      { pieces: "4pcs", set: ["Gladiator's Finale", "none"] },
     ],
-    artifacts: [generateArtifacts("First"), generateArtifacts("Second")],
+    artifacts: [
+      generateArtifacts("First"),
+      generateArtifacts("Second")
+    ],
     weapon: {
       0: getWeaponData("The Black Sword"),
       1: getWeaponData("The Black Sword")

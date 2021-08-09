@@ -9,7 +9,7 @@
       :href="shareLink"
       target="_blank"
       rel="noopener noreferrer"
-      class="bg-gray-800 text-blue-400 p-1"
+      class="bg-gray-800 text-blue-400 p-1 text-sm"
       ref="link"
     >{{ domen + shareLink }}</a>
     <button
