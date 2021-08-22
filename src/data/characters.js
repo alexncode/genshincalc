@@ -1,12 +1,26 @@
 export function getCharData(name, charLvl, talentLvl) {
   const char = charactersData[name];
   const baseStats = char[charLvl];
+
+  let burstBonus  = 0
+  let normalBonus = 0
+  const charInfo = characters[name]
+  if (charInfo.stackBonus) {
+    if (charInfo.stackBonus.burst) {
+      burstBonus = Math.floor(charInfo.stackBonus.burst.perStack[talentLvl] * charInfo.stackBonus.stacks * 10) / 10
+    }
+    if (charInfo.stackBonus.normal) {
+      normalBonus = Math.floor(charInfo.stackBonus.normal.perStack[talentLvl] * charInfo.stackBonus.stacks * 10) / 10
+    }
+  }
+
   const talents = {
-    normal: char.normal[talentLvl],
+    normal: char.normal[talentLvl] + normalBonus,
     charged: char.charged[talentLvl],
     skill: char.skill[talentLvl],
-    burst: char.burst[talentLvl],
+    burst: char.burst[talentLvl] + burstBonus,
   };
+
   return {
     ...characters[name],
     ...baseStats,
@@ -35,7 +49,7 @@ export let characters = {
     weapon: "Claymore",
     talentsBonus: [],
     constellationBonus: [
-      { c: 1, desc: "Pickng up elemental Orb increases DMG by 10%", name: "AllDMG%", value: 10, active: false },
+      { c: 1, desc: "Picking up elemental Orb increases DMG by 10%", name: "AllDMG%", value: 10, active: false },
       { c: 1, desc: "Crit Rate against enemies with less than 30%HP +10%", name: "CRate%", value: 10, active: false },
     ]
   },
@@ -53,7 +67,7 @@ export let characters = {
     element: "Electro", rarity: 4,
     weapon: "Claymore",
     talentsBonus: [
-      { desc: "Bonus after maximum couter attack Normal and Charged +15% dmg.", name: "NCATK", value: 15, active: false }
+      { desc: "Bonus after maximum counter attack Normal and Charged +15% dmg.", name: "NCATK", value: 15, active: false }
     ],
     constellationBonus: [
       { c: 4, desc: "After taking DMG Normal attack deals 20% additional Electo DMG", name: "Elemental%", value: 20, active: false },
@@ -76,7 +90,7 @@ export let characters = {
     charName: "Lisa",
     element: "Electro", rarity: 4,
     weapon: "Catalyst",
-    talentsBonus: [] //{ desc: "Burst applies -15% DEF to opponents", name: "DEFDebuff", value: 15, active: false }
+    talentsBonus: []
   },
   Amber: {
     charName: "Amber",
@@ -126,7 +140,11 @@ export let characters = {
     element: "Water", rarity: 5,
     weapon: "Catalyst",
     talentsBonus: [
-      { desc: "Increases Hydro DMG by 20% of Energy recharge.", name: "Elemental%", value: 0, active: true }
+      { desc: "Increases Hydro DMG by 20% of Energy recharge.", name: "Elemental%", value: 0, active: true, func: (all) => {
+        let bonus = Math.round((all["EnRe%"] + 100) * 0.2 * 10) / 10;
+        all["Elemental%"] = all["Elemental%"] + bonus || bonus
+      } 
+    }
     ],
     constellationBonus: [
       { c: 6, desc: "After sprinting gain 60-180%(180) Charged attack bonus", name: "Charged%", value: 180, active: false }
@@ -153,7 +171,7 @@ export let characters = {
     weapon: "Sword",
     talentsBonus: [],
     constellationBonus: [
-      { c: 6, desc: "Whithin Burst gain 15% Pyro DMG bonus", name: "Elemental%", value: 15, active: false }
+      { c: 6, desc: "Within Burst gain 15% Pyro DMG bonus", name: "Elemental%", value: 15, active: false }
     ]
   },
   Xinyan: {
@@ -162,7 +180,7 @@ export let characters = {
     weapon: "Claymore",
     talentsBonus: [{ desc: "If shielded deals 15% more Physical dmg", name: "Physical%", value: 15, active: false }],
     constellationBonus: [
-      { c: 6, desc: "Charged attack gain additional 50% DEF Bonus", name: "FlatATK", value: 500, active: false },
+      { c: 6, desc: "Charged attack gain additional 50% DEF Bonus", name: "ChargedByDEF", value: 0, active: false },
     ]
   },
   Kaeya: {
@@ -171,7 +189,7 @@ export let characters = {
     weapon: "Sword",
     talentsBonus: [],
     constellationBonus: [
-      { c: 1, desc: "Gain 15% Crit Rate agains enemies affected by Cryo", name: "CRate%", value: 15, active: false },
+      { c: 1, desc: "Gain 15% Crit Rate against enemies affected by Cryo", name: "CRate%", value: 15, active: false },
     ]
   },
   Chongyun: {
@@ -218,11 +236,26 @@ export let characters = {
     element: "Geo", rarity: 4,
     weapon: "Claymore",
     talentsBonus: [
-      { desc: "Bonus to ATK from Burst", name: "FlatATK", value: 0, active: false }
+      { desc: "Bonus to ATK from Burst", name: "FlatATK", value: 0, active: false, 
+          func: (all, ch) => {
+            const defence = ch.baseDEF * (1 + all["DEF%"] / 100) + all["FlatDEF"]
+            const burstBonus = [40, 43, 46, 50, 53, 56, 60, 64, 68, 72, 76, 80, 85, 90, 95]
+            const bonus = defence * (burstBonus[ch.talentLvl - 1] / 100)
+            all["FlatATK"] += bonus
+          } 
+      }
     ],
     constellationBonus: [
       { c: 2, desc: "Charged ATK DMG increases by 15%", name: "Charged%", value: 15, active: false },
-      { c: 6, desc: "Attack gain additional 50% DEF Bonus", name: "FlatATK", value: 0, active: false },
+      { c: 6, desc: "Attack gain additional 50% DEF Bonus", name: "FlatATK", value: 0, active: false,
+            func: (all, ch) => {
+              const defence = ch.baseDEF * (1 + all["DEF%"] / 100) + all["FlatDEF"]
+              if (ch.constellationBonus[1].active) {
+                const bonus = defence * 0.5
+                all["FlatATK"] += bonus
+              }
+            }  
+      },
     ]
   },
   Sucrose: {
@@ -235,7 +268,7 @@ export let characters = {
     charName: "Xiangling",
     element: "Fire", rarity: 4,
     weapon: "Polearm",
-    talentsBonus: [{ desc: "Chilli peper increases ATK by 10%", name: "ATK%", value: 10, active: false }],
+    talentsBonus: [{ desc: "Chili pepper increases ATK by 10%", name: "ATK%", value: 10, active: false }],
     constellationBonus: [
       { c: 6, desc: "During Burst gain 15% Pyro DMG bonus", name: "Elemental%", value: 15, active: false },
     ]
@@ -266,7 +299,8 @@ export let characters = {
     element: "Anemo", rarity: 5,
     weapon: "Polearm",
     talentsBonus: [
-      { desc: "For the duration of Burst gain bonus to Normal and Charged Attack", name: "NCATK%", value: 0, active: false },
+      { desc: "For the duration of Burst gain bonus to Normal and Charged Attack", name: "NCATK%", value: 0, active: false,
+          func: (all, ch) =>  all["NCATK%"] = all["NCATK%"] + ch.burst || ch.burst },
       { desc: "While under burst effect gain maximum of 25% DMG bonus", name: "AllDMG%", value: 25, active: false }]
   },
   Hutao: {
@@ -274,7 +308,17 @@ export let characters = {
     element: "Fire", rarity: 5,
     weapon: "Polearm",
     talentsBonus: [
-      { desc: "Bonus to ATK from Skill based on MaxHP", name: "FlatATK", value: 0, active: false },
+      { desc: "Bonus to ATK from Skill based on MaxHP", name: "FlatATK", value: 0, active: false,
+        func: (all, ch, getters) => {
+          const hp = Math.round(ch.baseHP * (1 + all["HP%"] / 100) + all["HP"])
+          const skillBonus = [3.84, 4.07, 4.3, 4.6, 4.83, 5.06, 5.36, 5.66, 5.96, 6.26, 6.56, 6.85, 7.15, 7.45, 7.75]
+          let bonus = hp * (skillBonus[ch.talentLvl - 1] / 100)
+          if (bonus > getters.baseATK * 4) {
+            bonus = getters.baseATK * 4
+          }
+          all["FlatATK"] += bonus
+        }
+      },
       { desc: "When HP <= 50% gains 33% Pyro DMG bonus", name: "Elemental%", value: 33, active: false },],
     constellationBonus: [
       { c: 6, desc: "When almost died CRate gains 100% bonus", name: "CRate%", value: 100, active: false },
@@ -306,6 +350,12 @@ export let characters = {
     weapon: "Claymore",
     talentsBonus: [
     ],
+    stackBonus: {
+      stacks: 0,
+      max: 30,
+      burst: { desc: (arr) => `Gain ${arr[0]}% bonus to Burst damage from Lightfall Sword stacks`,
+        perStack: [74.99, 81.1, 87.2, 95.92, 102.02, 109, 118.59, 128.18, 137.78, 148.24, 160.23, 174.33, 188.43, 202.53, 217.91] },
+  }
   },
   Kazuha: {
     charName: "Kazuha",
@@ -341,7 +391,52 @@ export let characters = {
     charName: "Sayu",
     element: "Anemo", rarity: 4,
     weapon: "Claymore",
+    talentsBonus: [],
+  },
+  Raiden: {
+    charName: "Raiden",
+    element: "Electro", rarity: 5,
+    weapon: "Polearm",
     talentsBonus: [
+      { desc: "Gain 0.4% of Elemental damage for each Energy recharge% over 100%", name: "Elemental%", value: 0, active: true,
+        func: (all) => {
+          const bonus = Math.round((all["EnRe%"]) * 0.4 * 10) / 10;
+          all["Elemental%"] = all["Elemental%"] + bonus || bonus    
+        }
+      },
+    ],
+    stackBonus: {
+      stacks: 0,
+      max: 60,
+      burst: { desc: (arr) => `Gain ${arr[0]}% bonus to Burst damage from Resolve stacks`,
+        perStack: [3.89, 4.18, 4.47, 4.86, 5.15, 5.44, 5.83, 6.22, 6.61, 7, 7.39, 7.78, 8.26, 8.75, 9.23] },
+      normal: { desc: (arr) => `Gain ${arr[0]}% bonus to Normal attacks damage from Resolve stacks`,
+        perStack: [0.73, 0.78, 0.84, 0.91, 0.96, 1.02, 1.09, 1.16, 1.23, 1.31, 1.38, 1.45, 1.54, 1.63, 1.72] },
+    }
+  },
+  Sara: {
+    charName: "Sara",
+    element: "Electro", rarity: 4,
+    weapon: "Bow",
+    talentsBonus: [],
+  },
+  Aloy: {
+    charName: "Aloy",
+    element: "Electro", rarity: 5,
+    weapon: "Bow",
+    talentsBonus: [
+      { desc: "When receive Coil bonus ATK is increased by 16%", name: "ATK%", value: 16, active: false },
+      { desc: "When in Rushing Ice state gain 3.5% - 35%(20%) bonus to Cryo DMG.", name: "Elemental%", value: 20, active: false },
+    ],
+  },
+  Kokomi: {
+    charName: "Kokomi",
+    element: "Water", rarity: 5,
+    weapon: "Catalyst",
+    talentsBonus: [
+      { desc: "Bonus to Normal,Charged and Skill DMG during Burst based on Max HP", name: "AllDMG%", value: 0, active: false }, 
+      { desc: "Additional bonus to Normal and Charged DMG based on 15% of Healing bonus", name: "NCATK%", value: 0, active: false },
+      { desc: "Gain 25% Healing bonus, lose 100% CRate", name: "Healing%", value: 25, active: true },   
     ],
   },
   "Traveler (Anemo)": {
@@ -6902,6 +6997,664 @@ export const charactersData = {
       "baseDEF": 635,
       "value": 24,
       "name": "ATK%"
+    }
+  },
+  "Raiden": {
+    "1": {
+      "baseHP": 1005,
+      "baseATK": 26,
+      "baseDEF": 61,
+      "value": 0,
+      "name": "EnRe%"
+    },
+    "20": {
+      "baseHP": 2606,
+      "baseATK": 68,
+      "baseDEF": 159,
+      "value": 0,
+      "name": "EnRe%"
+    },
+    "40": {
+      "baseHP": 5189,
+      "baseATK": 136,
+      "baseDEF": 317,
+      "value": 0,
+      "name": "EnRe%"
+    },
+    "50": {
+      "baseHP": 6675,
+      "baseATK": 174,
+      "baseDEF": 408,
+      "value": 8,
+      "name": "EnRe%"
+    },
+    "60": {
+      "baseHP": 8373,
+      "baseATK": 219,
+      "baseDEF": 512,
+      "value": 16,
+      "name": "EnRe%"
+    },
+    "70": {
+      "baseHP": 9875,
+      "baseATK": 258,
+      "baseDEF": 604,
+      "value": 16,
+      "name": "EnRe%"
+    },
+    "80": {
+      "baseHP": 11388,
+      "baseATK": 298,
+      "baseDEF": 696,
+      "value": 24,
+      "name": "EnRe%"
+    },
+    "90": {
+      "baseHP": 12907,
+      "baseATK": 337,
+      "baseDEF": 789,
+      "value": 32,
+      "name": "EnRe%"
+    },
+    "normal": [
+      39.65,
+      42.87,
+      46.1,
+      50.71,
+      53.94,
+      57.63,
+      62.7,
+      67.77,
+      72.84,
+      78.37,
+      84.71,
+      92.16,
+      99.62,
+      107.07,
+      115.2
+    ],
+    "charged": [
+      99.59,
+      107.69,
+      115.8,
+      127.38,
+      135.49,
+      144.75,
+      157.49,
+      170.23,
+      182.96,
+      196.86,
+      212.78,
+      231.51,
+      250.23,
+      268.96,
+      289.38
+    ],
+    "skill": [
+      117.2,
+      125.99,
+      134.78,
+      146.5,
+      155.29,
+      164.08,
+      175.8,
+      187.52,
+      199.24,
+      210.96,
+      222.68,
+      234.4,
+      249.05,
+      263.7,
+      278.35
+    ],
+    "burst": [
+      400.8,
+      430.86,
+      460.92,
+      501,
+      531.06,
+      561.12,
+      601.2,
+      641.28,
+      681.36,
+      721.44,
+      761.52,
+      801.6,
+      851.7,
+      901.8,
+      951.9
+    ],
+    "20+": {
+      "baseHP": 3468,
+      "baseATK": 91,
+      "baseDEF": 212,
+      "value": 0,
+      "name": "EnRe%"
+    },
+    "40+": {
+      "baseHP": 5801,
+      "baseATK": 152,
+      "baseDEF": 355,
+      "value": 8,
+      "name": "EnRe%"
+    },
+    "50+": {
+      "baseHP": 7491,
+      "baseATK": 196,
+      "baseDEF": 458,
+      "value": 16,
+      "name": "EnRe%"
+    },
+    "60+": {
+      "baseHP": 8985,
+      "baseATK": 235,
+      "baseDEF": 549,
+      "value": 16,
+      "name": "EnRe%"
+    },
+    "70+": {
+      "baseHP": 10487,
+      "baseATK": 274,
+      "baseDEF": 641,
+      "value": 24,
+      "name": "EnRe%"
+    },
+    "80+": {
+      "baseHP": 12000,
+      "baseATK": 314,
+      "baseDEF": 734,
+      "value": 32,
+      "name": "EnRe%"
+    }
+  },
+  "Sara": {
+    "1": {
+      "baseHP": 802,
+      "baseATK": 16,
+      "baseDEF": 53,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "20": {
+      "baseHP": 2061,
+      "baseATK": 42,
+      "baseDEF": 135,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "40": {
+      "baseHP": 3985,
+      "baseATK": 81,
+      "baseDEF": 262,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "50": {
+      "baseHP": 5074,
+      "baseATK": 104,
+      "baseDEF": 333,
+      "value": 6,
+      "name": "ATK%"
+    },
+    "60": {
+      "baseHP": 6305,
+      "baseATK": 129,
+      "baseDEF": 414,
+      "value": 12,
+      "name": "ATK%"
+    },
+    "70": {
+      "baseHP": 7393,
+      "baseATK": 151,
+      "baseDEF": 485,
+      "value": 12,
+      "name": "ATK%"
+    },
+    "80": {
+      "baseHP": 8481,
+      "baseATK": 173,
+      "baseDEF": 556,
+      "value": 18,
+      "name": "ATK%"
+    },
+    "90": {
+      "baseHP": 9570,
+      "baseATK": 195,
+      "baseDEF": 628,
+      "value": 24,
+      "name": "ATK%"
+    },
+    "normal": [
+      36.89,
+      39.9,
+      42.9,
+      47.19,
+      50.19,
+      53.63,
+      58.34,
+      63.06,
+      67.78,
+      72.93,
+      78.08,
+      83.23,
+      88.37,
+      93.52,
+      98.67
+    ],
+    "charged": [
+      124,
+      133.3,
+      142.6,
+      155,
+      164.3,
+      173.6,
+      186,
+      198.4,
+      210.8,
+      223.2,
+      235.6,
+      248,
+      263.5,
+      279,
+      294.5
+    ],
+    "skill": [
+      125.76,
+      135.19,
+      144.62,
+      157.2,
+      166.63,
+      176.06,
+      188.64,
+      201.22,
+      213.79,
+      226.37,
+      238.94,
+      251.52,
+      267.24,
+      282.96,
+      298.68
+    ],
+    "burst": [
+      409.6,
+      440.32,
+      471.04,
+      512,
+      542.72,
+      573.44,
+      614.4,
+      655.36,
+      696.32,
+      737.28,
+      778.24,
+      819.2,
+      870.4,
+      921.6,
+      972.8
+    ],
+    "20+": {
+      "baseHP": 2661,
+      "baseATK": 54,
+      "baseDEF": 175,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "40+": {
+      "baseHP": 4411,
+      "baseATK": 90,
+      "baseDEF": 289,
+      "value": 6,
+      "name": "ATK%"
+    },
+    "50+": {
+      "baseHP": 5642,
+      "baseATK": 115,
+      "baseDEF": 370,
+      "value": 12,
+      "name": "ATK%"
+    },
+    "60+": {
+      "baseHP": 6731,
+      "baseATK": 137,
+      "baseDEF": 442,
+      "value": 12,
+      "name": "ATK%"
+    },
+    "70+": {
+      "baseHP": 7818,
+      "baseATK": 160,
+      "baseDEF": 513,
+      "value": 18,
+      "name": "ATK%"
+    },
+    "80+": {
+      "baseHP": 8907,
+      "baseATK": 182,
+      "baseDEF": 584,
+      "value": 24,
+      "name": "ATK%"
+    }
+  },
+  "Aloy": {
+    "1": {
+      "baseHP": 848,
+      "baseATK": 18,
+      "baseDEF": 53,
+      "value": 0,
+      "name": "Elemental%"
+    },
+    "20": {
+      "baseHP": 2201,
+      "baseATK": 47,
+      "baseDEF": 137,
+      "value": 0,
+      "name": "Elemental%"
+    },
+    "40": {
+      "baseHP": 4382,
+      "baseATK": 94,
+      "baseDEF": 272,
+      "value": 0,
+      "name": "Elemental%"
+    },
+    "50": {
+      "baseHP": 5636,
+      "baseATK": 121,
+      "baseDEF": 350,
+      "value": 7.2,
+      "name": "Elemental%"
+    },
+    "60": {
+      "baseHP": 7070,
+      "baseATK": 152,
+      "baseDEF": 439,
+      "value": 14.4,
+      "name": "Elemental%"
+    },
+    "70": {
+      "baseHP": 8339,
+      "baseATK": 179,
+      "baseDEF": 517,
+      "value": 14.4,
+      "name": "Elemental%"
+    },
+    "80": {
+      "baseHP": 9616,
+      "baseATK": 206,
+      "baseDEF": 597,
+      "value": 21.6,
+      "name": "Elemental%"
+    },
+    "90": {
+      "baseHP": 10899,
+      "baseATK": 234,
+      "baseDEF": 676,
+      "value": 28.8,
+      "name": "Elemental%"
+    },
+    "normal": [
+      44.88,
+      47.94,
+      51,
+      55.08,
+      58.14,
+      61.71,
+      66.3,
+      70.89,
+      75.48,
+      80.07,
+      84.66,
+      89.25,
+      93.84,
+      98.43,
+      103.02
+    ],
+    "charged": [
+      124,
+      133.3,
+      142.6,
+      155,
+      164.3,
+      173.6,
+      186,
+      198.4,
+      210.8,
+      223.2,
+      235.6,
+      248,
+      263.5,
+      279,
+      294.5
+    ],
+    "skill": [
+      177.6,
+      190.92,
+      204.24,
+      222,
+      235.32,
+      248.64,
+      266.4,
+      284.16,
+      301.92,
+      319.68,
+      337.44,
+      355.2,
+      377.4,
+      399.6,
+      421.8
+    ],
+    "burst": [
+      359.2,
+      386.14,
+      413.08,
+      449,
+      475.94,
+      502.88,
+      538.8,
+      574.72,
+      610.64,
+      646.56,
+      682.48,
+      718.4,
+      763.3,
+      808.2,
+      853.1
+    ],
+    "20+": {
+      "baseHP": 2928,
+      "baseATK": 63,
+      "baseDEF": 182,
+      "value": 0,
+      "name": "Elemental%"
+    },
+    "40+": {
+      "baseHP": 4899,
+      "baseATK": 105,
+      "baseDEF": 304,
+      "value": 7.2,
+      "name": "Elemental%"
+    },
+    "50+": {
+      "baseHP": 6325,
+      "baseATK": 136,
+      "baseDEF": 393,
+      "value": 14.4,
+      "name": "Elemental%"
+    },
+    "60+": {
+      "baseHP": 7587,
+      "baseATK": 163,
+      "baseDEF": 471,
+      "value": 14.4,
+      "name": "Elemental%"
+    },
+    "70+": {
+      "baseHP": 8856,
+      "baseATK": 190,
+      "baseDEF": 550,
+      "value": 21.6,
+      "name": "Elemental%"
+    },
+    "80+": {
+      "baseHP": 10133,
+      "baseATK": 217,
+      "baseDEF": 629,
+      "value": 28.8,
+      "name": "Elemental%"
+    }
+  },
+  "Kokomi": {
+    "1": {
+      "baseHP": 1049,
+      "baseATK": 18,
+      "baseDEF": 51,
+      "value": 0,
+      "name": "Elemental%"
+    },
+    "20": {
+      "baseHP": 2720,
+      "baseATK": 47,
+      "baseDEF": 133,
+      "value": 0,
+      "name": "Elemental%"
+    },
+    "40": {
+      "baseHP": 5416,
+      "baseATK": 94,
+      "baseDEF": 264,
+      "value": 0,
+      "name": "Elemental%"
+    },
+    "50": {
+      "baseHP": 6966,
+      "baseATK": 121,
+      "baseDEF": 340,
+      "value": 7.2,
+      "name": "Elemental%"
+    },
+    "60": {
+      "baseHP": 8738,
+      "baseATK": 152,
+      "baseDEF": 426,
+      "value": 14.4,
+      "name": "Elemental%"
+    },
+    "70": {
+      "baseHP": 10306,
+      "baseATK": 179,
+      "baseDEF": 503,
+      "value": 14.4,
+      "name": "Elemental%"
+    },
+    "80": {
+      "baseHP": 11885,
+      "baseATK": 207,
+      "baseDEF": 580,
+      "value": 21.6,
+      "name": "Elemental%"
+    },
+    "90": {
+      "baseHP": 13471,
+      "baseATK": 234,
+      "baseDEF": 657,
+      "value": 28.8,
+      "name": "Elemental%"
+    },
+    "normal": [
+      68.38,
+      73.5,
+      78.63,
+      85.47,
+      90.6,
+      95.73,
+      102.56,
+      109.4,
+      116.24,
+      123.08,
+      129.91,
+      136.75,
+      145.3,
+      153.85,
+      162.39
+    ],
+    "charged": [
+      148.32,
+      159.44,
+      170.57,
+      185.4,
+      196.52,
+      207.65,
+      222.48,
+      237.31,
+      252.14,
+      266.98,
+      281.81,
+      296.64,
+      315.18,
+      333.72,
+      352.26
+    ],
+    "skill": [
+      109.19,
+      117.38,
+      125.57,
+      136.49,
+      144.68,
+      152.87,
+      163.79,
+      174.7,
+      185.62,
+      196.54,
+      207.46,
+      218.38,
+      232.03,
+      245.68,
+      259.33
+    ],
+    "burst": [
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    ],
+    "20+": {
+      "baseHP": 3619,
+      "baseATK": 63,
+      "baseDEF": 177,
+      "value": 0,
+      "name": "Elemental%"
+    },
+    "40+": {
+      "baseHP": 6055,
+      "baseATK": 105,
+      "baseDEF": 295,
+      "value": 7.2,
+      "name": "Elemental%"
+    },
+    "50+": {
+      "baseHP": 7818,
+      "baseATK": 136,
+      "baseDEF": 381,
+      "value": 14.4,
+      "name": "Elemental%"
+    },
+    "60+": {
+      "baseHP": 9377,
+      "baseATK": 163,
+      "baseDEF": 457,
+      "value": 14.4,
+      "name": "Elemental%"
+    },
+    "70+": {
+      "baseHP": 10945,
+      "baseATK": 190,
+      "baseDEF": 534,
+      "value": 21.6,
+      "name": "Elemental%"
+    },
+    "80+": {
+      "baseHP": 12524,
+      "baseATK": 218,
+      "baseDEF": 611,
+      "value": 28.8,
+      "name": "Elemental%"
     }
   }
 }

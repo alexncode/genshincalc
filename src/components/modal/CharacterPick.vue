@@ -133,6 +133,25 @@
               >
             </div>
           </div>
+          <div  
+            v-if="characters[name].stackBonus"
+            class="mt-2"
+          >
+            <div v-if="characters[name].stackBonus.burst">
+              <div class="text-green-200">Burst bonus:</div>
+              <div class="text-blue-200">{{ burstBonusDesc }}</div>
+            </div>
+            <div v-if="characters[name].stackBonus.normal">
+              <div class="text-green-200">Normal ATK bonus:</div>
+              <div class="text-blue-200">{{ normalBonusDesc }}</div>
+            </div>
+            <label>Stacks:
+              <input class="text-gray-900 w-12" type="number" min="0" :max="characters[name].stackBonus.max" 
+                :value="characters[name].stackBonus.stacks" @input="stacks = $event.target.value"
+              >
+            </label>
+            
+          </div>
         </div>
         <button
           class="bg-green-700 px-2 py-1 w-full rounded hover:bg-green-800 font-bold mt-1 mb-4 md:mb-1"
@@ -177,7 +196,8 @@ export default {
         "80+",
         90,
       ],
-      filtered: "All"
+      filtered: "All",
+      stacks: 0,
     };
   },
   mounted() {
@@ -207,10 +227,43 @@ export default {
         this.changeName(Object.keys(chars)[0])
         return chars
       }
+    },
+    burstBonus() {
+      let bonus = 0
+      const sb = this.characters[this.name].stackBonus
+      if  (sb.burst) {
+        bonus = Math.floor(sb.burst.perStack[this.talentLvl] * this.stacks * 10) / 10
+      }
+      return bonus
+    },
+    normalBonus() {
+      let bonus = 0
+      const sb = this.characters[this.name].stackBonus
+      if  (sb.normal) {
+        bonus = Math.floor(sb.normal.perStack[this.talentLvl] * this.stacks * 10) / 10
+      }
+      return bonus
+    },
+    normalBonusDesc() {
+      return this.characters[this.name].stackBonus.normal.desc([this.normalBonus])
+    },
+    burstBonusDesc() {
+      return this.characters[this.name].stackBonus.burst.desc([this.burstBonus])
+    }
+  },
+  watch: {
+    stacks() {
+      if (this.characters[this.name].stackBonus) {
+        this.characters[this.name].stackBonus.stacks = this.stacks
+      }
     }
   },
   methods: {
     setCharacter() {
+      if (this.stacks > 0 && this.characters[this.name].stackBonus) {
+        this.characters[this.name].stackBonus.stacks = this.stacks
+      }
+
       const charData = getCharData(this.name, this.charLvl, this.talentLvl - 1);
       if (
         this.character.charName != this.name &&

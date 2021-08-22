@@ -155,6 +155,9 @@ export default {
         "HP%": "Health Points",
         ATKByHP: "Attack by HP%",
         EM: "Elemental Mastery",
+        "Healing%": "Healing bonus",
+        NormalByHP: "Normal Attack by HP%",
+        "EnRe%": "Energy Recharge",
       },
     };
   },

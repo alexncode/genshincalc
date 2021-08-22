@@ -4,7 +4,9 @@
     <div class="mb-2">
       <p>The main purpose of the app is to compare 2 different sets of artifacts to find
         the best build for your character.</p>
-      <p>Your goal for best build is to maximaze "Normal" or "Charged" or "Physical"
+      <p>You can change <b>Characters</b>, <b>Weapons</b>, <b>Artifact sets</b>, <b>Artifact main and sub stats</b>, <b>add additional bonuses</b>,
+        set buffs and debuffs and more.</p>
+      <p>Your goal for best build is to maximize "Normal" or "Charged" or "Physical"
         or "Elemental" values in the "Stats" tab, depending on what type of attack you use.</p>
       <p>Generally the best artifacts should be ATK% for a Clock, Elemental% or Physical% for Goblet,
         CRate% or CDmg% for Circlet and you should keep the CRate/CDmg ratio as 1/2.
@@ -28,8 +30,8 @@
     </div>
     <h3 class="text-xl text-green-300">Reactions tab</h3>
     <div class="mb-2">
-      <p>Actual elemental reactions damage. Because most elemental reactions depends on your level, you can directly
-        type it in to see relevant damage. Does not affect Melt and Vaporize, because they depend on your damage.</p>
+      <p>Actual elemental reactions damage. Damage of most of the elemental reactions depends on your level,
+        except Melt and Vaporize, they depend on your damage.</p>
       <p>To view different reactions pick different characters.</p>
       <p>Type of attack affect only Melt and Vaporize.</p>
     </div>

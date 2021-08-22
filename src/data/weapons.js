@@ -703,6 +703,19 @@ export const weaponList = {
     refinement: 1,
     "description": "Get $eff1% Skill DMG bonus. After Elemental skill hits regenerate $eff2 energy every 2s for 6s."
   },
+  "Luxurious Sea-Lord": {
+    "type": "Claymore",
+    "dmg": 41,
+    "name": "ATK%",
+    "value": 12,
+    "additional": [
+      { name: "Burst%", value: 12, inc: 3, active: true },
+      { name: "Damage", value: 100, inc: 25, active: false }
+    ],
+    "rarity": 4,
+    refinement: 1,
+    "description": "Get $eff1% Burst DMG bonus. After Elemental skill hits summon Titanic Tuna for $eff2% AoE DMG."
+  },
   "Blackcliff Pole": {
     "type": "Polearm",
     "dmg": 42,
@@ -806,6 +819,19 @@ export const weaponList = {
     "rarity": 4,
     refinement: 1,
     "description": "Get $eff1% Skill DMG bonus. After Elemental skill hits regenerate $eff2 energy every 2s for 6s."
+  },
+  "The Catch": {
+    "type": "Polearm",
+    "dmg": 42,
+    "name": "EnRe%",
+    "value": 10,
+    "additional": [
+      { name: "Burst%", value: 16, inc: 4, active: true },
+      { name: "BurstCRate%", value: 6, inc: 1.5, active: true }
+    ],
+    "rarity": 4,
+    refinement: 1,
+    "description": "Increases Burst DMG by $eff1% and Burst Crit Rate by $eff2%."
   },
   "Blackcliff Longsword": {
     "type": "Sword",
@@ -1016,6 +1042,19 @@ export const weaponList = {
     refinement: 1,
     "description": "Increases Shield Strength by 20/25/30/35/40%. Scoring hits on opponents increases ATK by $eff1% for 8s. Max 5 stacks. Can only occur once every 0.3s. While protected by a shield, this ATK increase effect is increased by 100%."
   },
+  "Everlasting Moonglow": {
+    "type": "Catalyst",
+    "dmg": 46,
+    "name": "HP%",
+    "value": 10.8,
+    "additional": [
+      { name: "Healing%", value: 10, inc: 2.5, active: true },
+      { name: "NormalByHP", value: 1, inc: 0.5, active: true }
+    ],
+    "rarity": 5,
+    refinement: 1,
+    "description": "Healing bonus increased by $eff1%, Normal Attack DMG increased by $eff2% of Max HP."
+  },
   "Skyward Pride": {
     "type": "Claymore",
     "dmg": 48,
@@ -1111,6 +1150,20 @@ export const weaponList = {
     "rarity": 5,
     refinement: 1,
     "description": "HP increased by $eff1%. Additionally, provides an ATK Bonus based on $eff2% of the wielder's Max HP. When the wielder's HP is less than 50%, this ATK Bonus is increased by an additional 1% of Max HP."
+  },
+  "Engulfing Lightning":{
+    "type": "Polearm",
+    "dmg": 46,
+    "name": "EnRe%",
+    "value": 12,
+    "additional": [
+      { name: "ATKByEnRe", value: 28, inc: 7, active: true },
+      { name: "Maximum%", value: 80, inc: 10, active: true },
+      { name: "EnRe%", value: 30, inc: 5, active: false }
+    ],
+    "rarity": 5,
+    refinement: 1,
+    "description": "ATK increased by $eff1% of Energy Recharge over 100% maximum $eff2% of ATK. Gain $eff3% of Energy Recharge after using Burst."
   },
   "Aquila Favonia": {
     "type": "Sword",

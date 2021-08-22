@@ -1,13 +1,8 @@
 <template>
   <div class="mt-4">
     <div class="flex text-gray-100">
-      <Input
-        label="Your level"
-        type="text"
-        v-model.number="level"
-      />
       <div
-        class="border-2 rounded ml-4 px-2"
+        class="border-2 rounded px-2"
         title="Affect only Vaporize and Melt"
       >
         Attack type:
@@ -68,8 +63,6 @@
 </template>
 
 <script>
-import Input from "@/components/UI/Input.vue";
-
 import { mapGetters, mapState } from "vuex";
 
 const reactionElements = {
@@ -97,12 +90,8 @@ const reactionElements = {
 
 export default {
   name: "Reactions",
-  components: {
-    Input,
-  },
   data() {
     return {
-      level: 80,
       reactionElements: reactionElements,
       charged: false,
       attackType: "Normal",
@@ -131,19 +120,19 @@ export default {
       );
     },
     superconduct() {
-      return this.reaction(1, this.level, "Superconduct");
+      return this.reaction(1, "Superconduct");
     },
     swirl() {
-      return this.reaction(1.2, this.level, "Swirl");
+      return this.reaction(1.2, "Swirl");
     },
     electroCharge() {
-      return this.reaction(2.4, this.level, "Electro-charged");
+      return this.reaction(2.4, "Electro-charged");
     },
     shattered() {
-      return this.reaction(3, this.level, "Shattered");
+      return this.reaction(3, "Shattered");
     },
     overload() {
-      return this.reaction(4, this.level, "Overload");
+      return this.reaction(4, "Overload");
     },
     damageType() {
       return this.charged ? "Charged" : "Normal";
@@ -205,7 +194,7 @@ export default {
     },
   },
   methods: {
-    reaction(k, x, name) {
+    reaction(k, name) {
       const start = {
         1: 9,
         10: 17,
