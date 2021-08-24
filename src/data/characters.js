@@ -422,7 +422,7 @@ export let characters = {
   },
   Aloy: {
     charName: "Aloy",
-    element: "Electro", rarity: 5,
+    element: "Ice", rarity: 5,
     weapon: "Bow",
     talentsBonus: [
       { desc: "When receive Coil bonus ATK is increased by 16%", name: "ATK%", value: 16, active: false },

@@ -12,7 +12,7 @@
         </div>
         <div
           @click="characterPick = true"
-          class="bg-gray-800 rounded pt-1 px-1 cursor-pointer hover:bg-gray-700"
+          class="bg-gray-800 rounded pt-1 px-1 cursor-pointer hover:bg-gray-700 min-w-max"
         >
           <img
             :src="`/img/avatars/${character.charName}.png`"
@@ -21,10 +21,18 @@
         </div>
         <div class="flex flex-col ml-2 text-gray-200 w-full">
           <div class="flex justify-between">
-            <a href="https://buildsim.netlify.app/">
-              <h1 class="text-green-400 text-xl">Genshin impact artifact build simulator v0.9.8</h1>
+            <a href="https://buildsim.netlify.app/" class="invisible w-0 h-0 md:visible md:h-auto md:w-auto">
+              <h1 class="text-green-400 text-lg">Genshin impact artifact build simulator v0.9.8</h1>
             </a>
             <div class="flex">
+              <div>
+                <a
+                  class="text-red-500 mr-2 hover:text-red-600"
+                  href="https://www.buymeacoffee.com/alexncode"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >Donate&#9829;</a>
+              </div>
               <div
                 class="text-blue-400 mr-2 cursor-pointer hover:text-blue-200"
                 @click="showHelp = true"
@@ -44,12 +52,12 @@
               </div>
             </div>
           </div>
-          <div class="flex mt-1">
+          <div class="flex flex-col md:flex-row mt-1">
             <div>
               Base Attack: <span class="text-blue-300">{{ baseATK[0]}}</span> / <span class="text-blue-300">{{ baseATK[1]}}</span>
             </div>
-            <div class="ml-2 border-l-2 pl-2">Base HP: <span class="text-blue-300">{{ character.baseHP }}</span></div>
-            <div class="mx-2 border-l-2 pl-2">Base defense: <span class="text-blue-300">{{ character.baseDEF }}</span></div>
+            <div class="md:ml-2 md:border-l-2 md:pl-2">Base HP: <span class="text-blue-300">{{ character.baseHP }}</span></div>
+            <div class="md:mx-2 md:border-l-2 md:pl-2">Base defense: <span class="text-blue-300">{{ character.baseDEF }}</span></div>
           </div>
         </div>
       </div>
