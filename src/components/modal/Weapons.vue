@@ -158,6 +158,7 @@ export default {
         "Healing%": "Healing bonus",
         NormalByHP: "Normal Attack by HP%",
         "EnRe%": "Energy Recharge",
+        FlatATK: "Flat Attack"
       },
     };
   },

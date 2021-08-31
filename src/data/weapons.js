@@ -437,7 +437,20 @@ export const weaponList = {
     ],
     "rarity": 4,
     refinement: 1,
-    "description": "Increses Normal and Charged attack by $eff1%/$eff3% and $eff2%/$eff4%. When Burst is ready doubles the bonuses."
+    "description": "Increases Normal and Charged attack by $eff1%/$eff3% and $eff2%/$eff4%. When Burst is ready doubles the bonuses."
+  },
+  "Predator": {
+    "type": "Bow",
+    "dmg": 42,
+    "name": "ATK%",
+    "value": 9,
+    "additional": [
+      { name: "NCATK%", value: 20, inc: 0, active: false },
+      { name: "FlatATK", value: 66, inc: 0, active: false },
+    ],
+    "rarity": 4,
+    refinement: 1,
+    "description": "Increases Normal and Charged attack by $eff1% when dealing Cryo DMG. Additionally increases ATK by $eff2 if equipped by Aloy."
   },
   "Blackcliff Amulet": {
     "type": "Catalyst",
@@ -565,7 +578,7 @@ export const weaponList = {
     ],
     "rarity": 4,
     refinement: 1,
-    "description": "Normal Attacks increse Charged Attack by $eff1% for 6s. Charged Attack increases ATK by $eff2%"
+    "description": "Normal Attacks increase Charged Attack by $eff1% for 6s. Charged Attack increases ATK by $eff2%"
   },
   "White Dragon Ring": {
     "type": "Catalyst",
@@ -714,7 +727,7 @@ export const weaponList = {
     ],
     "rarity": 4,
     refinement: 1,
-    "description": "Get $eff1% Burst DMG bonus. After Elemental skill hits summon Titanic Tuna for $eff2% AoE DMG."
+    "description": "Get $eff1% Burst DMG bonus. After Elemental burst hits, summon Titanic Tuna for $eff2% AoE DMG."
   },
   "Blackcliff Pole": {
     "type": "Polearm",
@@ -1010,7 +1023,7 @@ export const weaponList = {
     ],
     "rarity": 5,
     refinement: 1,
-    "description": "Gain $eff1% Attack% bonus. Additionaly gain $eff2%/$eff3%/$eff4% Normal Attack DMG bonus for 1/2/3 (3) stack accordingly."
+    "description": "Gain $eff1% Attack% bonus. Additionally gain $eff2%/$eff3%/$eff4% Normal Attack DMG bonus for 1/2/3 (3) stack accordingly."
   },
   "Lost Prayer to the Sacred Winds": {
     "type": "Catalyst",
@@ -1096,7 +1109,7 @@ export const weaponList = {
     ],
     "rarity": 5,
     refinement: 1,
-    "description": "Increases ATK by $eff1%, additionally Sigil of Whispers increses ATK by $eff2% and ATK Spd by 12/15/18/21/24%"
+    "description": "Increases ATK by $eff1%, additionally Sigil of Whispers increases ATK by $eff2% and ATK Spd by 12/15/18/21/24%"
   },
   "Kunwus Iris Rift": {
     "type": "Polearm",
@@ -1235,6 +1248,6 @@ export const weaponList = {
     ],
     "rarity": 5,
     refinement: 1,
-    "description": "Gain $eff1% Elemental DMG bonus. Additionaly gain $eff2%/$eff3%/$eff4% Elemental DMG bonus for 1/2/3 stack accordingly."
+    "description": "Gain $eff1% Elemental DMG bonus. Additionally gain $eff2%/$eff3%/$eff4% Elemental DMG bonus for 1/2/3 stack accordingly."
   },
 }

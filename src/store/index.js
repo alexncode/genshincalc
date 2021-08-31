@@ -179,7 +179,7 @@ export default new Vuex.Store({
           all[i]["FlatATK"] += bonus
         }
 
-        if (state.weapon[i].additional[0]?.name == "ATKByEnRe" && state.weapon[0].additional[1]?.active) {
+        if (state.weapon[i].additional[0]?.name == "ATKByEnRe" && state.weapon[i].additional[1]?.active) {
           const enre = all[i]["EnRe%"]
           const bonus = enre * (state.weapon[i].additional[0].value / 100)
           all[i]["ATK%"] += bonus
