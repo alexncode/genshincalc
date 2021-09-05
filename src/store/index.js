@@ -43,13 +43,16 @@ function generateResObject() {
   };
 }
 
+const filteredAttributes = JSON.parse(window.localStorage.getItem("filteredAttributes"))
+                            || ["Healing Bonus", "Skill Attack", "Burst Attack"]
+
 export default new Vuex.Store({
   state: {
     allElemental: {},
     character: getCharData("Keqing", 80, 5),
     set: [
       { pieces: "4pcs", set: ["Gladiator's Finale", "none"] },
-      { pieces: "4pcs", set: ["Gladiator's Finale", "none"] },
+      { pieces: "4pcs", set: ["Reminiscence of Shime", "none"] },
     ],
     artifacts: [
       generateArtifacts("First"),
@@ -69,7 +72,26 @@ export default new Vuex.Store({
       CRate: 0,
       RES: 0,
       ERES: 0,
-    }
+    },
+    attributes: [
+      "Attack",
+      "Physical attack",
+      "Elemental attack",
+      "Normal attack",
+      "Charged attack",
+      "Skill Attack",
+      "Burst Attack",
+      "Crit chance%",
+      "Crit damage%",
+      "Elemental bonus%",
+      "Physical bonus%",
+      "Elemental mastery",
+      "Energy recharge%",
+      "Defense",
+      "Health points",
+      "Healing Bonus"
+    ],
+    filteredAttributes: filteredAttributes
   },
   getters: {
     getField,
@@ -160,16 +182,6 @@ export default new Vuex.Store({
       const ch = state.character;
 
       for (let i = 0; i < 2; i++) {
-        //Talent bonuses
-        ch.talentsBonus.forEach(tb => {
-          if (tb.active && tb.func) tb.func(all[i], ch, getters)
-        })
-        if (ch.constellationBonus) {
-          ch?.constellationBonus.forEach(cb => {
-            if (cb.active && cb.func) cb.func(all[i], ch)
-          })
-        }
-
         if (ch.charName == "Kokomi") all[i]["CRate%"] = -5
 
         //Weapons effects
@@ -190,6 +202,16 @@ export default new Vuex.Store({
           let bonus = Math.round((all[i]["EnRe%"] + 100) * 0.3 * 10) / 10
           bonus = bonus < 75 ? bonus : 75
           all[i]["Burst%"] = all[i]["Burst%"] + bonus || bonus
+        }
+
+        //Talent bonuses
+        ch.talentsBonus.forEach(tb => {
+          if (tb.active && tb.func) tb.func(all[i], ch, getters)
+        })
+        if (ch.constellationBonus) {
+          ch?.constellationBonus.forEach(cb => {
+            if (cb.active && cb.func) cb.func(all[i], ch)
+          })
         }
       }
       return all
@@ -252,6 +274,30 @@ export default new Vuex.Store({
         return Math.round(phys + phys * getters.critDmg[i]);
       });
     },
+    skillAtk: (state, getters) => {
+      return getters.allStats.map((x, i) => {
+        let phys =
+          getters.atkPower[i] *
+          (1 +
+            (x["Elemental%"] +
+              x["AllDMG%"] +
+              x["SkillDMG%"]) /
+            100);
+        return Math.round(phys + phys * getters.critDmg[i]);
+      });
+    },
+    burstAtk: (state, getters) => {
+      return getters.allStats.map((x, i) => {
+        let phys =
+          getters.atkPower[i] *
+          (1 +
+            (x["Elemental%"] +
+              x["Burst%"] +
+              x["AllDMG%"]) /
+            100);
+        return Math.round(phys + phys * getters.critDmg[i]);
+      });
+    },
     elemAtk: (state, getters) => {
       return getters.allStats.map((x, i) => {
         let elem =
@@ -278,6 +324,7 @@ export default new Vuex.Store({
       const HP = getters.allStats.map((x) =>
         Math.round(state.character.baseHP * (1 + x["HP%"] / 100) + x["HP"])
       );
+      const healing = getters.allStats.map((x) => x["Healing%"]);
 
       return [
         getters.atkPower,
@@ -285,14 +332,17 @@ export default new Vuex.Store({
         getters.elemAtk,
         getters.normalAtk,
         getters.chargedAtk,
-        critChance, //5
+        getters.skillAtk,
+        getters.burstAtk,
+        critChance, //7
         critDamage,
         elem,
         phys,
         EM,
         EnRe,
         DEF,
-        HP, //12
+        HP, //14
+        healing
       ];
     },
     allResultsFormatted: (state, getters) => {

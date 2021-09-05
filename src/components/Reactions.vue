@@ -7,41 +7,47 @@
       >
         Attack type:
         <label class="px-2 text-gray-200">Normal<input
-            type="radio"
-            id="normal"
-            value="Normal"
-            v-model="attackType"
-            class="ml-2"
-          ></label>
+          id="normal"
+          v-model="attackType"
+          type="radio"
+          value="Normal"
+          class="ml-2"
+        ></label>
         <label class="px-2 text-yellow-200">Charged<input
-            type="radio"
-            id="Charged"
-            value="Charged"
-            v-model="attackType"
-            class="ml-2"
-          ></label>
+          id="Charged"
+          v-model="attackType"
+          type="radio"
+          value="Charged"
+          class="ml-2"
+        ></label>
         <label class="px-2 text-green-200">Skill<input
-            type="radio"
-            id="Skill"
-            value="Skill"
-            v-model="attackType"
-            class="ml-2"
-          ></label>
+          id="Skill"
+          v-model="attackType"
+          type="radio"
+          value="Skill"
+          class="ml-2"
+        ></label>
         <label class="px-2 text-blue-200">Burst<input
-            type="radio"
-            id="Burst"
-            value="Burst"
-            v-model="attackType"
-            class="ml-2"
-          ></label>
+          id="Burst"
+          v-model="attackType"
+          type="radio"
+          value="Burst"
+          class="ml-2"
+        ></label>
       </div>
     </div>
     <table class="table-auto w-full mt-4 text-gray-300 leading-none bg-gray-900">
       <thead>
         <tr>
-          <th class="border px-2 py-2 w-1/5">Reaction</th>
-          <th class="border px-2 py-2 w-2/5">First set</th>
-          <th class="border px-2 py-2 w-2/5">Second set</th>
+          <th class="border px-2 py-2 w-1/5">
+            Reaction
+          </th>
+          <th class="border px-2 py-2 w-2/5">
+            First set
+          </th>
+          <th class="border px-2 py-2 w-2/5">
+            Second set
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -50,12 +56,18 @@
           :key="reaction.name"
           class="bg-gray-800 even:bg-gray-900"
         >
-          <td class="border border-gray-600 px-1 py-1">{{ reaction.name }}</td>
-          <td class="border border-gray-600 px-1 py-1">{{ reaction.damage[0] | round }}</td>
+          <td class="border border-gray-600 px-1 py-1">
+            {{ reaction.name }}
+          </td>
+          <td class="border border-gray-600 px-1 py-1">
+            {{ reaction.damage[0] | round }}
+          </td>
           <td
             class="border border-gray-600 px-1 py-1"
             :class="damageClass(reaction.damage)"
-          >{{ reaction.damage[1] | round }} <sup>{{ damagePercent(reaction.damage) }}%</sup></td>
+          >
+            {{ reaction.damage[1] | round }} <sup>{{ damagePercent(reaction.damage) }}%</sup>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -102,7 +114,7 @@ export default {
     ...mapState(["allElemental", "character", "set"]),
     ...mapGetters(["allStats", "allResults"]),
     EM() {
-      return this.allResults[9];
+      return this.allResults[11];
     },
     percent() {
       return this.EM.map(

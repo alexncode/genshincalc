@@ -1,9 +1,8 @@
 <template>
   <div class="flex items-center mt-1 mb-2">
     <div
-      @click="setPick = true"
       class="bg-gray-800 rounded pt-1 px-1 cursor-pointer hover:bg-gray-700"
-      
+      @click="setPick = true"
     >
       <img
         :src="`/img/sets/${fileName[0]}.png`"
@@ -13,9 +12,9 @@
       >
     </div>
     <div
-      @click="secondSetPick = true"
-      class="bg-gray-800 rounded pt-1 px-1 cursor-pointer hover:bg-gray-700"
       v-if="currentSet.pieces == '2pcs'"
+      class="bg-gray-800 rounded pt-1 px-1 cursor-pointer hover:bg-gray-700"
+      @click="secondSetPick = true"
     >
       <img
         :src="`/img/sets/${fileName[1]}.png`"
@@ -30,36 +29,36 @@
         class="mr-2"
       >2pcs
         <input
-          type="radio"
           :id="'2pcs' + side"
-          value="2pcs"
           v-model="currentSet.pieces"
+          type="radio"
+          value="2pcs"
         ></label>
 
       <label for="4pcs">4pcs
         <input
-          type="radio"
           :id="'4pcs' + side"
-          value="4pcs"
           v-model="currentSet.pieces"
+          type="radio"
+          value="4pcs"
         >
       </label>
     </div>
     <div @click="setPick = false">
       <Modal v-if="setPick">
         <SetPick
+          :name="currentSet.set[0]"
           @set-set="setSet"
           @visibility="setPick = !setPick"
-          :name="currentSet.set[0]"
         />
       </Modal>
     </div>
     <div @click="secondSetPick = false">
       <Modal v-if="secondSetPick">
         <SetPick
+          :name="currentSet.set[1]"
           @set-set="secondSetSet"
           @visibility="secondSetPick = !secondSetPick"
-          :name="currentSet.set[1]"
         />
       </Modal>
     </div>
@@ -80,7 +79,10 @@ export default {
       import(/* webpackChunkName: "set" */ "@/components/modal/SetPick.vue"),
   },
   props: {
-    side: Number,
+    side: {
+      type: Number,
+      default: 0
+    },
   },
   data() {
     return {

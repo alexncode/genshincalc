@@ -15,15 +15,17 @@
       </div>
     </div>
     <div class="border-l-2 border-gray-500 m-2 pl-2 md:w-2/6 flex flex-col">
-      <div class="text-center text-xl mb-2">{{ weapon[side].weaponName }}</div>
+      <div class="text-center text-xl mb-2">
+        {{ weapon[side].weaponName }}
+      </div>
       <div class="flex justify-between">
         <label for="ll">
           Lvl:
           <select
-            type="text"
-            name="level"
             id="ll"
             v-model="weaponLevelInx"
+            type="text"
+            name="level"
             class="text-gray-800"
           >
             <option
@@ -36,22 +38,24 @@
         <label for="ref">
           Refinement:
           <input
-            type="number"
             id="ref"
+            v-model="weapon[side].refinement"
+            type="number"
             class="w-12 text-gray-800"
             min="1"
             max="5"
-            v-model="weapon[side].refinement"
           >
         </label>
       </div>
       <div class="flex justify-between">
         <div>Base Attack: </div>
-        <div class="text-yellow-300">{{ weaponBaseAttack }}</div>
+        <div class="text-yellow-300">
+          {{ weaponBaseAttack }}
+        </div>
       </div>
       <div class="flex justify-between">
         <div>Secondary bonus:</div>
-        <div><span class="text-green-300">{{ weaponSecondary }}</span> {{currentWeapon.name }}</div>
+        <div><span class="text-green-300">{{ weaponSecondary }}</span> {{ currentWeapon.name }}</div>
       </div>
       <div class="flex flex-col justify-between mt-1 flex-grow">
         <div>
@@ -60,34 +64,42 @@
             v-html="description"
           />
           <h3
-            class="text-green-200 mt-1"
             v-if="currentWeapon.additional.length"
-          >Additional bonuses:</h3>
+            class="text-green-200 mt-1"
+          >
+            Additional bonuses:
+          </h3>
           <div
             v-for="(addi, i) in currentWeapon.additional"
             :key="addi.name + i"
+            :class="addi.group ? 'bg-gray-700' : ''"
           >
-            <label :for="'effect' + i" v-if="statNames[addi.name] && !addi.group">
+            <label
+              v-if="statNames[addi.name] && !addi.group"
+              :for="'effect' + i"
+            >
               {{ statNames[addi.name] }}
               <input
-                type="checkbox"
-                name="effect"
                 :id="'effect' + i"
                 v-model="addi.active"
+                type="checkbox"
+                name="effect"
                 class="ml-2"
               >
             </label>
-            <div v-if="addi.group">
+            <div
+              v-if="addi.group"
+            >
               <label :for="'group' + i">
-              {{ statNames[addi.name] }} {{ addi.group }}
-              <input
-                type="radio"
-                name="group"
-                :id="'group' + i"
-                v-model="groupValue"
-                class="ml-2"
-                :value="i"
-              >
+                {{ statNames[addi.name] }} {{ addi.group }}
+                <input
+                  :id="'group' + i"
+                  v-model="groupValue"
+                  type="radio"
+                  name="group"
+                  class="ml-2"
+                  :value="i"
+                >
               </label>
             </div>
           </div>
@@ -95,7 +107,9 @@
         <button
           class="bg-green-700 px-2 py-1 w-full rounded hover:bg-green-800 font-bold mt-1 mb-4 md:mb-1"
           @click="setWeapon"
-        >OK</button>
+        >
+          OK
+        </button>
       </div>
     </div>
   </div>
@@ -158,7 +172,8 @@ export default {
         "Healing%": "Healing bonus",
         NormalByHP: "Normal Attack by HP%",
         "EnRe%": "Energy Recharge",
-        FlatATK: "Flat Attack"
+        FlatATK: "Flat Attack",
+        None: "Nothing"
       },
     };
   },

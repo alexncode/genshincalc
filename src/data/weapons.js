@@ -540,7 +540,8 @@ export const weaponList = {
     "additional": [
       { name: "ATK%", value: 60, inc: 15, active: false, group: 1 },
       { name: "EM", value: 240, inc: 60, active: false, group: 2 },
-      { name: "Elemental%", value: 48, inc: 12, active: false, group: 3 }
+      { name: "Elemental%", value: 48, inc: 12, active: false, group: 3 },
+      { name: "None", value: 0, inc: 0, active: true, group: 4 }
     ],
     "rarity": 4,
     refinement: 1,
@@ -1244,7 +1245,8 @@ export const weaponList = {
       { name: "Elemental%", value: 12, inc: 3, active: true },
       { name: "Elemental%", value: 8, inc: 2, active: false, group: 1},
       { name: "Elemental%", value: 16, inc: 4, active: false, group: 2},
-      { name: "Elemental%", value: 28, inc: 7, active: false, group: 3}
+      { name: "Elemental%", value: 28, inc: 7, active: false, group: 3},
+      { name: "None", value: 0, inc: 0, active: false, group: 4},
     ],
     "rarity": 5,
     refinement: 1,

@@ -11,8 +11,8 @@
           </Modal>
         </div>
         <div
-          @click="characterPick = true"
           class="bg-gray-800 rounded pt-1 px-1 cursor-pointer hover:bg-gray-700 min-w-max"
+          @click="characterPick = true"
         >
           <img
             :src="`/img/avatars/${character.charName}.png`"
@@ -21,7 +21,10 @@
         </div>
         <div class="flex flex-col ml-2 text-gray-200 w-full">
           <div class="flex justify-between">
-            <a href="https://buildsim.netlify.app/" class="invisible w-0 h-0 md:visible md:h-auto md:w-auto">
+            <a
+              href="https://buildsim.netlify.app/"
+              class="invisible w-0 h-0 md:visible md:h-auto md:w-auto"
+            >
               <h1 class="text-green-400 text-lg">Genshin impact artifact build simulator v0.9.8</h1>
             </a>
             <div class="flex">
@@ -36,7 +39,9 @@
               <div
                 class="text-blue-400 mr-2 cursor-pointer hover:text-blue-200"
                 @click="showHelp = true"
-              >Help</div>
+              >
+                Help
+              </div>
               <div>
                 <a
                   class="text-blue-400 mr-2 hover:text-blue-200"
@@ -54,10 +59,14 @@
           </div>
           <div class="flex flex-col md:flex-row mt-1">
             <div>
-              Base Attack: <span class="text-blue-300">{{ baseATK[0]}}</span> / <span class="text-blue-300">{{ baseATK[1]}}</span>
+              Base Attack: <span class="text-blue-300">{{ baseATK[0] }}</span> / <span class="text-blue-300">{{ baseATK[1] }}</span>
             </div>
-            <div class="md:ml-2 md:border-l-2 md:pl-2">Base HP: <span class="text-blue-300">{{ character.baseHP }}</span></div>
-            <div class="md:mx-2 md:border-l-2 md:pl-2">Base defense: <span class="text-blue-300">{{ character.baseDEF }}</span></div>
+            <div class="md:ml-2 md:border-l-2 md:pl-2">
+              Base HP: <span class="text-blue-300">{{ character.baseHP }}</span>
+            </div>
+            <div class="md:mx-2 md:border-l-2 md:pl-2">
+              Base defense: <span class="text-blue-300">{{ character.baseDEF }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -67,12 +76,21 @@
             <Set :side="0" />
             <Weapon side="0" />
           </div>
-          <Artifact
-            v-for="artifact in artifacts[0]"
-            :key="artifact.key"
-            :artifact="artifact"
-            side="0"
-          />
+          <div v-if="randomizeArtifacts">
+            <Artifact
+              v-for="artifact in artifacts[0]"
+              :key="artifact.key"
+              :artifact="artifact"
+              side="0"
+            />
+          </div>
+          <div
+            v-else
+            class="w-80"
+            style="height: 136px;"
+          >
+            Substitute
+          </div>
           <Additional side="0" />
         </div>
         <div class="flex md:flex-col justify-center mx-2 px-2 border-l-2 border-r-2 border-gray-700">
@@ -80,34 +98,51 @@
             class="bg-gray-600 text-gray-100 rounded w-8 hover:bg-gray-400"
             title="Equalize artifacts"
             @click="equalize"
-          >=</button>
+          >
+            =
+          </button>
           <button
             class="bg-gray-600 text-gray-100 rounded w-8 mx-2 md:my-2 md:mx-0 hover:bg-gray-400"
             title="Randomize substats"
             @click="randomize"
-          >&#10227;</button>
+          >
+            &#10227;
+          </button>
           <button
             class="bg-gray-600 text-gray-100 rounded w-8 hover:bg-gray-400"
             title="Save & Load"
             @click="save"
-          >&#128190;</button>
+          >
+            &#128190;
+          </button>
           <button
             class="bg-blueGray-600 text-gray-100 rounded w-8 mx-2 md:my-2 md:mx-0 hover:bg-blueGray-400"
             title="Share"
             @click="showShare = true"
-          >&#8682;</button>
+          >
+            &#8682;
+          </button>
         </div>
         <div class="md:pl-4">
           <div class="flex justify-between">
             <Set :side="1" />
             <Weapon side="1" />
           </div>
-          <Artifact
-            v-for="artifact in artifacts[1]"
-            :key="artifact.key"
-            :artifact="artifact"
-            side="1"
-          />
+          <div v-if="randomizeArtifacts">
+            <Artifact
+              v-for="artifact in artifacts[1]"
+              :key="artifact.key"
+              :artifact="artifact"
+              side="1"
+            />
+          </div>
+          <div
+            v-else
+            class="w-80"
+            style="height: 136px;"
+          >
+            Substitute
+          </div>
           <Additional side="1" />
         </div>
       </div>
@@ -120,6 +155,18 @@
             :active="activeTab == tab"
             @click="changeTab(tab)"
           />
+          <div 
+            v-if="activeTab == 'Stats'" 
+            class="flex-grow text-blue-400 text-right hover:text-blue-200 cursor-pointer py-2 pr-4"
+            @click="showTableFilter = true"
+          >
+            Filter
+          </div>
+          <div @click="showTableFilter = false">
+            <Modal v-if="showTableFilter">
+              <TableFilter />
+            </Modal>
+          </div>
         </div>
         <StatTable
           v-show="activeTab == 'Stats'"
@@ -146,7 +193,7 @@
     </div>
     <div @click="showShare = false">
       <Modal v-if="showShare">
-        <Share :shareLink="shareLink" />
+        <Share :share-link="shareLink" />
       </Modal>
     </div>
     <transition name="slide">
@@ -159,7 +206,9 @@
           <div
             class="rounded-xl bg-gray-500 ml-4 px-2 py-1 hover:bg-gray-600 cursor-pointer"
             @click="update"
-          >Update</div>
+          >
+            Update
+          </div>
         </div>
       </div>
     </transition>
@@ -176,6 +225,7 @@ import Reactions from "@/components/Reactions.vue";
 import Modal from "@/components/modal/Modal.vue";
 import Additional from "@/components/Additional.vue";
 import Share from '@/components/modal/Share.vue';
+import TableFilter from '@/components/modal/TableFilter.vue';
 
 import TabButton from "@/components/UI/TabButton.vue";
 
@@ -206,6 +256,7 @@ export default {
     Help: () => import(/* webpackChunkName: "help" */ "@/components/Help.vue"),
     About: () =>
       import(/* webpackChunkName: "about" */ "@/components/modal/About.vue"),
+    TableFilter
   },
   data() {
     return {
@@ -215,9 +266,24 @@ export default {
       showHelp: false,
       showAbout: false,
       showShare: false,
+      showTableFilter: false,
       updateReady: false, //New update ready
       refreshing: false, //Page is refreshing
+      randomizeArtifacts: true
     };
+  },
+  computed: {
+    ...mapFields([
+      "character",
+      "set",
+      "additionalStats",
+      "weapon",
+      "artifacts",
+    ]),
+    ...mapGetters(["baseATK"]),
+    shareLink() {
+      return `/?l=${this.buildShareString()}`;
+    },
   },
   created() {
     document.addEventListener("swUpdated", this.updateAvailable, {
@@ -241,19 +307,6 @@ export default {
       this.loadFromString(arr);
     }
   },
-  computed: {
-    ...mapFields([
-      "character",
-      "set",
-      "additionalStats",
-      "weapon",
-      "artifacts",
-    ]),
-    ...mapGetters(["baseATK"]),
-    shareLink() {
-      return `/?l=${this.buildShareString()}`;
-    },
-  },
   methods: {
     updateAvailable(event) {
       this.updateReady = true;
@@ -275,11 +328,8 @@ export default {
       }
     },
     randomize() {
-      this.artifacts.forEach((side) => {
-        for (const artifact in side) {
-          side[artifact].key = "" + Math.floor(Math.random() * 999999);
-        }
-      });
+      this.randomizeArtifacts = false
+      setTimeout(() => this.randomizeArtifacts = true)
     },
     changeTab(name) {
       this.activeTab = name;

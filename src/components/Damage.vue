@@ -5,36 +5,36 @@
         for="normal"
         class="mr-2 border-r-2 border-gray-900"
       >Normal% <input
-          type="text"
-          id="normal"
-          v-model.number="character.normal"
-          class="text-gray-900 w-14 mx-2"
-        ></label>
+        id="normal"
+        v-model.number="character.normal"
+        type="text"
+        class="text-gray-900 w-14 mx-2"
+      ></label>
 
       <label
         for="charged"
         class="mr-2 border-r-2 border-gray-900"
       >Charged%<input
-          type="text"
-          id="charged"
-          v-model.number="character.charged"
-          class="text-gray-900 w-14 mx-2 "
-        ></label>
+        id="charged"
+        v-model.number="character.charged"
+        type="text"
+        class="text-gray-900 w-14 mx-2 "
+      ></label>
       <label
         for="skill"
         class="mr-2 border-r-2 border-gray-900"
       >Skill%<input
-          type="text"
-          id="skill"
-          v-model.number="character.skill"
-          class="text-gray-900 w-14 mx-2 "
-        ></label>
+        id="skill"
+        v-model.number="character.skill"
+        type="text"
+        class="text-gray-900 w-14 mx-2 "
+      ></label>
       <label for="burst">Burst%<input
-          type="text"
-          id="burst"
-          v-model.number="character.burst"
-          class="text-gray-900 w-14 mx-2 "
-        ></label>
+        id="burst"
+        v-model.number="character.burst"
+        type="text"
+        class="text-gray-900 w-14 mx-2 "
+      ></label>
     </div>
     <div class="flex mb-1 border-b-2 border-gray-800 pb-1">
       <label
@@ -43,9 +43,9 @@
       >
         Enemy
         <select
-          name="mob"
           id="mob"
           v-model="mob"
+          name="mob"
           class="text-gray-900 mx-2"
         >
           <option
@@ -59,11 +59,11 @@
         for="enemyLevel"
         class="border-r-2 border-gray-900"
       >Enemy level<input
-          type="text"
-          id="enemyLevel"
-          v-model.number="enemyLevel"
-          class="text-gray-900 w-10 mx-2"
-        ></label>
+        id="enemyLevel"
+        v-model.number="enemyLevel"
+        type="text"
+        class="text-gray-900 w-10 mx-2"
+      ></label>
       <div
         class="text-gray-200 bg-blue-500 rounded px-2 hover:bg-blue-600 cursor-pointer ml-2"
         @click="showBuffs = true"
@@ -75,9 +75,9 @@
       <div class="mr-2 border border-gray-500 text-gray-200 rounded px-1">
         <label for="physical">Physical</label>
         <input
-          type="radio"
           id="physical"
           v-model="damageType"
+          type="radio"
           value="Physical%"
           class="text-gray-900 mx-2"
         >
@@ -86,9 +86,9 @@
           :class="elementColor"
         >Elemental</label>
         <input
-          type="radio"
           id="elemental"
           v-model="damageType"
+          type="radio"
           value="Elemental%"
           class="text-gray-900 mx-2"
         >
@@ -100,40 +100,47 @@
         <label class="text-gray-200">
           Normal & Charged
           <input
-            type="radio"
             id="Normal"
-            value="Normal"
             v-model="attackType"
+            type="radio"
+            value="Normal"
             class="ml-2"
           ></label>
         <label :class="elementColor">
           Skill & Burst
           <input
-            type="radio"
             id="Skill"
-            value="Skill"
             v-model="attackType"
+            type="radio"
+            value="Skill"
             class="ml-2"
           ></label>
         <label class="text-yellow-500">
           All
           <input
-            type="radio"
             id="All"
-            value="All"
             v-model="attackType"
+            type="radio"
+            value="All"
             class="ml-2"
           ></label>
       </div>
-
     </div>
-    <div hidden>{{allElemental}}</div>
+    <div hidden>
+      {{ allElemental }}
+    </div>
     <table class="table-auto w-full mt-2 text-gray-300 leading-none bg-gray-900">
       <thead>
         <tr>
-          <th class="border px-2 py-2 w-1/5">Attack type</th>
-          <th class="border px-2 py-2 w-2/5">First set</th>
-          <th class="border px-2 py-2 w-2/5">Second set</th>
+          <th class="border px-2 py-2 w-1/5">
+            Attack type
+          </th>
+          <th class="border px-2 py-2 w-2/5">
+            First set
+          </th>
+          <th class="border px-2 py-2 w-2/5">
+            Second set
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -272,7 +279,7 @@ export default {
       return this.allStats.map((side, i) => {
         let atk = this.attackPowFood[i];
         if (this.character.charName == "Albedo") {
-          atk = this.allResults[11][i];
+          atk = this.allResults[13][i];
         }
         return (
           atk *
@@ -449,7 +456,7 @@ export default {
     },
     calcHitHP(percent, mods, bonuses) {
       return this.allStats.map((side, i) => {
-        const hp = this.allResults[this.allResults.length - 1][i];
+        const hp = this.allResults[14][i];
         return (
           hp *
           percent *

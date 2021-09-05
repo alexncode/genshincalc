@@ -400,10 +400,17 @@ export let characters = {
     talentsBonus: [
       { desc: "Gain 0.4% of Elemental damage for each Energy recharge% over 100%", name: "Elemental%", value: 0, active: true,
         func: (all) => {
-          const bonus = Math.round((all["EnRe%"]) * 0.4 * 10) / 10;
-          all["Elemental%"] = all["Elemental%"] + bonus || bonus    
+          const bonus = all["EnRe%"] * 0.4;
+          all["Elemental%"] = Math.round((all["Elemental%"] + bonus || bonus) * 10) / 10    
         }
       },
+      { desc: "If Burst active Normal and Charged attacks counts as Burst damage", name: "Burst%", value: 0, active: false,
+        func: (all) => {
+          all["NormalATK%"] = 0
+          all["Charged%"] = 0
+          all["NCATK%"] = all["Burst%"]
+        }
+    },
     ],
     stackBonus: {
       stacks: 0,

@@ -1,8 +1,8 @@
 <template>
   <div>
     <div
-      @click="showWeapons = true"
       class="bg-gray-700 rounded pt-1 px-1 cursor-pointer hover:bg-gray-600"
+      @click="showWeapons = true"
     >
       <img
         :src="`/img/weapons/${character.weapon}.png`"
@@ -34,7 +34,10 @@ export default {
     Modal,
   },
   props: {
-    side: String,
+    side: {
+      type: String,
+      default: "0"
+    },
   },
   data() {
     return {

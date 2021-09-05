@@ -4,37 +4,41 @@
       <label
         class=" w-28"
         :for="artifact.id"
-      >{{artifact.label}}</label>
+      >{{ artifact.label }}</label>
       <input
-        type="text"
         :id="artifact.id + side"
         v-model.number="artifact.value"
+        type="text"
         class="text-gray-900"
       >
       <div
         class="h-6 w-4  border-gray-400 rounded cursor-pointer"
-        :class="artifact.rarity == 4 ? 'bg-purple-500' : 'bg-amber-500'"
+        :class="artifact.rarity == 4 ? 'bg-purple-500 hover:bg-purple-600' : 'bg-amber-500 hover:bg-amber-600'"
         :title="artifact.rarity == 4 ? 'Epic' : 'Legendary'"
         @click="changeRarity"
-      ></div>
+      />
       <select
-        name="mainStat"
         :id="artifact.id + side"
         v-model="artifact.name"
-        @change="maxValue"
+        name="mainStat"
         class="text-gray-900"
+        @change="maxValue"
       >
         <option
           v-for="val in artifact.mainStat"
           :key="val"
           :value="val"
-        >{{ val }}</option>
+        >
+          {{ val }}
+        </option>
       </select>
       <button
         class="text-gray-100 rounded"
-        :class="showSubstats ? 'bg-red-500' : 'bg-green-600'"
+        :class="showSubstats ? 'bg-red-500 hover:bg-red-400' : 'bg-green-600 hover:bg-green-500'"
         @click="showSubstats = !showSubstats"
-      >{{showSubstats ? '-': '+'}}</button>
+      >
+        {{ showSubstats ? '-': '+' }}
+      </button>
     </div>
     <div
       v-if="showSubstats"
@@ -45,43 +49,53 @@
         :key="substat.name"
         class="flex"
       >
-        <div class="text-orange-200 font-normal w-value">{{ substat.value }}</div>
+        <div class="text-orange-200 font-normal w-value">
+          {{ substat.value }}
+        </div>
         <div class="w-upgrade flex text-green-200 px-2">
           <button
             class="text-blueGray-300 bg-blueGray-800 rounded w-3 hover:bg-blueGray-700"
             @click="minusUpgrade(substat)"
-          >-</button>
+          >
+            -
+          </button>
           <div
             class="px-1"
             title="Number of upgrades maximum of 5 for 5* and 4 for 4*"
-          >{{ substat.upgrade }}</div>
+          >
+            {{ substat.upgrade }}
+          </div>
           <button
             class="text-blueGray-300 bg-blueGray-800 rounded w-3 hover:bg-blueGray-700"
             @click="plusUpgrade(substat)"
-          >+</button>
+          >
+            +
+          </button>
         </div>
         <input
+          id="subVal"
+          v-model.number="substat.value"
           type="range"
           name="subVal"
-          id="subVal"
           class="w-range mr-1"
           :min="minSubstats[i]"
           :max="maxSubstats[i]"
           :step="possibleStats[substat.name].step"
-          v-model.number="substat.value"
         >
         <select
-          name="substat"
           :id="substat.name"
           v-model="substat.name"
-          @change="changeSubstatVal(substat)"
+          name="substat"
           class="w-name"
+          @change="changeSubstatVal(substat)"
         >
           <option
             v-for="(sb, key) in possibleStats"
             :key="key"
             :value="key"
-          >{{ key }}</option>
+          >
+            {{ key }}
+          </option>
         </select>
       </div>
     </div>
@@ -158,9 +172,6 @@ export default {
       },
     };
   },
-  created() {
-    this.substats();
-  },
   computed: {
     maxUpdates() {
       return this.artifact.rarity == 5 ? 5 : 3;
@@ -184,6 +195,9 @@ export default {
       });
     },
   },
+  created() {
+    this.substats();
+  },
   methods: {
     substats() {
       let substats = shuffle(Object.keys(this.possibleStats));
@@ -197,6 +211,17 @@ export default {
           });
         }
         i++;
+      }
+      if (this.artifact.substats.length == 4) {
+        const newSubstats = []
+        for (let i = 0; i < 4; i++) {
+          newSubstats.push({
+            name: substats[i],
+            value: 0,
+            upgrade: 0,
+          })
+        }
+        this.artifact.substats = newSubstats
       }
       this.startingValues();
       this.randomUpgrades();
