@@ -301,15 +301,15 @@ export default {
     },
     additionalNormal() {
       let res = [0,0];
+      if (this.weapon[0].weaponName == "Everlasting Moonglow" || this.weapon[1].weaponName == "Everlasting Moonglow") {
+        res = this.calcAdditional(0, ["AllDMG%", "NormalATK%", "NCATK%"])
+      }
       if (this.character.charName == "Zhongli" && this.character.talentsBonus[0].active) {
         res = this.calcAdditional(0.0139, ["AllDMG%", "NormalATK%", "NCATK%"])
       }
       if (this.character.charName == "Kokomi"  && this.character.talentsBonus[0].active) {
         const normB = [4.84, 5.2, 5.57, 6.05, 6.41, 6.78, 7.26, 7.74, 8.23, 8.71, 9.2, 9.68, 10.29, 10.89, 11.5]
-        res = this.calcAdditional(normB[this.character.talentLvl - 1] / 100, ["AllDMG%", "NormalATK%", "NCATK%"])
-      }
-      if (this.weapon[0].weaponName == "Everlasting Moonglow" || this.weapon[1].weaponName == "Everlasting Moonglow") {
-        res = this.calcAdditional(0, ["AllDMG%", "NormalATK%", "NCATK%"])
+        res = this.calcAdditional(normB[this.character.talentLvl - 1] / 100, ["AllDMG%", "NormalATK%", "NCATK%"], null, "Normal")
       }
       return res;
     },
@@ -320,7 +320,7 @@ export default {
       }
       if (this.character.charName == "Kokomi" && this.character.talentsBonus[1].active) {
         const charB = [6.78, 7.28, 7.79, 8.47, 8.98, 9.49, 10.16, 10.84, 11.52, 12.2, 12.87, 13.55, 14.4, 15.25, 16.09]
-        res = this.calcAdditional(charB[this.character.talentLvl - 1] / 100, ["AllDMG%", "Charged%", "NCATK%"])
+        res = this.calcAdditional(charB[this.character.talentLvl - 1] / 100, ["AllDMG%", "Charged%", "NCATK%"], null, "Charged")
       }
       return res;
     },
@@ -500,8 +500,10 @@ export default {
         if (this.character.charName == "Kokomi"  && this.character.talentsBonus[1].active 
             && ["Normal", "Charged"].includes(damageType)) {
           bonus = x["Healing%"] * 0.15 / 100
+          console.log("Bonus from heal");
         }
-
+        console.log(damageType);
+        
         if (this.allStats[i]["NormalByHP"]) {
           bonus += this.allStats[i]["NormalByHP"] / 100
         }
