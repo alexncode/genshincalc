@@ -69,7 +69,7 @@ export let sets = {
     name: "Maiden Beloved",
     rarity: 5,
     "2pcs": { name: "Healing%", value: 15, bonusText: "Character Healing Effectiveness +15%" },
-    "4pcs": { name: "Healing%", value: 20, bonusText: "Using an Elemental Skill or Burst increases healing received by all party members by 20% for 10s" },
+    "4pcs": { name: "Healing%", value: 0, bonusText: "Using an Elemental Skill or Burst increases healing received by all party members by 20% for 10s" },
   },
   "Noblesse Oblige": {
     name: "Noblesse Oblige",
