@@ -21,7 +21,7 @@
           class="bg-gray-800 even:bg-gray-900"
         >
           <td
-            class="border border-gray-600 px-1 py-1"
+            class="border border-gray-600 px-1 py-1 whitespace-nowrap"
             :class="[att.name == 'Elemental mastery' ? 'underline cursor-pointer' : '',
                      formulaList.includes(att.name) ? 'underline cursor-pointer' : '']"
             @click="showModalF(att.name, 2)"

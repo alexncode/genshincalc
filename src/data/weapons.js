@@ -1214,7 +1214,7 @@ export const weaponList = {
   },
   "Skyward Blade": {
     "type": "Sword",
-    "dmg": 44,
+    "dmg": 46,
     "name": "EnRe%",
     "value": 12,
     "additional": [{ name: "CRate%", value: 4, inc: 1, active: true }, { name: "NCATK%", value: 20, inc: 5, active: false }],

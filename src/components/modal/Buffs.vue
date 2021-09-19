@@ -10,9 +10,9 @@
       >
         Superconduct
         <input
-          type="checkbox"
           id="superc"
           v-model="superc"
+          type="checkbox"
         >
       </label>
       <label
@@ -21,9 +21,9 @@
       >
         Viridescent Venerer
         <input
-          type="checkbox"
           id="viri"
           v-model="viri"
+          type="checkbox"
         >
       </label>
       <label
@@ -32,9 +32,9 @@
       >
         Adeptus' Temptation
         <input
-          type="checkbox"
           id="adept"
           v-model="adept"
+          type="checkbox"
         >
       </label>
       <div class="flex gap-4">
@@ -44,10 +44,10 @@
         >
           DEF debuff
           <input
-            class="w-12"
-            type="number"
             id="def"
             v-model.number="additionalDEF"
+            class="w-12 text-gray-800"
+            type="number"
           >
         </label>
         <label
@@ -56,10 +56,10 @@
         >
           Physical debuff
           <input
-            class="w-12 text-gray-800"
-            type="number"
             id="res"
             v-model.number="additionalRES"
+            class="w-12 text-gray-800"
+            type="number"
           >
         </label>
         <label
@@ -68,10 +68,10 @@
         >
           Elemental debuff
           <input
-            class="w-12"
-            type="number"
             id="res"
             v-model.number="additionalERES"
+            class="w-12 text-gray-800"
+            type="number"
           >
         </label>
       </div>
@@ -80,7 +80,9 @@
       <div
         class="bg-green-600 rounded p-1 mt-4 cursor-pointer hover:bg-green-500 text-center text-gray-200 max-w-md mx-auto"
         @click="$emit('visibility')"
-      >OK</div>
+      >
+        OK
+      </div>
     </div>
   </div>
 </template>

@@ -254,7 +254,6 @@ export default new Vuex.Store({
       let bonus = [0,0]
 
       if (state.character.charName == "Xinyan" && state.character.constellationBonus[0].active) {
-        console.log("here");
         bonus = getters.allStats.map((x) =>
         Math.round(
           state.character.baseDEF * (1 + x["DEF%"] / 100) + x["FlatDEF"]

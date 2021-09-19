@@ -124,6 +124,7 @@ export let sets = {
         { name: "Melt", value: 15 },
         { name: "Overload", value: 40 },
         { name: "Burn", value: 40 },
+        { name: "Elemental%", value: 7.5 },
       ]
     },
   },
@@ -182,7 +183,7 @@ export let sets = {
     name: "Seal of Insulation",
     rarity: 5,
     "2pcs": { name: "EnRe%", value: 20, bonusText: "Energy recharge +20%" },
-    "4pcs": { name: "BusrtByER", value: 0, bonusText: "Increases Burst damage by 30% of energy recharge." },
+    "4pcs": { name: "BurstByER", value: 0, bonusText: "Increases Burst damage by 30% of energy recharge." },
   },
   none: {
     name: "none",

@@ -5,8 +5,10 @@
       <p>Keep in mind that you can have other sources of ATK% like Fire resonance or Thrilling Tales of Dragon Slayers.</p>
     </div>
     <div v-if="attribute == 'Physical attack'">
-      <p>If you building physical attack character is better to look at Normal or Charged attack stats,
-        they would be more relevant.</p>
+      <p>
+        If you building physical attack character is better to look at Normal or Charged attack stats,
+        they would be more relevant.
+      </p>
       <p>ATK% to Physical dmg ratio is {{ dmg }} should be close to 1.25.</p>
     </div>
     <div v-if="attribute == 'Elemental attack'">
@@ -23,7 +25,6 @@
       <p>If you mainly use charged attacks optimize this stat.</p>
       <p>ATK% to Charged dmg ratio is {{ dmg }} should be close to 1.</p>
     </div>
-
   </div>
 </template>
 
@@ -96,6 +97,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>

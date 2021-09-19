@@ -132,7 +132,7 @@
     <table class="table-auto w-full mt-2 text-gray-300 leading-none bg-gray-900">
       <thead>
         <tr>
-          <th class="border px-2 py-2 w-1/5">
+          <th class="border px-2 py-2 w-1/5 min-w-max">
             Attack type
           </th>
           <th class="border px-2 py-2 w-2/5">
@@ -149,7 +149,7 @@
           :key="name"
           class="bg-gray-800 even:bg-gray-900"
         >
-          <td class="border border-gray-600 px-1 py-1">
+          <td class="border border-gray-600 px-1 py-1 whitespace-nowrap">
             {{ name }}
           </td>
           <td class="border border-gray-600 px-1 py-1 text-center">
@@ -500,9 +500,7 @@ export default {
         if (this.character.charName == "Kokomi"  && this.character.talentsBonus[1].active 
             && ["Normal", "Charged"].includes(damageType)) {
           bonus = x["Healing%"] * 0.15 / 100
-          console.log("Bonus from heal");
         }
-        console.log(damageType);
         
         if (this.allStats[i]["NormalByHP"]) {
           bonus += this.allStats[i]["NormalByHP"] / 100
