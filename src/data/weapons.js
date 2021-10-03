@@ -14,7 +14,7 @@ export const baseATK = {
   49: [49, 145, 176, 286, 317, 374, 406, 464, 495, 555, 586, 648, 679, 741],
   48: [48, 133, 164, 261, 292, 341, 373, 423, 455, 506, 537, 590, 621, 674],
   46: [46, 122, 153, 235, 266, 308, 340, 382, 414, 457, 488, 532, 563, 608],
-  45: [45, 134, 160, 261, 287, 340, 366, 419, 445, 499, 525, 579, 605, 660],
+  45: [45, 128, 154, 247, 273, 321, 347, 395, 421, 470, 496, 545, 571, 620],
   44: [44, 119, 144, 226, 252, 293, 319, 361, 387, 429, 455, 497, 523, 565],
   42: [42, 109, 135, 205, 231, 266, 292, 327, 353, 388, 414, 449, 475, 510],
   41: [41, 99, 125, 184, 210, 238, 264, 293, 319, 347, 373, 401, 427, 454],
@@ -23,7 +23,9 @@ export const baseATK = {
   38: [38, 86, 105, 151, 171, 193, 212, 234, 253, 274, 294, 314, 334, 334],
 }
 
+// 1 20+ 40+ 50+ 60+ 70+ 80+ 90
 export const bonus = {
+  3: [3, 5.3, 7.7, 8.9, 10.1, 11.4, 12.6, 13.8],
   3.4: [3.4, 6, 8.8, 10.1, 11.5, 12.9, 14.2, 15.6],
   4: [4, 7.1, 10.3, 11.9, 13.6, 15.2, 16.8, 18.4],
   4.5: [4.5, 8, 11.6, 13.4, 15.2, 17, 18.9, 20.7],
@@ -452,6 +454,19 @@ export const weaponList = {
     refinement: 1,
     "description": "Increases Normal and Charged attack by $eff1% when dealing Cryo DMG. Additionally increases ATK by $eff2 if equipped by Aloy."
   },
+  "Mouun's Moon": {
+    "type": "Bow",
+    "dmg": 44,
+    "name": "ATK%",
+    "value": 6,
+    "additional": [
+      { name: "Percentage", value: 0.12, inc: 0.03, active: true },
+      { name: "Burst%", value: 40, inc: 10, active: true }
+    ],
+    "rarity": 4,
+    refinement: 1,
+    "description": "Get a $eff2%(max) bonus to Burst damage based on $eff1% applied to a sum of your party Burst costs."
+  },
   "Blackcliff Amulet": {
     "type": "Catalyst",
     "dmg": 42,
@@ -730,6 +745,19 @@ export const weaponList = {
     refinement: 1,
     "description": "Get $eff1% Burst DMG bonus. After Elemental burst hits, summon Titanic Tuna for $eff2% AoE DMG."
   },
+  "Akuoumaru": {
+    "type": "Claymore",
+    "dmg": 42,
+    "name": "ATK%",
+    "value": 9,
+    "additional": [
+      { name: "Percentage", value: 0.12, inc: 0.03, active: true },
+      { name: "Burst%", value: 40, inc: 10, active: true }
+    ],
+    "rarity": 4,
+    refinement: 1,
+    "description": "Get a $eff2%(max) bonus to Burst damage based on $eff1% applied to a sum of your party Burst costs."
+  },
   "Blackcliff Pole": {
     "type": "Polearm",
     "dmg": 42,
@@ -846,6 +874,19 @@ export const weaponList = {
     "rarity": 4,
     refinement: 1,
     "description": "Increases Burst DMG by $eff1% and Burst Crit Rate by $eff2%."
+  },
+  "Wavebreaker's Fin": {
+    "type": "Polearm",
+    "dmg": 45,
+    "name": "ATK%",
+    "value": 3,
+    "additional": [
+      { name: "Percentage", value: 0.12, inc: 0.03, active: true },
+      { name: "Burst%", value: 40, inc: 10, active: true }
+    ],
+    "rarity": 4,
+    refinement: 1,
+    "description": "Get a $eff2%(max) bonus to Burst damage based on $eff1% applied to a sum of your party Burst costs."
   },
   "Blackcliff Longsword": {
     "type": "Sword",
@@ -1025,6 +1066,24 @@ export const weaponList = {
     "rarity": 5,
     refinement: 1,
     "description": "Gain $eff1% Attack% bonus. Additionally gain $eff2%/$eff3%/$eff4% Normal Attack DMG bonus for 1/2/3 (3) stack accordingly."
+  },
+  "Polar Star": {
+    "type": "Bow",
+    "dmg": 46,
+    "name": "CRate%",
+    "value": 7.2,
+    "additional": [
+      { name: "Skill%", value: 12, inc: 3, active: true },
+      { name: "Burst%", value: 12, inc: 3, active: true },
+      { name: "ATK%", value: 10, inc: 2.5, active: false, group: 1 },
+      { name: "ATK%", value: 20, inc: 5, active: false, group: 2},
+      { name: "ATK%", value: 30, inc: 7.5, active: false, group: 3},
+      { name: "ATK%", value: 48, inc: 12, active: false, group: 4},
+      { name: "None", value: 0, inc: 0, active: false, group: 5},
+    ],
+    "rarity": 5,
+    refinement: 1,
+    "description": "Increases Burst and Skill DMG by $eff1%. Normal, Charged, Skill, Burst hit add a stack, you get a $eff3/$eff4/$eff5/$eff6 ATK% bonus for 1/2/3/4 stacks duration 12s."
   },
   "Lost Prayer to the Sacred Winds": {
     "type": "Catalyst",

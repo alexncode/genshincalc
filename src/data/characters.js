@@ -446,6 +446,15 @@ export let characters = {
       { desc: "Gain 25% Healing bonus, lose 100% CRate", name: "Healing%", value: 25, active: true },   
     ],
   },
+  Thoma: {
+    charName: "Thoma",
+    element: "Fire", rarity: 4,
+    weapon: "Polearm",
+    talentsBonus: [],
+    constellationBonus: [
+      { c: 6, desc: "When getting or updating the shield get 15% bonus to Normal, Charged and Plunging attack", name: "NCATK%", value: 15, active: false }
+    ]
+  },
   "Traveler (Anemo)": {
     charName: "Traveler (Anemo)",
     element: "Anemo", rarity: 5,
@@ -7662,6 +7671,174 @@ export const charactersData = {
       "baseDEF": 611,
       "value": 28.8,
       "name": "Elemental%"
+    }
+  },
+  "Thoma": {
+    "1": {
+      "baseHP": 866,
+      "baseATK": 17,
+      "baseDEF": 63,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "20": {
+      "baseHP": 2225,
+      "baseATK": 43,
+      "baseDEF": 162,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "40": {
+      "baseHP": 4302,
+      "baseATK": 84,
+      "baseDEF": 313,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "50": {
+      "baseHP": 5478,
+      "baseATK": 107,
+      "baseDEF": 398,
+      "value": 6,
+      "name": "ATK%"
+    },
+    "60": {
+      "baseHP": 6806,
+      "baseATK": 133,
+      "baseDEF": 495,
+      "value": 12,
+      "name": "ATK%"
+    },
+    "70": {
+      "baseHP": 7981,
+      "baseATK": 156,
+      "baseDEF": 580,
+      "value": 12,
+      "name": "ATK%"
+    },
+    "80": {
+      "baseHP": 9156,
+      "baseATK": 179,
+      "baseDEF": 665,
+      "value": 18,
+      "name": "ATK%"
+    },
+    "90": {
+      "baseHP": 10331,
+      "baseATK": 202,
+      "baseDEF": 751,
+      "value": 24,
+      "name": "ATK%"
+    },
+    "normal": [
+      44.39,
+      48.01,
+      51.62,
+      56.78,
+      60.4,
+      64.53,
+      70.2,
+      75.88,
+      81.56,
+      87.75,
+      93.95,
+      100.14,
+      106.34,
+      112.53,
+      118.73
+    ],
+    "charged": [
+      112.75,
+      121.92,
+      131.1,
+      144.21,
+      153.39,
+      163.88,
+      178.3,
+      192.72,
+      207.14,
+      222.87,
+      238.6,
+      254.33,
+      270.07,
+      285.8,
+      301.53
+    ],
+    "skill": [
+      146.4,
+      157.38,
+      168.36,
+      183,
+      193.98,
+      204.96,
+      219.6,
+      234.24,
+      248.88,
+      263.52,
+      278.16,
+      292.8,
+      311.1,
+      329.4,
+      347.7
+    ],
+    "burst": [
+      88,
+      94.6,
+      101.2,
+      110,
+      116.6,
+      123.2,
+      132,
+      140.8,
+      149.6,
+      158.4,
+      167.2,
+      176,
+      187,
+      198,
+      209
+    ],
+    "20+": {
+      "baseHP": 2872,
+      "baseATK": 56,
+      "baseDEF": 209,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "40+": {
+      "baseHP": 4762,
+      "baseATK": 93,
+      "baseDEF": 346,
+      "value": 6,
+      "name": "ATK%"
+    },
+    "50+": {
+      "baseHP": 6091,
+      "baseATK": 119,
+      "baseDEF": 443,
+      "value": 12,
+      "name": "ATK%"
+    },
+    "60+": {
+      "baseHP": 7266,
+      "baseATK": 142,
+      "baseDEF": 528,
+      "value": 12,
+      "name": "ATK%"
+    },
+    "70+": {
+      "baseHP": 8440,
+      "baseATK": 165,
+      "baseDEF": 613,
+      "value": 18,
+      "name": "ATK%"
+    },
+    "80+": {
+      "baseHP": 9616,
+      "baseATK": 188,
+      "baseDEF": 699,
+      "value": 24,
+      "name": "ATK%"
     }
   }
 }
