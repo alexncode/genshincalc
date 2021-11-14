@@ -146,7 +146,7 @@
           <Additional side="1" />
         </div>
       </div>
-      <div class=" bg-gray-700 rounded mt-4 px-2 pb-2">
+      <div class=" bg-gray-700 rounded mt-4 px-2 pb-1">
         <div class="flex border-gray-800 border-b-2 box-border text-gray-200">
           <TabButton
             v-for="tab in ['Stats', 'Damage', 'Elemental reactions']"

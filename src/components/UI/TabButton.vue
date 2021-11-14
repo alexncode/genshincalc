@@ -1,6 +1,6 @@
 <template>
   <div
-    class="px-4 py-2 cursor-pointer hover:bg-gray-500 border-green-600"
+    class="px-4 py-1 cursor-pointer hover:bg-gray-500 border-green-600"
     :class="active ? 'border-b-4' : 'border-none'"
     @click="$emit('click')"
   >

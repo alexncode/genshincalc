@@ -51,7 +51,8 @@ export const bonus = {
   14.4: [14.4, 25.4, 37.7, 42.9, 48.7, 54.5, 60.3, 66.2],
   15: [15, 26.5, 38.7, 44.7, 50.8, 56.8, 62.9, 69],
   16: [16, 28.3, 41.2, 47.7, 54.1, 60.6, 67.1, 73.6],
-
+  19.2: [19.2, 33.9, 49.4, 57.2, 65, 72.7, 80.4, 88.2],
+// 1 20+ 40+ 50+ 60+ 70+ 80+ 90
   20: [20, 36, 53, 61, 69, 77, 85, 94],
   24: [24, 42, 62, 71, 81, 91, 101, 110],
   31: [31, 54, 79, 91, 104, 116, 128, 141],
@@ -1170,6 +1171,19 @@ export const weaponList = {
     "rarity": 5,
     refinement: 1,
     "description": "Increases ATK by $eff1%, additionally Sigil of Whispers increases ATK by $eff2% and ATK Spd by 12/15/18/21/24%"
+  },
+  "Redhorn Stonethresher": {
+    "type": "Claymore",
+    "dmg": 44,
+    "name": "CDmg%",
+    "value": 19.2,
+    "additional": [
+      { name: "DEF%", value: 28, inc: 7, active: true },
+      { name: "NCATK%", value: 40, inc: 10, active: true }
+    ],
+    "rarity": 5,
+    refinement: 1,
+    "description": "DEF is increased by $eff1%. Normal and Charged attack increased by $eff2% of DEF."
   },
   "Kunwus Iris Rift": {
     "type": "Polearm",

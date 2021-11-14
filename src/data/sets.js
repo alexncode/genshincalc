@@ -185,6 +185,20 @@ export let sets = {
     "2pcs": { name: "EnRe%", value: 20, bonusText: "Energy recharge +20%" },
     "4pcs": { name: "BurstByER", value: 0, bonusText: "Increases Burst damage by 30% of energy recharge." },
   },
+  "Husk of Opulent Dreams": {
+    name: "Husk of Opulent Dreams",
+    rarity: 5,
+    "2pcs": { name: "DEF%", value: 30, bonusText: "Defense +30%" },
+    "4pcs": { name: "DEF%", value: 24, bonusText: "When dealing geo DMG or being off field gain stack that give 6% DEF and 6% Geo DMG bonus max 4 stacks.",     substats: [
+      {name: "Elemental%", value: 24}
+    ] },
+  },
+  "Ocean-Hued Clam": {
+    name: "Ocean-Hued Clam",
+    rarity: 5,
+    "2pcs": { name: "Healing%", value: 15, bonusText: "Healing bonus +15%" },
+    "4pcs": { name: "Damage", value: 0, bonusText: "Once in a 3.5 secs produces Sea-Dyed Foam that deal damage base on 90% of total healing amount done in 3 secs." },
+  },
   none: {
     name: "none",
     "2pcs": { bonusText: "Nothing" },
