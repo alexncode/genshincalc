@@ -1009,6 +1009,16 @@ export const weaponList = {
     refinement: 1,
     "description": "Regenerate up to $eff1 energy after using Burst."
   },
+  "Cinnabar Spindle": {
+    "type": "Sword",
+    "dmg": 41,
+    "name": "DEF%",
+    "value": 15,
+    "additional": [{ name: "SkillByDEF", value: 40, inc: 10, active: true }],
+    "rarity": 4,
+    refinement: 1,
+    "description": "Elemental Skill DMG is increased by $eff1% of DEF. The effect will be triggered no more than once every 1.5s and will be cleared 0.1s after the Elemental Skill deals DMG."
+  },
   "Amos Bow": {
     "type": "Bow",
     "dmg": 46,
