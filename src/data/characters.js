@@ -475,6 +475,24 @@ export let characters = {
       { c: 4, desc: "When in Raging Oni King state all party members get 20% ATK and DEF bonus.", name: "ATK%", value: 20, active: false }
     ]
   },
+  Shenhe: {
+    charName: "Shenhe",
+    element: "Ice", rarity: 5,
+    weapon: "Polearm",
+    talentsBonus: [
+      { desc: "In Divine Maiden's Deliverance field gain 15% Cryo damage bonus", name: "Elemental%", value: 15, active: false }
+    ]
+  },
+  Yunjin: {
+    charName: "Yunjin",
+    element: "Geo", rarity: 4,
+    weapon: "Polearm",
+    talentsBonus: [],
+    constellationBonus: [
+      { c: 2, desc: "After Burst increas party Normal ATK by 15% for 12s", name: "NormalATK%", value: 15, active: false },
+      { c: 4, desc: "When Crystalize triggers increases DEF by 20%", name: "DEF%", value: 20, active: false }
+    ]
+  },
   "Traveler (Anemo)": {
     charName: "Traveler (Anemo)",
     element: "Anemo", rarity: 5,
@@ -8195,6 +8213,342 @@ export const charactersData = {
       "baseDEF": 892,
       "value": 19.2,
       "name": "CRate%"
+    }
+  },
+  "Shenhe": {
+    "1": {
+      "baseHP": 1011,
+      "baseATK": 24,
+      "baseDEF": 65,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "20": {
+      "baseHP": 2624,
+      "baseATK": 61,
+      "baseDEF": 168,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "40": {
+      "baseHP": 5224,
+      "baseATK": 122,
+      "baseDEF": 334,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "50": {
+      "baseHP": 6719,
+      "baseATK": 157,
+      "baseDEF": 429,
+      "value": 7.2,
+      "name": "ATK%"
+    },
+    "60": {
+      "baseHP": 8429,
+      "baseATK": 197,
+      "baseDEF": 538,
+      "value": 14.4,
+      "name": "ATK%"
+    },
+    "70": {
+      "baseHP": 9941,
+      "baseATK": 232,
+      "baseDEF": 635,
+      "value": 14.4,
+      "name": "ATK%"
+    },
+    "80": {
+      "baseHP": 11463,
+      "baseATK": 268,
+      "baseDEF": 732,
+      "value": 21.6,
+      "name": "ATK%"
+    },
+    "90": {
+      "baseHP": 12993,
+      "baseATK": 304,
+      "baseDEF": 830,
+      "value": 28.8,
+      "name": "ATK%"
+    },
+    "normal": [
+      43.26,
+      46.78,
+      50.3,
+      55.33,
+      58.85,
+      62.88,
+      68.41,
+      73.94,
+      79.47,
+      85.51,
+      91.55,
+      97.58,
+      103.62,
+      109.65,
+      115.69
+    ],
+    "charged": [
+      110.67,
+      119.68,
+      128.69,
+      141.56,
+      150.57,
+      160.86,
+      175.02,
+      189.17,
+      203.33,
+      218.77,
+      234.22,
+      249.66,
+      265.1,
+      280.54,
+      295.99
+    ],
+    "skill": [
+      188.8,
+      202.96,
+      217.12,
+      236,
+      250.16,
+      264.32,
+      283.2,
+      302.08,
+      320.96,
+      339.84,
+      358.72,
+      377.6,
+      401.2,
+      424.8,
+      448.4
+    ],
+    "burst": [
+      100.8,
+      108.36,
+      115.92,
+      126,
+      133.56,
+      141.12,
+      151.2,
+      161.28,
+      171.36,
+      181.44,
+      191.52,
+      201.6,
+      214.2,
+      226.8,
+      239.4
+    ],
+    "20+": {
+      "baseHP": 3491,
+      "baseATK": 82,
+      "baseDEF": 223,
+      "value": 0,
+      "name": "ATK%"
+    },
+    "40+": {
+      "baseHP": 5840,
+      "baseATK": 137,
+      "baseDEF": 373,
+      "value": 7.2,
+      "name": "ATK%"
+    },
+    "50+": {
+      "baseHP": 7540,
+      "baseATK": 176,
+      "baseDEF": 482,
+      "value": 14.4,
+      "name": "ATK%"
+    },
+    "60+": {
+      "baseHP": 9045,
+      "baseATK": 211,
+      "baseDEF": 578,
+      "value": 14.4,
+      "name": "ATK%"
+    },
+    "70+": {
+      "baseHP": 10557,
+      "baseATK": 247,
+      "baseDEF": 674,
+      "value": 21.6,
+      "name": "ATK%"
+    },
+    "80+": {
+      "baseHP": 12080,
+      "baseATK": 282,
+      "baseDEF": 772,
+      "value": 28.8,
+      "name": "ATK%"
+    }
+  },
+  "Yunjin": {
+    "1": {
+      "baseHP": 894,
+      "baseATK": 16,
+      "baseDEF": 62,
+      "value": 0,
+      "name": "EnRe%"
+    },
+    "20": {
+      "baseHP": 2296,
+      "baseATK": 41,
+      "baseDEF": 158,
+      "value": 0,
+      "name": "EnRe%"
+    },
+    "40": {
+      "baseHP": 4438,
+      "baseATK": 80,
+      "baseDEF": 306,
+      "value": 0,
+      "name": "EnRe%"
+    },
+    "50": {
+      "baseHP": 5651,
+      "baseATK": 101,
+      "baseDEF": 389,
+      "value": 6.7,
+      "name": "EnRe%"
+    },
+    "60": {
+      "baseHP": 7021,
+      "baseATK": 126,
+      "baseDEF": 484,
+      "value": 13.3,
+      "name": "EnRe%"
+    },
+    "70": {
+      "baseHP": 8233,
+      "baseATK": 148,
+      "baseDEF": 567,
+      "value": 13.3,
+      "name": "EnRe%"
+    },
+    "80": {
+      "baseHP": 9445,
+      "baseATK": 169,
+      "baseDEF": 651,
+      "value": 20,
+      "name": "EnRe%"
+    },
+    "90": {
+      "baseHP": 10657,
+      "baseATK": 191,
+      "baseDEF": 734,
+      "value": 26.7,
+      "name": "EnRe%"
+    },
+    "normal": [
+      40.51,
+      43.8,
+      47.1,
+      51.81,
+      55.11,
+      58.88,
+      64.06,
+      69.24,
+      74.42,
+      80.07,
+      85.72,
+      91.37,
+      97.03,
+      102.68,
+      108.33
+    ],
+    "charged": [
+      121.69,
+      131.6,
+      141.5,
+      155.65,
+      165.56,
+      176.88,
+      192.44,
+      208.01,
+      223.57,
+      240.55,
+      260.01,
+      282.89,
+      305.77,
+      328.65,
+      353.61
+    ],
+    "skill": [
+      372.8,
+      400.76,
+      428.72,
+      466,
+      493.96,
+      521.92,
+      559.2,
+      596.48,
+      633.76,
+      671.04,
+      708.32,
+      745.6,
+      792.2,
+      838.8,
+      885.4
+    ],
+    "burst": [
+      244,
+      262.3,
+      280.6,
+      305,
+      323.3,
+      341.6,
+      366,
+      390.4,
+      414.8,
+      439.2,
+      463.6,
+      488,
+      518.5,
+      549,
+      579.5
+    ],
+    "20+": {
+      "baseHP": 2963,
+      "baseATK": 53,
+      "baseDEF": 204,
+      "value": 0,
+      "name": "EnRe%"
+    },
+    "40+": {
+      "baseHP": 4913,
+      "baseATK": 88,
+      "baseDEF": 339,
+      "value": 6.7,
+      "name": "EnRe%"
+    },
+    "50+": {
+      "baseHP": 6283,
+      "baseATK": 113,
+      "baseDEF": 433,
+      "value": 13.3,
+      "name": "EnRe%"
+    },
+    "60+": {
+      "baseHP": 7495,
+      "baseATK": 134,
+      "baseDEF": 517,
+      "value": 13.3,
+      "name": "EnRe%"
+    },
+    "70+": {
+      "baseHP": 8707,
+      "baseATK": 156,
+      "baseDEF": 600,
+      "value": 20,
+      "name": "EnRe%"
+    },
+    "80+": {
+      "baseHP": 9919,
+      "baseATK": 178,
+      "baseDEF": 684,
+      "value": 26.7,
+      "name": "EnRe%"
     }
   }
 }

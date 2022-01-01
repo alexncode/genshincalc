@@ -278,7 +278,7 @@ export default {
     skillHit() {
       return this.allStats.map((side, i) => {
         let atk = this.attackPowFood[i];
-        if (this.character.charName == "Albedo") {
+        if (["Albedo", "Yunjin"].includes(this.character.charName)) {
           atk = this.allResults[13][i];
         }
         return (

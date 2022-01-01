@@ -28,14 +28,6 @@
               <h1 class="text-green-400 text-lg">Genshin impact artifact build simulator v0.9.8</h1>
             </a>
             <div class="flex">
-              <div>
-                <a
-                  class="text-red-500 mr-2 hover:text-red-600"
-                  href="https://www.buymeacoffee.com/alexncode"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >Donate&#9829;</a>
-              </div>
               <div
                 class="text-blue-400 mr-2 cursor-pointer hover:text-blue-200"
                 @click="showHelp = true"

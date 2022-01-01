@@ -27,6 +27,7 @@ export const baseATK = {
 export const bonus = {
   3: [3, 5.3, 7.7, 8.9, 10.1, 11.4, 12.6, 13.8],
   3.4: [3.4, 6, 8.8, 10.1, 11.5, 12.9, 14.2, 15.6],
+  3.6: [3.6, 6.4, 9.3, 10.7, 12.2, 13.6, 15.1, 16.5],
   4: [4, 7.1, 10.3, 11.9, 13.6, 15.2, 16.8, 18.4],
   4.5: [4.5, 8, 11.6, 13.4, 15.2, 17, 18.9, 20.7],
   4.8: [4.8, 8.5, 12.4, 14.3, 16.2, 18.2, 20.1, 22.1],
@@ -1261,6 +1262,19 @@ export const weaponList = {
     "rarity": 5,
     refinement: 1,
     "description": "ATK increased by $eff1% of Energy Recharge over 100% maximum $eff2% of ATK. Gain $eff3% of Energy Recharge after using Burst."
+  },
+  "Calamity Queller":{
+    "type": "Polearm",
+    "dmg": 49,
+    "name": "ATK%",
+    "value": 3.6,
+    "additional": [
+      { name: "Elemental%", value: 12, inc: 3, active: true },
+      { name: "ATK%%", value: 19.2, inc: 4.8, active: true },
+    ],
+    "rarity": 5,
+    refinement: 1,
+    "description": "Gain $eff1% All Elemental DMG Bonus. Obtain Consummation for 20s after using an Elemental Skill this will increase attack by $eff2% max (6 stacks)."
   },
   "Aquila Favonia": {
     "type": "Sword",
